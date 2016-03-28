@@ -1,0 +1,1 @@
+<h2 style="border:solid 1px; padding:5px;">This is from the HMVC embed module page.</h2>

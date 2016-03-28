@@ -1,0 +1,107 @@
+/* Forms Elements   */
+label.form_input { width: 120px; float: left; clear:left;}
+/*input.form_input, textarea.form_input{ background: #fff; border: 1px solid #d5d5d5; padding: 5px; font-size: 13px; font-family: Arial, Helvetica, sans-serif; color:#333; width:100%; }*/
+input[type=submit].form_input{ width:100%; border: 1px solid #ec1b10; padding: 5px; background: #ec1b10; color: #fff;}
+input[type=text]:hover.form_input,input[type=password]:hover.form_input,textarea:hover.form_input 
+{ background: #fcfcfc; border: 1px solid #d1d1d1; -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2); box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2); }
+input[type=text]:focus.form_input,input[type=password]:focus.form_input,textarea:focus.form_input { font-size: 13px;border: 1px solid #bbc1c9; background: #fff; }
+
+/* Submit Button  */
+/*input[type=submit].form_input, input[type=submit]:focus.form_input { font-size: 12px; font-weight: bold; text-transform: uppercase; padding: 6px 8px; width: 100px; cursor: pointer; outline:none; 
+font-family: Arial, Helvetica, sans-serif; line-height: 12px; border: 1px solid #d5d5d5; 
+-webkit-box-shadow: 0 1px 3px rgba(240, 240, 240, .4); -moz-box-shadow: 0 1px 3px rgba(240, 240, 240, .4); background: #f1f1f1;
+filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#f1f1f1');
+background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f1f1f1));
+background: -moz-linear-gradient(top,  #fafafa,  #f1f1f1);
+-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }*/
+
+/* Button  */
+input[type=button].form_input, input[type=button]:focus.form_input { font-size: 12px; font-weight: bold; text-transform: uppercase; padding: 6px 8px; width: 100px; cursor: pointer; outline:none; 
+font-family: Arial, Helvetica, sans-serif; line-height: 12px; border: 1px solid #d5d5d5; 
+-webkit-box-shadow: 0 1px 3px rgba(240, 240, 240, .4); -moz-box-shadow: 0 1px 3px rgba(240, 240, 240, .4); background: #f1f1f1; /* for non-css3 browsers */
+filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#f1f1f1'); /* for IE */
+background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f1f1f1)); /* for webkit browsers */
+background: -moz-linear-gradient(top,  #fafafa,  #f1f1f1);
+-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+/* Datepicker */
+.datepicker { width: 68px!important; cursor: pointer; }
+
+/*input[type=submit]:hover.form_input { 
+background: #e2e2e2;
+filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e2e2e2');
+background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#e2e2e2));
+background: -moz-linear-gradient(top,  #f1f1f1,  #e2e2e2); -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); }*/
+
+input[type=button]:hover.form_input { 
+background: #e2e2e2; /* for non-css3 browsers */
+filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e2e2e2'); /* for IE */
+background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#e2e2e2)); /* for webkit browsers */
+background: -moz-linear-gradient(top,  #f1f1f1,  #e2e2e2); -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); }
+
+/* Inputs */ 
+.jqTransformInputWrapper { float: left; }
+.jqTransformInputWrapper > div { width: 550px; }
+
+.submitForm { float: right; margin: 1px 14px 22px 14px; }
+
+.jqTransformInputWrapper_hover input{ background: #f6f6f6; }
+.jqTransformInputWrapper_focus input { background: #f6f6f6; border: 1px solid #cad1d4; }
+
+.jqTransformSafari .jqTransformInputInner div { position: relative; overflow: hidden; margin:0px 8px; }
+.jqTransformSafari .jqTransformInputInner div input { background: none; position: absolute; top: -10px; left: -2px; height: 42px; padding-left: 4px; }
+
+/* Radios */
+.jqTransformRadioWrapper {float: left;display:block; margin-top:5px;}
+.jqTransformRadio { background: transparent url(../images/forms/radio.png) no-repeat 0 0; vertical-align: middle; height: 15px; width: 15px; display: block; }
+
+/* Checkboxes */
+span.jqTransformCheckboxWrapper{ display:block;float:left;}
+a.jqTransformCheckbox { background: transparent url(../images/forms/checkbox.png) no-repeat 0 0px ; vertical-align: middle; height: 15px; width: 15px; display:block;/*display: -moz-inline-block;*/ }
+a.jqTransformChecked { background-position: center bottom;} /* Checked - Used for both Radio and Checkbox */
+
+/* Selects */
+.jqTransformSelectWrapper { width: 42px; position:relative; height: 26px; background: url(../images/forms/select_left.png) no-repeat top left; float:left; min-width: 45px; }
+.jqTransformSelectWrapper div span { font-size: 11px; float: none; position: absolute; white-space: nowrap; height: 26px; line-height: 26px; padding-left: 8px; overflow: hidden; cursor: pointer; }
+.jqTransformSelectWrapper  a.jqTransformSelectOpen { position: absolute; right: -2px; width: 25px; height: 26px; background: url(../images/forms/select_right.png) no-repeat center center; top: 0; }
+.jqTransformSelectWrapper ul { position: absolute; min-width: 45px; top: 27px; left: 0px; list-style: none; background-color: #FFF; border: solid 1px #CCC; display: none; margin: 0px; padding: 0px; height: 168px; overflow: auto; 	overflow-y: auto; z-index:10; }
+.jqTransformSelectWrapper ul a { display: block; padding: 2px 8px; text-decoration: none; color:#333; background-color: #FFF; font-size: 11px; }
+.jqTransformSelectWrapper ul li:first-child { margin-top: 0px; }
+.jqTransformSelectWrapper ul a.selected { background: #EDEDED; color: #333; }
+.jqTransformSelectWrapper ul a:hover, .jqTransformSelectWrapper ul a.selected:hover { background:#3582c4; color: #fff; }
+.jqTransformHidden {display: none;} /* used to hide the original form elements */
+
+/* Upload Button */
+.btnIconLeft {/*border: 1px solid #d5d5d5; */display: inline-block; color: #595858;  }
+/*.btnIconLeft:hover { background: #f6f6f6; color: #B55D5C; }*/
+.btnIconLeft:active { background: #f1f1f1; }
+.btnIconLeft .icon { float: left; border-right: 1px solid #d5d5d5; padding: 8px; }
+.btnIconLeft span { display: block; float: left; padding: 5px 10px; font-weight: bold; }
+
+/* Form validation */
+.inputContainer { position: relative; float: left; }
+.formError { position: absolute; top: 300px; left: 282px; display: block; z-index: 5000; cursor: pointer; }
+.ajaxSubmit { padding: 20px; background: #55ea55; border: 1px solid #999; display: none; }
+.formError .formErrorContent { background: #202020; position:relative; z-index:5001; color: #fff; width: 122px; font-size: 11px; border: 1px solid #000; padding: 2px 10px; border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; }
+.greenPopup .formErrorContent { background: #33be40; }
+.blackPopup .formErrorContent { background: #393939; color: #FFF; }
+.formError .formErrorArrow { width: 15px; margin: -2px 0 0 13px;  position:relative; z-index: 5006; }
+.formError .formErrorArrowBottom { box-shadow: none; margin: 0px 0 0 12px; top:2px; }
+.formError .formErrorArrow div { font-size: 0px; height: 1px; background: #202020; margin: 0 auto; line-height: 0; font-size: 0; display: block; }
+.formError .formErrorArrowBottom div { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }
+.greenPopup .formErrorArrow div { background: #33be40; }
+.blackPopup .formErrorArrow div { background: #393939; color: #FFF; }
+.formError .formErrorArrow .line10 { width: 15px; border: none; }
+.formError .formErrorArrow .line9 { width: 13px; border: none; }
+.formError .formErrorArrow .line8 { width: 11px; }
+.formError .formErrorArrow .line7 { width: 9px; }
+.formError .formErrorArrow .line6 { width: 7px; }
+.formError .formErrorArrow .line5 { width: 5px; }
+.formError .formErrorArrow .line4 { width: 3px; }
+.formError .formErrorArrow .line3 { width: 1px; border-left: 2px solid #ddd; border-right: 2px solid #ddd; border-bottom: 0 solid #ddd; }
+.formError .formErrorArrow .line2 { width: 3px; border: none; background: #ddd; }
+.formError .formErrorArrow .line1 { width: 1px; border: none; background: #ddd; }
+.checker input, .radio input, .selector select { cursor: pointer; }

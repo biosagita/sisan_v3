@@ -1,0 +1,7 @@
+- drop down forward layanan tidak sesuai, seharusnya jika login di loket 2, dimana di setting untuk layanan 2, maka dropdown forward akan berisi layanan selain layanan 2, dst, tapi saat ini hanya layanan 1 yang tidak ada
+- jika nomor di forward dengan kondisi nomor sama untuk layanan yang berbeda misal A001 dan B001, maka akan terjadi benyak kesalahan di tujuan forward, jika di next status akan berubah menjadi 1 untuk kedua nomor, begitu juga jika di skip
+- List queue sorting ga sesuai (ilangin sorting di queue list, skip list dan finish list) (DONE)
+- Tambah nomor awal d web (DONE)
+- Ga usah warning termasuk undo (DONE)
+- Header blm ada (DONE)
+- Report blm bisa print graph (terutama graph untuk jumlah customer dalam suatu layanan selama periode waktu tertentu)

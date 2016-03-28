@@ -1,0 +1,85 @@
+a{ outline:none; }
+
+#popup_container {
+	font-family: font-family:Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif;
+	font-size: 12px;
+	min-width: 300px; /* Dialog will be no smaller than this */
+	max-width: 600px; /* Dialog will wrap after this width */
+	background: #FFF;
+	border: solid 5px #ccc;
+	color: #000;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#popup_title {
+	font-family: font-family:Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1.75em;
+	color: #666;
+	background: #f1f1f1; /* for non-css3 browsers */
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#f1f1f1'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f1f1f1)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #fafafa,  #f1f1f1);
+	border-bottom: solid 1px #d5d5d5;
+	cursor: default;
+	padding: 0.2em;
+	margin: 0em;
+}
+
+#popup_content {
+	/* background: 16px 16px no-repeat url(../images/jqueryalert/info.gif); */
+	padding: 1em 1.75em;
+	margin: 0em;
+}
+
+#popup_content.alert {
+	/* background-image: url(../images/jqueryalert/info.gif); */
+}
+
+#popup_content.confirm {
+	/* background-image: url(../images/jqueryalert/important.gif); */
+}
+
+#popup_content.prompt {
+	/* background-image: url(../images/jqueryalert/help.gif); */
+}
+
+#popup_message {
+	padding-left: 48px;
+}
+
+#popup_message ul{
+	margin-left: -35px;
+	list-style: disc;
+	color: #CD0A0A;
+}
+
+#popup_panel {
+	text-align: center;
+	margin: 1em 0em 0em 1em;
+}
+
+#popup_prompt {
+	margin: .5em 0em;
+}
+
+/* Submit Button  */
+input[type=button].alert_btn, input[type=button]:focus.alert_btn { font-size: 12px; font-weight: bold; text-transform: uppercase; padding: 3px 4px; width: 80px; cursor: pointer; outline:none; 
+font-family: Arial, Helvetica, sans-serif; line-height: 12px; border: 1px solid #d5d5d5; 
+-webkit-box-shadow: 0 1px 3px rgba(240, 240, 240, .4); -moz-box-shadow: 0 1px 3px rgba(240, 240, 240, .4); background: #f1f1f1; /* for non-css3 browsers */
+filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#f1f1f1'); /* for IE */
+background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f1f1f1)); /* for webkit browsers */
+background: -moz-linear-gradient(top,  #fafafa,  #f1f1f1);
+-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+input[type=button]:hover.alert_btn { 
+background: #e2e2e2; /* for non-css3 browsers */
+outline:none; 
+filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e2e2e2'); /* for IE */
+background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#e2e2e2)); /* for webkit browsers */
+background: -moz-linear-gradient(top,  #f1f1f1,  #e2e2e2); -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); outline:none; }
