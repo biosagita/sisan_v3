@@ -36,7 +36,7 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
-define('SERVICE_UPLOAD_IMAGE_DIR', ($_SERVER['DOCUMENT_ROOT']  . '/sisan_v3/images/'));
+define('SERVICE_UPLOAD_IMAGE_DIR', ($_SERVER['DOCUMENT_ROOT']  . '/sisan_v3_git/images/'));
 
 
 /* End of file constants.php */
