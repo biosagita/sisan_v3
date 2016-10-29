@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-sm-2">
                     <div style="width:100%;height:80px;">
-                        <button style="width:100%;height:100%;font-size:26px;" class="btn btn-success" id="btn_preview">Priview</button>
+                        <button style="width:100%;height:100%;font-size:26px;" class="btn btn-success" id="btn_preview">Preview</button>
                     </div>
                 </div>
             </div>
