@@ -32,6 +32,36 @@
 
     $(document).ready(function() {
         $('.dataTables_filter input').attr("placeholder", "Search...");
+
+        $('#print_text').click(function(e){
+            e.preventDefault();
+
+            var href = $(this).attr('href');
+
+            var periode = $('#daterangepicker-example').val();
+
+            if(periode != '') {
+                periode = periode.replace(' - ', '_');
+                href += '/?periode='+periode;
+            }
+
+            window.open(href,'_blank');
+        });
+
+        $('#print_excel').click(function(e){
+            e.preventDefault();
+
+            var href = $(this).attr('href');
+
+            var periode = $('#daterangepicker-example').val();
+
+            if(periode != '') {
+                periode = periode.replace(' - ', '_');
+                href += '/?periode='+periode;
+            }
+
+            window.open(href,'_blank');
+        });
     });
 </script>
 
@@ -50,8 +80,8 @@
     <div class="row">
         <div class="form-group">
             <div class="col-sm-6 col-md-offset-6 text-right">
-                <a target="_blank" href="<?php echo site_url('report_alldetail/alldetail/page_export_text'); ?>" class="btn btn-blue-alt">Print Text</a>
-                <a href="<?php echo site_url('report_alldetail/alldetail/page_export_excel'); ?>" class="btn btn-blue-alt">Excel</a>
+                <a target="_blank" href="<?php echo site_url('report_alldetail/alldetail/page_export_text'); ?>" class="btn btn-blue-alt" id="print_text">Print Text</a>
+                <a href="<?php echo site_url('report_alldetail/alldetail/page_export_excel'); ?>" class="btn btn-blue-alt" id="print_excel">Excel</a>
             </div>
         </div>
     </div>

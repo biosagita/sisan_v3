@@ -17,10 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Basis data: `antrian_fresh`
+-- Basis data: `db_sisan_v3.0.1`
 --
-CREATE DATABASE IF NOT EXISTS `antrian_fresh` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `antrian_fresh`;
+CREATE DATABASE IF NOT EXISTS `db_sisan_v3.0.1` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `db_sisan_v3.0.1`;
 
 -- --------------------------------------------------------
 

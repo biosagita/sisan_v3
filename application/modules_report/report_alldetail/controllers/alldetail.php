@@ -176,6 +176,17 @@ class Alldetail extends MY_Admin {
 	}
 
 	function page_export_text() {
+		if(!empty($_GET['periode'])) {
+			$periode = explode('_', $_GET['periode']);
+
+			$date_start = !empty($periode[0]) ? $periode[0] : '';
+			$date_end = !empty($periode[1]) ? $periode[1] : '';
+
+			if(!empty($date_start) AND !empty($date_end)) {
+				$this->db->where('DATE_FORMAT(trans_tanggal_transaksi, "%Y-%m-%d") BETWEEN "'.$date_start.'" AND "'.$date_end.'"');
+			}
+		}
+
 		$this->db->select('lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket', false);
 		$this->db->from($this->_table_name);
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
@@ -196,6 +207,17 @@ class Alldetail extends MY_Admin {
 		header("Content-Disposition: attachment; filename = " . $filename);
 		header("Pragma: no-cache");
 		header("Expires: 0");
+
+		if(!empty($_GET['periode'])) {
+			$periode = explode('_', $_GET['periode']);
+
+			$date_start = !empty($periode[0]) ? $periode[0] : '';
+			$date_end = !empty($periode[1]) ? $periode[1] : '';
+
+			if(!empty($date_start) AND !empty($date_end)) {
+				$this->db->where('DATE_FORMAT(trans_tanggal_transaksi, "%Y-%m-%d") BETWEEN "'.$date_start.'" AND "'.$date_end.'"');
+			}
+		}
 
 		$this->db->select('lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket', false);
 		$this->db->from($this->_table_name);
