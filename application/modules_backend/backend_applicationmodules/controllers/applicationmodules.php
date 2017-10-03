@@ -86,7 +86,7 @@ class Applicationmodules extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'name',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Name..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Name..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -110,7 +110,7 @@ class Applicationmodules extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'link',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Name..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Name..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(

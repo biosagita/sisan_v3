@@ -65,7 +65,7 @@ class Headers extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'text_header',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Header..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Header..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(

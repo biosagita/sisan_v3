@@ -94,7 +94,7 @@ class Lokets extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'type',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Loket Type..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Loket Type..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -107,7 +107,7 @@ class Lokets extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'name',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Loket name..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Loket name..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -133,7 +133,7 @@ class Lokets extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'ip_address',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="IP Address..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="IP Address..."',
 				'data_source'	=> '',
 				'data_edit'		=> array(
 					'db_process'	=> true,

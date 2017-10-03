@@ -70,7 +70,7 @@ class Runningtexts extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'text',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Text..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Text..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(

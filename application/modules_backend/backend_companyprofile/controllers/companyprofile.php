@@ -75,7 +75,7 @@ class Companyprofile extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'name',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Company Name..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Company Name..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -88,7 +88,7 @@ class Companyprofile extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'address1',
 				'db_process'	=> true,
 				'input_type'	=> 'textarea',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Address 1..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Address 1..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -101,7 +101,7 @@ class Companyprofile extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'address2',
 				'db_process'	=> true,
 				'input_type'	=> 'textarea',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Address 2..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Address 2..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -114,7 +114,7 @@ class Companyprofile extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'city',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="City..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="City..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -127,7 +127,7 @@ class Companyprofile extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'phone',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Phone..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Phone..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -140,7 +140,7 @@ class Companyprofile extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'post_code',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Post Code..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Post Code..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -153,7 +153,7 @@ class Companyprofile extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'fax',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="4" class="form-control" placeholder="Fax..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Fax..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
