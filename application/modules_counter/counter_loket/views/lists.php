@@ -151,11 +151,11 @@
         myowndatatable.fnClearTable(0);
         myowndatatable.fnDraw();
 
-        myowndatatable2.fnClearTable(0);
+        /*myowndatatable2.fnClearTable(0);
         myowndatatable2.fnDraw();
 
         myowndatatable3.fnClearTable(0);
-        myowndatatable3.fnDraw();
+        myowndatatable3.fnDraw();*/
     }
 
     function refreshTableSkip() {
@@ -401,53 +401,70 @@
 
             })
 
+            $('[data-toggle^="tab"]').on('click', function(){
+               var id = $(this).attr('href');
+               if(id === '#tab2') {
+                   refreshTableSkip();
+               } else if(id === '#tab3') {
+                   refreshTableFinish();
+               }
+            });
+
         });
     })(jQuery);
 
 </script>
 
-<h3>Queue List</h3>
-<hr />
-<div class="example-box-wrapper">
-    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="datatable-example">
-    <thead>
-    <tr>
-        <?php foreach($column_list as $val) : ?>
-            <th><?php echo $val['title_header_column']; ?></th>
-        <?php endforeach; ?>
-    </tr>
-    </thead>
-    </table>
-</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+        <h3>Queue List</h3>
+        <hr />
+        <div class="example-box-wrapper">
+            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="datatable-example">
+                <thead>
+                <tr>
+                    <?php foreach($column_list as $val) : ?>
+                        <th><?php echo $val['title_header_column']; ?></th>
+                    <?php endforeach; ?>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 
-<h3>Skip List</h3>
-<hr />
+    <div class="tab-pane" id="tab2">
+        <h3>Skip List</h3>
+        <hr />
 
-<div class="example-box-wrapper">
-    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="datatable-example-2">
-    <thead>
-    <tr>
-        <?php foreach($column_list_skip as $val) : ?>
-            <th><?php echo $val['title_header_column']; ?></th>
-        <?php endforeach; ?>
-    </tr>
-    </thead>
-    </table>
-</div>
+        <div class="example-box-wrapper">
+            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="datatable-example-2">
+                <thead>
+                <tr>
+                    <?php foreach($column_list_skip as $val) : ?>
+                        <th><?php echo $val['title_header_column']; ?></th>
+                    <?php endforeach; ?>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 
-<h3>Finish List</h3>
-<hr />
+    <div class="tab-pane" id="tab3">
+        <h3>Finish List</h3>
+        <hr />
 
-<div class="example-box-wrapper">
-    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="datatable-example-3">
-    <thead>
-    <tr>
-        <?php foreach($column_list_finish as $val) : ?>
-            <th><?php echo $val['title_header_column']; ?></th>
-        <?php endforeach; ?>
-    </tr>
-    </thead>
-    </table>
+        <div class="example-box-wrapper">
+            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="datatable-example-3">
+                <thead>
+                <tr>
+                    <?php foreach($column_list_finish as $val) : ?>
+                        <th><?php echo $val['title_header_column']; ?></th>
+                    <?php endforeach; ?>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 </div>
 
 <!-- Below script for modal box -->

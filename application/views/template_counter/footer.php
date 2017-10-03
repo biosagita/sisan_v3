@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo $assets_front; ?>/js/bootstrap.js"></script>
+
 <!-- WIDGETS -->
 
 <!-- Bootstrap Dropdown -->

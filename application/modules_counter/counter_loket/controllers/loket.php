@@ -210,6 +210,7 @@ class Loket extends MY_Counter {
 		$this->template->set('loket_name', $this->_data['loket_name']);
 		$this->template->set('login_name', $this->_data['login_name']);
 		$this->template->set('assets', $this->_data['assets']);
+        $this->template->set('assets_front', $this->_data['assets_front']);
 		$this->template->set('url_logout', $this->_data['url_logout']);
 		$this->template->set('layanan_forward', $this->_data['layanan_forward']);
 		$this->template->set('sample_image', $this->_data['sample_image']);

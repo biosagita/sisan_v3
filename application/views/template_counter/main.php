@@ -367,24 +367,24 @@
                         <i class="glyph-icon icon-cog"></i>
                         Daftar Antrian Loket
                         <div class="header-buttons-separator">
-                            <a href="#" class="icon-separator">
+                            <a href="#tab1" class="icon-separator" data-toggle="tab">
                                 <i class="glyph-icon tooltip-button icon-smile-o" title="Antrian">
                                     <!--<span class="bs-badge badge-warning float-right badge-absolute">89</span>-->
                                 </i>
                             </a>
-                            <a href="#" class="icon-separator">
+                            <a href="#tab2" class="icon-separator" data-toggle="tab">
                                 <i class="glyph-icon tooltip-button icon-rotate-left" title="Skip">
                                     <!--<span class="bs-badge badge-warning float-right badge-absolute">89</span>-->
                                 </i>
                             </a>
-                            <a href="#" class="icon-separator">
+                            <a href="#tab3" class="icon-separator" data-toggle="tab">
                                 <i class="glyph-icon tooltip-button icon-graduation-cap" title="Finish">
                                     <!--<span class="bs-badge badge-warning float-right badge-absolute">89</span>-->
                                 </i>
                             </a>
                         </div>
                     </h3>
-                    <div class="panel-body">
+                    <div class="panel-body" style="min-height: 500px;">
                         <?php echo $contents; ?>
                     </div>
                 </div>

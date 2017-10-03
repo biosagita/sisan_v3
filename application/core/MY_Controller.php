@@ -28,9 +28,11 @@ class MY_Counter extends MY_Controller {
 		
 		$path_web 			= $this->config->item('backstage');
 		$path_web_counter 	= $this->config->item('counter');
+        $path_web_front 			= $this->config->item('frontend');
 		
 		$this->_data['assets'] 			= site_url($path_web['assets']);
 		$this->_data['assets_counter'] 	= site_url($path_web_counter['assets']);
+        $this->_data['assets_front'] 			= site_url($path_web_front['assets']);
 
 		$arrUserLevel = array(
 			'Superadmin',
