@@ -40,7 +40,7 @@ class Adminuser_model extends CI_Model {
 	}
 
 	function get_login_userlevel(){
-		$this->db->select("admusr_id, admusr_aulv_id, admusr_username, aulv_name, admusr_usrgro_id, usrgrolay_grolay_id,
+		$this->db->select("admusr_image, admusr_id, admusr_aulv_id, admusr_username, aulv_name, admusr_usrgro_id, usrgrolay_grolay_id,
 			  $query_opt
 			  ");
 		$this->db->from('adminusers');

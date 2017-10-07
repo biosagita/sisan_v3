@@ -82,6 +82,7 @@ class MY_Admin extends MY_Controller {
 		/* Login Checking */
 		$this->_data['is_admin_logged_in'] 	= $this->session->userdata('is_admin_logged_in');
 		$this->_data['admin_username'] 		= $this->session->userdata('admin_username');
+        $this->_data['admin_image'] 		= site_url('assets/backstage/upload/'.$this->session->userdata('admin_image'));
 		$this->_data['admin_id'] 			= $this->session->userdata('admin_id');
 		$this->_data['admin_userlevel'] 	= !empty($arrUserLevel[$this->session->userdata('admin_userlevel')]) ? $arrUserLevel[$this->session->userdata('admin_userlevel')] : '';
 		$this->_data['is_admin_banned'] 	= $this->session->userdata('is_admin_banned');

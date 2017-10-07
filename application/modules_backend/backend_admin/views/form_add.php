@@ -5,6 +5,18 @@
 
     //------submit form ajax module admin----------
     $(function() { "use strict";
+        // Variable to store your files
+        var files;
+
+        // Add events
+        $('input[type=file]').on('change', prepareUpload);
+
+        // Grab the files and set them to our variable
+        function prepareUpload(event)
+        {
+            files = event.target.files;
+        }
+
         var param = {
             'formid'            : '#dynamic_form',
             'btn_submit'        : '#dynamic_btn_process',
@@ -35,8 +47,32 @@
             }
         };
 
+        var param_file = {
+            'formid'            : '#dynamic_form',
+            'btn_submit'        : '#dynamic_btn_process',
+            'div_errmsg'        : '#dynamic_errmsg',
+            'url_ajax_action'   : '<?php echo $ajax_image_add; ?>',
+            'data_type'         : 'json',
+            'panel_form'        : '#panel_form',
+            'panel_list'        : '#panel_list',
+            'add_data'          : '#add_data',
+            'dynamic_btn_close'   : '#dynamic_btn_close',
+            'callback'          : function(data) {
+                if(data.err_msg == '') {
+                    MYAPP.doFormSubmitUpload.process(param, data);
+                } else {
+                    $.jGrowl(data.err_msg, {
+                        sticky: false,
+                        position: 'top-right',
+                        theme: 'bg-green'
+                    });
+                    $(param.dynamic_btn_close).trigger('click');
+                }
+            }
+        };
+
         $(param.formid).submit(function(){
-            MYAPP.doFormSubmit.process(param);
+            MYAPP.doFormSubmitUploadTmp.process(param_file, files);
             return false;
         });
 

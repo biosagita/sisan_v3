@@ -62,13 +62,22 @@ class Admin extends MY_Admin {
 				'field_name' 			=> 'usrgro_nama_user_group',
 		        'no_order'				=> 3,
 			),
+            array(
+                'title_header_column' 	=> 'Image',
+                'field_name' 			=> $this->_table_field_pref . 'image',
+                'result_format'			=> function( $d, $row ) {
+                    $d = !empty($d) ? $d : 'blank_user.jpg';
+                    return '<img width="40px" height="40px" src="'.site_url('assets/backstage/upload/' . $d).'">';
+                },
+                'no_order'				=> 4,
+            ),
 			array(
 				'title_header_column' 	=> 'Change Date',
 				'field_name' 			=> $this->_table_field_pref . 'changedate',
 				'result_format'			=> function( $d, $row ) {
 			            return date( 'd-m-Y', strtotime($d));
 			        },
-			    'no_order'				=> 4,
+			    'no_order'				=> 5,
 			),
 			array(
 				'title_header_column' 	=> 'Action',
@@ -76,7 +85,7 @@ class Admin extends MY_Admin {
 				'result_format'			=> function( $d, $row ) {
 			            return '<a onclick="doFormEdit('.$d.');return false;" href="#" class="btn btn-xs btn-success">EDIT <i class="glyph-icon icon-pencil-square-o"></i></a> <a onclick="showModalBoxDelete('.$d.');return false;" href="#" class="btn btn-xs btn-danger">DELETE <i class="glyph-icon icon-close"></i></a>';
 			        },
-			    'no_order'				=> 5,
+			    'no_order'				=> 6,
 			),
 		);
 
@@ -167,6 +176,17 @@ class Admin extends MY_Admin {
 					'db_process'		=> true,
 				),
 			),
+            array(
+                'label' 		=> 'Foto',
+                'db_field' 		=> $this->_table_field_pref . 'image',
+                'db_process'	=> true,
+                'input_type'	=> 'file',
+                'input_attr'	=> 'type="file" class="form-control" placeholder="File Image..."',
+                'data_source'	=> '',
+                'data_edit'		=> array(
+                    'db_process'	=> true,
+                ),
+            ),
 		);
 
 		if(!empty($data_value)) {
@@ -257,6 +277,7 @@ class Admin extends MY_Admin {
 
 	function add_ajax() {
 		$this->_data['ajax_action_add'] 	= site_url($this->_module_controller . 'do_add_ajax');
+        $this->_data['ajax_image_add'] 	= site_url($this->_module_controller . 'do_image_ajax');
 		$this->_data['input_list'] 			= $this->get_input_field_new();
 		$this->load->view('form_add', $this->_data);
 	}
@@ -270,6 +291,13 @@ class Admin extends MY_Admin {
 
 		foreach ($input_list as $key => $value) {
 			if(!empty($value['db_process']) AND $value['db_process']) {
+                if($value['input_type'] == 'file') {
+                    if(!empty($_POST['filenames'])) {
+                        $admin_data[$value['db_field']] = $_POST['filenames'][0];
+                    }
+                    continue;
+                }
+
 				if(!empty($value['required'])) {
 					$this->form_validation->set_rules($value['db_field'], $value['label'], 'trim|htmlspecialchars|encode_php_tags|prep_for_form|required|xss_clean');
 
@@ -325,6 +353,9 @@ class Admin extends MY_Admin {
 		$this->_data['input_list'] 			= $this->get_input_field_new($data);
 
 		$this->_data['ajax_action_edit'] 	= site_url($this->_module_controller . 'do_edit_ajax');
+        $this->_data['ajax_image_edit'] 	= site_url($this->_module_controller . 'do_image_ajax');
+        $this->_data['url_image'] = site_url('assets/backstage/upload');
+
 		$this->load->view('form_edit', $this->_data);
 	}
 
@@ -337,6 +368,13 @@ class Admin extends MY_Admin {
 		$field_pk 	= '';
 
 		foreach ($input_list as $key => $value) {
+            if($value['input_type'] == 'file') {
+                if(!empty($_POST['filenames'])) {
+                    $admin_data[$value['db_field']] = $_POST['filenames'][0];
+                }
+                continue;
+            }
+
 			if(!empty($value['same_related'])) {
 				$tmp = $this->input->post($value['same_related']);
 				if($tmp != $this->input->post($value['db_field'])) {
@@ -403,6 +441,50 @@ class Admin extends MY_Admin {
 
 		echo json_encode($res);
 	}
+
+    function do_image_ajax() {
+        $res = array(
+            'err_msg' 		=> '',
+            'success_msg' 	=> '',
+        );
+
+        if(!$this->do_image()) $res['err_msg'] = $this->_data['err_msg'];
+        $res['success_msg'] = !empty($this->_data['success_msg']) ? $this->_data['success_msg'] : '';
+        $res['files'] = !empty($this->_data['files']) ? $this->_data['files'] : '';
+
+        echo json_encode($res);
+    }
+
+    function do_image() {
+        $status = true;
+        $this->_data['files'] 		= array();
+        $this->_data['success_msg'] = '';
+        $this->_data['err_msg'] 	= '';
+
+        if(!empty($_FILES)) {
+            $uploaddir = 'assets/backstage/upload/';
+            foreach($_FILES as $file)
+            {
+                if(move_uploaded_file($file['tmp_name'], $uploaddir .basename($file['name'])))
+                {
+                    $files[] = $file['name'];
+                }
+                else
+                {
+                    $status = false;
+                }
+            }
+
+            if($status) {
+                $this->_data['success_msg'] = 'Upload data success.';
+                $this->_data['files'] = $files;
+            } else {
+                $this->_data['err_msg'] = 'Upload file failed';
+            }
+        }
+
+        return $status;
+    }
 
 	function do_delete() {
 		if($this->input->post('data_id')) {

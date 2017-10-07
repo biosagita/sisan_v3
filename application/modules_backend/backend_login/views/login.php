@@ -9,9 +9,9 @@
                 Admin area
                 <small>Login to your account.</small>
             </span>
-            <span class="header-buttons">
+            <!--<span class="header-buttons">
                 <a href="#" class="btn btn-sm btn-primary" title="">Sign Up</a>
-            </span>
+            </span>-->
         </h3>
 
         <?php if(!empty($login_errmsg)) : ?>

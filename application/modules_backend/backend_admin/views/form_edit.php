@@ -5,6 +5,18 @@
 
     //------submit form ajax module admin----------
     $(function() { "use strict";
+        // Variable to store your files
+        var files;
+
+        // Add events
+        $('input[type=file]').on('change', prepareUpload);
+
+        // Grab the files and set them to our variable
+        function prepareUpload(event)
+        {
+            files = event.target.files;
+        }
+
         var param = {
             'formid'            : '#dynamic_form',
             'btn_submit'        : '#dynamic_btn_process',
@@ -33,8 +45,32 @@
             }
         };
 
+        var param_file = {
+            'formid'            : '#dynamic_form',
+            'btn_submit'        : '#dynamic_btn_process',
+            'div_errmsg'        : '#dynamic_errmsg',
+            'url_ajax_action'   : '<?php echo $ajax_image_edit; ?>',
+            'data_type'         : 'json',
+            'panel_form'        : '#panel_form',
+            'panel_list'        : '#panel_list',
+            'add_data'          : '#add_data',
+            'dynamic_btn_close'   : '#dynamic_btn_close',
+            'callback'          : function(data) {
+                if(data.err_msg == '') {
+                    MYAPP.doFormSubmitUpload.process(param, data);
+                } else {
+                    $.jGrowl(data.err_msg, {
+                        sticky: false,
+                        position: 'top-right',
+                        theme: 'bg-green'
+                    });
+                    $(param.dynamic_btn_close).trigger('click');
+                }
+            }
+        };
+
         $(param.formid).submit(function(){
-            MYAPP.doFormSubmit.process(param);
+            MYAPP.doFormSubmitUploadTmp.process(param_file, files);
             return false;
         });
 
@@ -60,7 +96,7 @@
         <p></p>
     </div>
 	<div class="example-box-wrapper">
-        <form method="post" class="form-horizontal bordered-row" id="dynamic_form" data-parsley-validate>
+        <form method="post" class="form-horizontal bordered-row" id="dynamic_form" data-parsley-validate enctype="multipart/form-data">
             <?php foreach($input_list as $val) : ?>
                 <?php if(!empty($val['db_pk'])) : ?>
                     <input type="hidden" name="<?php echo $val['db_field']; ?>" id="<?php echo $val['db_field']; ?>" value="<?php echo $val['data_edit']['input_value']; ?>" />
@@ -80,6 +116,9 @@
                         <?php elseif($val['input_type'] == 'textarea') : ?>
                             <textarea name="<?php echo $val['db_field']; ?>" id="<?php echo $val['db_field']; ?>" <?php echo $val['input_attr']; ?> <?php echo (!empty($val['data_edit']['required']) ? $val['data_edit']['required'] : ''); ?> <?php echo (!empty($val['data_edit']['input_disabled']) ? $val['data_edit']['input_disabled'] : ''); ?>><?php echo $val['data_edit']['input_value']; ?></textarea>
                         <?php else : ?>
+                            <?php if($val['input_type'] == 'file'): ?>
+                                <img width="200px" src="<?php echo ($url_image . '/' . $val['data_edit']['input_value']);?>" alt=""><br>
+                            <?php endif; ?>
                             <input name="<?php echo $val['db_field']; ?>" id="<?php echo $val['db_field']; ?>" <?php echo $val['input_attr']; ?> <?php echo (!empty($val['data_edit']['required']) ? $val['data_edit']['required'] : ''); ?> <?php echo (!empty($val['data_edit']['input_disabled']) ? $val['data_edit']['input_disabled'] : ''); ?> value="<?php echo $val['data_edit']['input_value']; ?>" />
                         <?php endif; ?>
                     </div>

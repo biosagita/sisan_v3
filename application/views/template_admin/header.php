@@ -18,7 +18,7 @@
 <div id="header-nav-left">
     <div class="user-account-btn dropdown">
         <a href="#" title="My Account" class="user-profile clearfix" data-toggle="dropdown">
-            <img width="28" src="<?php echo $assets; ?>/image-resources/gravatar.jpg" alt="Profile image">
+            <img width="28" src="<?php echo $admin_image; ?>" alt="Profile image">
             <span><?php echo $admin_username; ?></span>
             <i class="glyph-icon icon-angle-down"></i>
         </a>
@@ -27,7 +27,7 @@
                 <div class="login-box clearfix">
                     <div class="user-img">
                         <a href="#" title="" class="change-img">Change photo</a>
-                        <img src="<?php echo $assets; ?>/image-resources/gravatar.jpg" alt="">
+                        <img src="<?php echo $admin_image; ?>" alt="">
                     </div>
                     <div class="user-info">
                         <span>
