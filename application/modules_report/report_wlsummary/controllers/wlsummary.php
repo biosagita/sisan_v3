@@ -3,7 +3,7 @@
 class wlsummary extends MY_Admin {
 	private $_template 			= 'template_admin/main';
 	private $_module_controller = 'report_wlsummary/wlsummary/';
-	private $_table_name 		= 'transaksi';
+	private $_table_name 		= 'transaksi_log';
 	private $_table_field_pref 	= 'trans_';
 	private $_table_pk 			= 'trans_id_transaksi';
 	private $_model_crud 		= 'reportwlsummary_model';
@@ -518,7 +518,7 @@ class wlsummary extends MY_Admin {
 
 		$this->db->order_by('trans_tanggal_transaksi','ASC');
 		
-		$this->db->from("transaksi");
+		$this->db->from("transaksi_log");
 
 		if(!empty($trans_id_user)) {
 			$this->db->group_by(array("trans_id_user", "trans_tanggal_transaksi"));
@@ -704,7 +704,7 @@ class wlsummary extends MY_Admin {
 		else if($type_summary == 'summary_layanan') $this->db->order_by('lay_nama_layanan','ASC');
 		else $this->db->order_by('trans_tanggal_transaksi','ASC');
 		
-		$this->db->from("transaksi");
+		$this->db->from("transaksi_log");
 
 		if(!empty($trans_id_user)) {
 			$this->db->group_by(array("trans_id_user", "trans_tanggal_transaksi"));

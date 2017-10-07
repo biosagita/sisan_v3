@@ -3,7 +3,7 @@
 class jcl extends MY_Admin {
 	private $_template 			= 'template_admin/main';
 	private $_module_controller = 'report_jcl/jcl/';
-	private $_table_name 		= 'transaksi';
+	private $_table_name 		= 'transaksi_log';
 	private $_table_field_pref 	= 'trans_';
 	private $_table_pk 			= 'trans_id_transaksi';
 	private $_model_crud 		= 'reportjcl_model';
