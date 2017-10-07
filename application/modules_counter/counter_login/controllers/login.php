@@ -108,6 +108,7 @@ class Login extends MY_Counter {
 							'usrlog_user_id'	=> $administrator['admusr_id'],
 							'usrlog_login_date'	=> date('Y-m-d H:i:s'),					           
 							'usrlog_login_ip'	=> get_client_ip(),
+                            'usrlog_id_loket'	=> $this->_data['cookie_loket_id'],
 						);
 
 						$res = $this->userlogsx->posts($vData);
