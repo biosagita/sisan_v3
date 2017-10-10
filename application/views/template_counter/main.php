@@ -178,7 +178,7 @@
             </div>
         </div>
         <div style="overflow:hidden;background: darkgrey;">
-            <div class="col-sm-2" style="background: gainsboro;">
+            <div class="col-sm-2" style="background: gainsboro;" id="panelSidebar">
                 <div class="example-box-wrapper">
                     <div style="padding:5px 0 0;">
                         <a href="#" title="Example tile shortcut" class="tile-box tile-box-alt btn-danger">
@@ -305,7 +305,7 @@
                 </div>
             </div>
             <div class="col-sm-10">
-                <div class="row" style="padding:5px 0;margin-bottom:10px;background: gainsboro;">
+                <div class="row" style="padding:5px 0;margin-bottom:10px;background: gainsboro;" id="panelHeader">
                     <div class="col-sm-2">
                         <a href="#" title="Example tile shortcut" class="tile-box tile-box-alt btn-black">
                             <div class="tile-header" style="padding:2px;">

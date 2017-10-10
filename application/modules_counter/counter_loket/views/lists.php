@@ -410,6 +410,17 @@
                }
             });
 
+            var calculateHeight = function () {
+                var docHeight = parseInt($(window).height());
+                var panelHeaderHeight = parseInt($('#panelHeader').outerHeight());
+                var newHeightPanelList = docHeight - (panelHeaderHeight + 25);
+                var newHeightPanelSidebar = docHeight - 10;
+                $('#panel_list').height(newHeightPanelList);
+                $('#panelSidebar').height(newHeightPanelSidebar);
+            };
+
+            calculateHeight();
+
         });
     })(jQuery);
 
