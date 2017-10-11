@@ -353,7 +353,7 @@ class Videos extends MY_Admin {
 		$this->_data['err_msg'] 	= '';
 
 		if(!empty($_FILES)) {
-			$uploaddir = 'assets/backstage/upload/';
+			$uploaddir = 'assets/backstage/upload_video/';
 			foreach($_FILES as $file)
 			{
 				if(move_uploaded_file($file['tmp_name'], $uploaddir .basename($file['name'])))
