@@ -21,6 +21,7 @@ class Logout extends MY_Admin {
 		$data = array(
 			'admin_id' 					=> '',
 			'admin_username' 			=> '',
+			'admin_image'               => '',
 			'admin_userlevel' 			=> '',
 			'admin_usergroup' 			=> '',
 			'admin_usergrouplayanan' 	=> ''
