@@ -98,6 +98,7 @@ class Login extends MY_Counter {
 							array(
 								'admin_id' 					=> $administrator['admusr_id'],
 								'admin_username' 			=> $administrator['admusr_username'],
+                                'admin_image' 			    => (!empty($administrator['admusr_image']) ? $administrator['admusr_image'] : 'blank_user.jpg'),
 								'admin_userlevel' 			=> $administrator['admusr_aulv_id'],
 								'admin_usergroup' 			=> $administrator['admusr_usrgro_id'],
 								'admin_usergrouplayanan' 	=> $administrator['usrgrolay_grolay_id'],
