@@ -255,7 +255,23 @@
         $('#transaksi_image').attr('src', img_src);
     }
 
+    var enableNext = true;
+
+    var activateEnableNext = function () {
+      setTimeout(function () {
+          enableNext = true;
+      }, 3000);
+    };
+
     function fnNext(id) {
+        if(!enableNext) return 0;
+
+        console.log('masuk ni');
+
+        enableNext = false;
+
+        activateEnableNext();
+
         var id = id || '';
         $.ajax({
             type: 'POST',
