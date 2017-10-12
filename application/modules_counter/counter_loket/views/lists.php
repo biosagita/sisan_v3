@@ -246,6 +246,8 @@
     function load_image_transaksi(nama_file) {
         nama_file = nama_file || '';
 
+        if(nama_file === '-') nama_file = 'blank_user.jpg';
+
         var img_src = '<?php echo $blank_image; ?>';
 
         if (nama_file != '') {
