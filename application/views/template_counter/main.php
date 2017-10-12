@@ -192,7 +192,7 @@
                     </div>
                     <div>
                         <div style="margin:auto;width:160px;">
-                            <img class="img-circle" id="transaksi_image" style="width:160px;height:160px;" src="<?php echo $sample_image; ?>">
+                            <img class="img-circle" id="transaksi_image" style="width:160px;height:160px;" src="<?php echo $blank_image; ?>">
                         </div>
                     </div>
                     <div style="padding:5px 0 0;">
