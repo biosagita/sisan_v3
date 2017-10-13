@@ -80,7 +80,7 @@
                     <div class="form-group" style="display: none;">
                         <label class="col-sm-3 control-label">Tanggal</label>
                         <div class="col-sm-9">
-                            <input type="text" name="trans_tanggal_transaksi" id="daterangepicker-example" class="form-control" value="">
+                            <input type="text" name="trans_tanggal_transaksi" id="daterangepicker-example" class="form-control" value="<?php echo ("$dateNow - $dateNow") ?>">
                         </div>
                     </div>
                 </div>

@@ -80,8 +80,8 @@
     <div class="row">
         <div class="form-group">
             <div class="col-sm-6 col-md-offset-6 text-right">
-                <a target="_blank" href="<?php echo site_url('report_alldetail/alldetail/page_export_text'); ?>" class="btn btn-blue-alt" id="print_text">Print Text</a>
-                <a href="<?php echo site_url('report_alldetail/alldetail/page_export_excel'); ?>" class="btn btn-blue-alt" id="print_excel">Excel</a>
+                <a target="_blank" href="<?php echo site_url('report_alldetailmonitoring/alldetailmonitoring/page_export_text'); ?>" class="btn btn-blue-alt" id="print_text">Print Text</a>
+                <a href="<?php echo site_url('report_alldetailmonitoring/alldetailmonitoring/page_export_excel'); ?>" class="btn btn-blue-alt" id="print_excel">Excel</a>
             </div>
         </div>
     </div>

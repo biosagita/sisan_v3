@@ -97,6 +97,7 @@ class Alldetailmonitoring extends MY_Admin {
 		$this->_data['column_list'] = $this->get_show_column();
 
 		$this->_data['info_page'] = $this->_page_content_info;
+        $this->_data['dateNow'] = date('Y-m-d');
 
 		//using lib template
 		$this->template->set('title', $this->_page_title);
@@ -119,6 +120,8 @@ class Alldetailmonitoring extends MY_Admin {
 		$this->_data['column_list'] = $this->get_show_column();
 
 		$this->_data['info_page'] = $this->_page_content_info;
+
+        $this->_data['dateNow'] = date('Y-m-d');
 
 		$this->load->view('lists', $this->_data);
 	}
