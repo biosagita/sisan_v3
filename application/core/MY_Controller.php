@@ -214,6 +214,10 @@ class MY_Admin extends MY_Controller {
 					array(
 						'label' => 'Laporan',
 						'child'	=> array(
+                            array(
+                                'label' => 'All Detail Monitoring',
+                                'url_link' => site_url('report_alldetailmonitoring/alldetailmonitoring/page_content_ajax'),
+                            ),
 							array(
 								'label' => 'All Detail',
 								'url_link' => site_url('report_alldetail/alldetail/page_content_ajax'),
