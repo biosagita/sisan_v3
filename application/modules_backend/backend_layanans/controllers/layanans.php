@@ -198,6 +198,17 @@ class Layanans extends MY_Admin {
 					'db_process'	=> true,
 				),
 			),
+            array(
+                'label' 		=> 'Parent',
+                'db_field' 		=> $this->_table_field_pref . 'parent_id',
+                'db_process'	=> true,
+                'input_type'	=> 'select',
+                'input_attr'	=> 'class="form-control"',
+                'data_source'	=> $source_layanan,
+                'data_edit'		=> array(
+                    'db_process'		=> true,
+                ),
+            ),
 		);
 
 		if(!empty($data_value)) {
