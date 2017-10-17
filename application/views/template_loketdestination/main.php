@@ -184,7 +184,6 @@
     html,body {
         height: 100%;
         background: #fff;
-        overflow: hidden;
     }
 
 </style>

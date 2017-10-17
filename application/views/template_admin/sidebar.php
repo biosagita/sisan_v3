@@ -6,7 +6,7 @@
                 <?php foreach($val['child'] as $key2 => $val2) : ?>
                     <li>
                         <a class="<?php echo ($val['label'] == 'Dashboard' ? 'content_dashboard' : ''); ?>" data-url="<?php echo (!empty($val2['url_link']) ? $val2['url_link'] : '#'); ?>" href="<?php echo (!empty($val2['url_link']) ? $val2['url_link'] : '#'); ?>" title="<?php echo $val2['label']; ?>">
-                            <i class="glyph-icon icon-linecons-diamond"></i>
+                            <?php echo $val2['icon']; ?>
                             <span><?php echo $val2['label']; ?></span>
                         </a>
                         <?php if(!empty($val2['child'])) : ?>
