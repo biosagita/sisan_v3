@@ -54,6 +54,7 @@
 
         $('div').on('click', 'button.deleteSchedule', function (e) {
             e.preventDefault();
+            if($('.listSchedule').length === 1) return;
             var prt = $(this).closest('.listSchedule');
             prt.remove();
         });

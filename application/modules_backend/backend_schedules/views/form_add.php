@@ -45,6 +45,20 @@
             $(param.panel_form).empty();
             autoScrolling('html, body');
         });
+
+        $('#addMore').click(function (e) {
+            e.preventDefault();
+            var cln = $('.listSchedule:eq(0)').clone();
+            cln.find(':input').val('');
+            $(cln).insertBefore('#prtAddMore');
+        });
+
+        $('div').on('click', 'button.deleteSchedule', function (e) {
+            e.preventDefault();
+            if($('.listSchedule').length === 1) return;
+            var prt = $(this).closest('.listSchedule');
+            prt.remove();
+        });
     });
 </script>
 
@@ -65,6 +79,45 @@
         <form method="post" class="form-horizontal bordered-row" id="dynamic_form" data-parsley-validate>
             <?php foreach($input_list as $val) : ?>
                 <?php if(!empty($val['db_pk'])) : ?>
+                    <?php continue; ?>
+                <?php endif; ?>
+                <?php if (!empty($val['isJson'])) : ?>
+                    <div class="form-group">
+                        <div class="row listSchedule">
+                            <label class="col-sm-3 control-label"><?php echo $val['label']; ?></label>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_awal_tiket'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_awal_tiket">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_akhir_tiket'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_akhir_tiket">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_awal_layanan'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_awal_layanan">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_akhir_layanan'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_akhir_layanan">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['stok'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="stok">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['flag_continue'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="flag_continue">
+                                    </div>
+                                    <div class="col-sm-12 text-right">
+                                        <button class="btn alert-danger deleteSchedule">DELETE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="prtAddMore">
+                            <label class="col-sm-3 control-label">&nbsp;</label>
+                            <div class="col-sm-6">
+                                <button class="btn" id="addMore">TAMBAH SCHEDULE</button>
+                            </div>
+                        </div>
+                    </div>
                     <?php continue; ?>
                 <?php endif; ?>
                 <div class="form-group">
