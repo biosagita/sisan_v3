@@ -4,19 +4,20 @@
     var enbl_btn_process = true;
 
     //------submit form ajax module admin----------
-    $(function() { "use strict";
+    $(function () {
+        "use strict";
         var param = {
-            'formid'            : '#dynamic_form',
-            'btn_submit'        : '#dynamic_btn_process',
-            'div_errmsg'        : '#dynamic_errmsg',
-            'url_ajax_action'   : '<?php echo $ajax_action_edit; ?>',
-            'data_type'         : 'json',
-            'panel_form'        : '#panel_form',
-            'panel_list'        : '#panel_list',
-            'add_data'          : '#add_data',
-            'dynamic_btn_close'   : '#dynamic_btn_close',
-            'callback'          : function(data) {
-                if(data.err_msg == '') {
+            'formid': '#dynamic_form',
+            'btn_submit': '#dynamic_btn_process',
+            'div_errmsg': '#dynamic_errmsg',
+            'url_ajax_action': '<?php echo $ajax_action_edit; ?>',
+            'data_type': 'json',
+            'panel_form': '#panel_form',
+            'panel_list': '#panel_list',
+            'add_data': '#add_data',
+            'dynamic_btn_close': '#dynamic_btn_close',
+            'callback': function (data) {
+                if (data.err_msg == '') {
                     refreshTable();
                     $.jGrowl(data.success_msg, {
                         sticky: false,
@@ -33,24 +34,37 @@
             }
         };
 
-        $(param.formid).submit(function(){
+        $(param.formid).submit(function () {
             MYAPP.doFormSubmit.process(param);
             return false;
         });
 
-        $(param.dynamic_btn_close).click(function(e) {
+        $(param.dynamic_btn_close).click(function (e) {
             e.preventDefault();
             $(param.panel_form).empty();
             autoScrolling('html, body');
+        });
+
+        $('#addMore').click(function (e) {
+            e.preventDefault();
+            var cln = $('.listSchedule:eq(0)').clone();
+            cln.find(':input').val('');
+            $(cln).insertBefore('#prtAddMore');
+        });
+
+        $('div').on('click', 'button.deleteSchedule', function (e) {
+            e.preventDefault();
+            var prt = $(this).closest('.listSchedule');
+            prt.remove();
         });
     });
 </script>
 
 <div class="panel-body">
-	<h3 class="title-hero">
-	    Edit Data
-	</h3>
-	<?php if(!empty($form_errmsg)) : ?>
+    <h3 class="title-hero">
+        Edit Data
+    </h3>
+    <?php if (!empty($form_errmsg)) : ?>
         <div class="alert alert-danger">
             <p><?php echo $form_errmsg; ?></p>
         </div>
@@ -59,28 +73,73 @@
     <div id="dynamic_errmsg" class="alert alert-danger" style="display:none">
         <p></p>
     </div>
-	<div class="example-box-wrapper">
+    <div class="example-box-wrapper">
         <form method="post" class="form-horizontal bordered-row" id="dynamic_form" data-parsley-validate>
-            <?php foreach($input_list as $val) : ?>
-                <?php if(!empty($val['db_pk'])) : ?>
-                    <input type="hidden" name="<?php echo $val['db_field']; ?>" id="<?php echo $val['db_field']; ?>" value="<?php echo $val['data_edit']['input_value']; ?>" />
+            <?php foreach ($input_list as $val) : ?>
+                <?php if (!empty($val['db_pk'])) : ?>
+                    <input type="hidden" name="<?php echo $val['db_field']; ?>" id="<?php echo $val['db_field']; ?>"
+                           value="<?php echo $val['data_edit']['input_value']; ?>"/>
+                    <?php continue; ?>
+                <?php endif; ?>
+
+                <?php if (!empty($val['isJson'])) : ?>
+                    <div class="form-group">
+                        <div class="row listSchedule">
+                            <label class="col-sm-3 control-label"><?php echo $val['label']; ?></label>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_awal_tiket'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_awal_tiket">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_akhir_tiket'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_akhir_tiket">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_awal_layanan'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_awal_layanan">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_akhir_layanan'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_akhir_layanan">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['stok'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="stok">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['flag_continue'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="flag_continue">
+                                    </div>
+                                    <div class="col-sm-12 text-right">
+                                        <button class="btn alert-danger deleteSchedule">DELETE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="prtAddMore">
+                            <label class="col-sm-3 control-label">&nbsp;</label>
+                            <div class="col-sm-6">
+                                <button class="btn" id="addMore">TAMBAH SCHEDULE</button>
+                            </div>
+                        </div>
+                    </div>
                     <?php continue; ?>
                 <?php endif; ?>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $val['label']; ?></label>
                     <div class="col-sm-6">
-                        <?php if($val['input_type'] == 'select') : ?>
-                            <select name="<?php echo $val['db_field']; ?>" id="<?php echo $val['db_field']; ?>" <?php echo $val['input_attr']; ?> <?php echo (!empty($val['data_edit']['required']) ? $val['data_edit']['required'] : ''); ?>>
+                        <?php if ($val['input_type'] == 'select') : ?>
+                            <select name="<?php echo $val['db_field']; ?>"
+                                    id="<?php echo $val['db_field']; ?>" <?php echo $val['input_attr']; ?> <?php echo(!empty($val['data_edit']['required']) ? $val['data_edit']['required'] : ''); ?>>
                                 <option value="">-- Choose --</option>
-                                <?php foreach($val['data_source'] as $vOpt) : ?>
-                                    <option value="<?php echo $vOpt['value']; ?>" <?php echo ((!empty($val['data_edit']['input_value']) AND $val['data_edit']['input_value'] == $vOpt['value']) ? 'selected' : '') ?>><?php echo $vOpt['name']; ?></option>
+                                <?php foreach ($val['data_source'] as $vOpt) : ?>
+                                    <option value="<?php echo $vOpt['value']; ?>" <?php echo((!empty($val['data_edit']['input_value']) AND $val['data_edit']['input_value'] == $vOpt['value']) ? 'selected' : '') ?>><?php echo $vOpt['name']; ?></option>
                                 <?php endforeach; ?>
                             </select>
-                        <?php elseif($val['input_type'] == 'textarea') : ?>
-                            <textarea name="<?php echo $val['db_field']; ?>" id="<?php echo $val['db_field']; ?>" <?php echo $val['input_attr']; ?> <?php echo (!empty($val['data_edit']['required']) ? $val['data_edit']['required'] : ''); ?> <?php echo (!empty($val['data_edit']['input_disabled']) ? $val['data_edit']['input_disabled'] : ''); ?>><?php echo $val['data_edit']['input_value']; ?></textarea>
+                        <?php elseif ($val['input_type'] == 'textarea') : ?>
+                            <textarea name="<?php echo $val['db_field']; ?>"
+                                      id="<?php echo $val['db_field']; ?>" <?php echo $val['input_attr']; ?> <?php echo(!empty($val['data_edit']['required']) ? $val['data_edit']['required'] : ''); ?> <?php echo(!empty($val['data_edit']['input_disabled']) ? $val['data_edit']['input_disabled'] : ''); ?>><?php echo $val['data_edit']['input_value']; ?></textarea>
                         <?php else : ?>
-                            <input name="<?php echo $val['db_field']; ?>" id="<?php echo $val['db_field']; ?>" <?php echo $val['input_attr']; ?> <?php echo (!empty($val['data_edit']['required']) ? $val['data_edit']['required'] : ''); ?> <?php echo (!empty($val['data_edit']['input_disabled']) ? $val['data_edit']['input_disabled'] : ''); ?> value="<?php echo $val['data_edit']['input_value']; ?>" />
+                            <input name="<?php echo $val['db_field']; ?>"
+                                   id="<?php echo $val['db_field']; ?>" <?php echo $val['input_attr']; ?> <?php echo(!empty($val['data_edit']['required']) ? $val['data_edit']['required'] : ''); ?> <?php echo(!empty($val['data_edit']['input_disabled']) ? $val['data_edit']['input_disabled'] : ''); ?>
+                                   value="<?php echo $val['data_edit']['input_value']; ?>"/>
                         <?php endif; ?>
                     </div>
                 </div>

@@ -135,10 +135,11 @@ class schedules extends MY_Admin {
             ),
             array(
                 'label' 		=> 'Schedule',
+                'isJson' 		=> true,
                 'db_field' 		=> $this->_table_field_pref . 'schedule',
                 'db_process'	=> true,
                 'input_type'	=> 'text',
-                'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Nama Schedule..."',
+                'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control"',
                 'required'		=> 'required',
                 'data_source'	=> '',
                 'data_edit'		=> array(
