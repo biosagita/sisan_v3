@@ -8,10 +8,10 @@ class Footers extends MY_Admin {
 	private $_table_pk 			= 'footer_id_footer';
 	private $_model_crud 		= 'footers_model';
 
-	private $_page_title 		= 'Antrian : Admin Header';
+	private $_page_title 		= 'Antrian : Admin Footer';
 	private $_page_content_info	= array(
-		'title' => 'Data Header',
-		'desc' 	=> 'List Header',
+		'title' => 'Data Footer',
+		'desc' 	=> 'List Footer',
 	);
 
 	function __construct(){
