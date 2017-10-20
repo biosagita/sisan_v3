@@ -140,11 +140,10 @@ class schedules extends MY_Admin {
                 'db_process'	=> true,
                 'input_type'	=> 'text',
                 'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control"',
-                'required'		=> 'required',
                 'data_source'	=> '',
                 'data_edit'		=> array(
                     'db_process'	=> true,
-                    'required'		=> 'required',
+                    'isJson'		=> true,
                 ),
             ),
 		);
@@ -153,7 +152,9 @@ class schedules extends MY_Admin {
 			foreach ($data_input as $key => $value) {
 				if(!empty($data_input[$key]['data_edit']['input_empty']) AND $data_input[$key]['data_edit']['input_empty']) {
 					$data_input[$key]['data_edit']['input_value'] = '';
-				} else {
+				} elseif(!empty($data_input[$key]['data_edit']['isJson'])) {
+                    $data_input[$key]['data_edit']['input_value'] = !empty($data_value[$data_input[$key]['db_field']]) ? json_decode($data_value[$data_input[$key]['db_field']]) : '';
+                }else {
 					$data_input[$key]['data_edit']['input_value'] = !empty($data_value[$data_input[$key]['db_field']]) ? $data_value[$data_input[$key]['db_field']] : '';
 				}
 			}
@@ -246,7 +247,35 @@ class schedules extends MY_Admin {
 		$input_list = $this->get_input_field_new();
 		$admin_data = array();
 
+        $hdInput = $this->input->post('hdInput');
+        $dataJson = '';
+        if(!empty($hdInput)) {
+            $jam_awal_tiket = $this->input->post('jam_awal_tiket');
+            $jam_akhir_tiket = $this->input->post('jam_akhir_tiket');
+            $jam_awal_layanan = $this->input->post('jam_awal_layanan');
+            $jam_akhir_layanan = $this->input->post('jam_akhir_layanan');
+            $stok = $this->input->post('stok');
+            $flag_continue = $this->input->post('flag_continue');
+            if(!empty($hdInput)) {
+                $tmp = [];
+                foreach ($hdInput as $key => $value) {
+                    if(empty($jam_awal_tiket[$key])) continue;
+                    $tmp[] = [
+                        'jam_awal_tiket' => (!empty($jam_awal_tiket[$key]) ? $jam_awal_tiket[$key] : ''),
+                        'jam_akhir_tiket' => (!empty($jam_akhir_tiket[$key]) ? $jam_akhir_tiket[$key] : ''),
+                        'jam_awal_layanan' => (!empty($jam_awal_layanan[$key]) ? $jam_awal_layanan[$key] : ''),
+                        'jam_akhir_layanan' => (!empty($jam_akhir_layanan[$key]) ? $jam_akhir_layanan[$key] : ''),
+                        'stok' => (!empty($stok[$key]) ? $stok[$key] : ''),
+                        'flag_continue' => (!empty($flag_continue[$key]) ? $flag_continue[$key] : ''),
+                    ];
+                }
+                $dataJson = json_encode($tmp);
+            }
+        }
+
 		foreach ($input_list as $key => $value) {
+            if(!empty($value['isJson'])) continue;
+
 			if(!empty($value['db_process']) AND $value['db_process']) {
 				if(!empty($value['required'])) {
 					$this->form_validation->set_rules($value['db_field'], $value['label'], 'trim|htmlspecialchars|encode_php_tags|prep_for_form|required|xss_clean');
@@ -267,6 +296,10 @@ class schedules extends MY_Admin {
 		if($this->form_validation->run()) {
 			$res = false;
 			if(!empty($admin_data)) {
+                if(!empty($dataJson)) {
+                    $admin_data['schd_schedule'] = $dataJson;
+                }
+
 				$res = $this->crudmodel->posts($admin_data);
 				if($res) {
 					$this->_data['success_msg'] = 'Insert data success.';
@@ -314,7 +347,37 @@ class schedules extends MY_Admin {
 		$user_id 	= '';
 		$field_pk 	= '';
 
+		$hdInput = $this->input->post('hdInput');
+		$dataJson = '';
+		if(!empty($hdInput)) {
+            $jam_awal_tiket = $this->input->post('jam_awal_tiket');
+            $jam_akhir_tiket = $this->input->post('jam_akhir_tiket');
+            $jam_awal_layanan = $this->input->post('jam_awal_layanan');
+            $jam_akhir_layanan = $this->input->post('jam_akhir_layanan');
+            $stok = $this->input->post('stok');
+            $flag_continue = $this->input->post('flag_continue');
+            if(!empty($hdInput)) {
+                $tmp = [];
+                foreach ($hdInput as $key => $value) {
+                    if(empty($jam_awal_tiket[$key])) continue;
+                    $tmp[] = [
+                        'jam_awal_tiket' => (!empty($jam_awal_tiket[$key]) ? $jam_awal_tiket[$key] : ''),
+                        'jam_akhir_tiket' => (!empty($jam_akhir_tiket[$key]) ? $jam_akhir_tiket[$key] : ''),
+                        'jam_awal_layanan' => (!empty($jam_awal_layanan[$key]) ? $jam_awal_layanan[$key] : ''),
+                        'jam_akhir_layanan' => (!empty($jam_akhir_layanan[$key]) ? $jam_akhir_layanan[$key] : ''),
+                        'stok' => (!empty($stok[$key]) ? $stok[$key] : ''),
+                        'flag_continue' => (!empty($flag_continue[$key]) ? $flag_continue[$key] : ''),
+                    ];
+                }
+                $dataJson = json_encode($tmp);
+            }
+        }
+        /*echo $dataJson;
+        exit();*/
+
 		foreach ($input_list as $key => $value) {
+            if(!empty($value['data_edit']['isJson'])) continue;
+
 			if(!empty($value['same_related'])) {
 				$tmp = $this->input->post($value['same_related']);
 				if($tmp != $this->input->post($value['db_field'])) {
@@ -352,6 +415,10 @@ class schedules extends MY_Admin {
 				$this->_data['err_msg'] = 'user id or primary key is empty.';
 				return $res;
 			}
+
+			if(!empty($dataJson)) {
+                $admin_data['schd_schedule'] = $dataJson;
+            }
 
 			if(!empty($admin_data)) {
 				$res = $this->crudmodel->where(array($field_pk => $user_id))->puts($admin_data);

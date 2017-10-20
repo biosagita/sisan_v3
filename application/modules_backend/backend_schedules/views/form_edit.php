@@ -49,12 +49,13 @@
             e.preventDefault();
             var cln = $('.listSchedule:eq(0)').clone();
             cln.find(':input').val('');
+            cln.find('.hdInput').val(1);
             $(cln).insertBefore('#prtAddMore');
         });
 
         $('div').on('click', 'button.deleteSchedule', function (e) {
             e.preventDefault();
-            if($('.listSchedule').length === 1) return;
+            if ($('.listSchedule').length === 1) return;
             var prt = $(this).closest('.listSchedule');
             prt.remove();
         });
@@ -85,34 +86,57 @@
 
                 <?php if (!empty($val['isJson'])) : ?>
                     <div class="form-group">
-                        <div class="row listSchedule">
-                            <label class="col-sm-3 control-label"><?php echo $val['label']; ?></label>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_awal_tiket'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_awal_tiket">
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_akhir_tiket'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_akhir_tiket">
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_awal_layanan'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_awal_layanan">
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['jam_akhir_layanan'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="jam_akhir_layanan">
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['stok'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="stok">
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <input <?php echo $val['input_attr']; ?> type="text" name="<?php echo $val['db_field']; ?>['flag_continue'][]" value="<?php echo $val['data_edit']['input_value']; ?>" placeholder="flag_continue">
-                                    </div>
-                                    <div class="col-sm-12 text-right">
-                                        <button class="btn alert-danger deleteSchedule">DELETE</button>
+                        <?php if (!empty($val['data_edit']['input_value'])): ?>
+                            <?php foreach ($val['data_edit']['input_value'] as $value): ?>
+                                <div class="row listSchedule">
+                                    <input type="hidden" name="hdInput[]" class="hdInput" value="1">
+                                    <label class="col-sm-3 control-label"><?php echo $val['label']; ?></label>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <input <?php echo $val['input_attr']; ?> type="text"
+                                                                                         name="jam_awal_tiket[]"
+                                                                                         value="<?php echo $value->jam_awal_tiket; ?>"
+                                                                                         placeholder="jam_awal_tiket">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <input <?php echo $val['input_attr']; ?> type="text"
+                                                                                         name="jam_akhir_tiket[]"
+                                                                                         value="<?php echo $value->jam_akhir_tiket; ?>"
+                                                                                         placeholder="jam_akhir_tiket">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <input <?php echo $val['input_attr']; ?> type="text"
+                                                                                         name="jam_awal_layanan[]"
+                                                                                         value="<?php echo $value->jam_awal_layanan; ?>"
+                                                                                         placeholder="jam_awal_layanan">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <input <?php echo $val['input_attr']; ?> type="text"
+                                                                                         name="jam_akhir_layanan[]"
+                                                                                         value="<?php echo $value->jam_akhir_layanan; ?>"
+                                                                                         placeholder="jam_akhir_layanan">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <input <?php echo $val['input_attr']; ?> type="text"
+                                                                                         name="stok[]"
+                                                                                         value="<?php echo $value->stok; ?>"
+                                                                                         placeholder="stok">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <input <?php echo $val['input_attr']; ?> type="text"
+                                                                                         name="flag_continue[]"
+                                                                                         value="<?php echo $value->flag_continue; ?>"
+                                                                                         placeholder="flag_continue">
+                                            </div>
+                                            <div class="col-sm-12 text-right">
+                                                <button class="btn alert-danger deleteSchedule">DELETE</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                         <div class="row" id="prtAddMore">
                             <label class="col-sm-3 control-label">&nbsp;</label>
                             <div class="col-sm-6">
