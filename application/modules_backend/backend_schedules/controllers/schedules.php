@@ -68,8 +68,9 @@ class schedules extends MY_Admin {
                                 ('Jam Akhir Tiket: ' . $value->jam_akhir_tiket),
                                 ('Jam Awal Layanan: ' . $value->jam_awal_layanan),
                                 ('Jam Akhir Layanan: ' . $value->jam_akhir_layanan),
-                                ('Stok: ' . $value->stok),
-                                ('Continue: ' . $value->flag_continue),
+                                ('Stok: ' . (!empty($value->stok) ? $value->stok : 0)),
+                                ('Continue: ' . (!empty($value->flag_continue) ? $value->flag_continue : 0)),
+                                ('Active: ' . (!empty($value->flag_active) ? $value->flag_active : 0)),
                             ];
                             $arr[] = '<li>' . join('</li><li>', $tmpArr) . '</li>';
                         }
@@ -256,6 +257,7 @@ class schedules extends MY_Admin {
             $jam_akhir_layanan = $this->input->post('jam_akhir_layanan');
             $stok = $this->input->post('stok');
             $flag_continue = $this->input->post('flag_continue');
+            $flag_active = $this->input->post('flag_active');
             if(!empty($hdInput)) {
                 $tmp = [];
                 foreach ($hdInput as $key => $value) {
@@ -267,6 +269,7 @@ class schedules extends MY_Admin {
                         'jam_akhir_layanan' => (!empty($jam_akhir_layanan[$key]) ? $jam_akhir_layanan[$key] : ''),
                         'stok' => (!empty($stok[$key]) ? $stok[$key] : ''),
                         'flag_continue' => (!empty($flag_continue[$key]) ? $flag_continue[$key] : ''),
+                        'flag_active' => (!empty($flag_active[$key]) ? $flag_active[$key] : ''),
                     ];
                 }
                 $dataJson = json_encode($tmp);
@@ -356,6 +359,7 @@ class schedules extends MY_Admin {
             $jam_akhir_layanan = $this->input->post('jam_akhir_layanan');
             $stok = $this->input->post('stok');
             $flag_continue = $this->input->post('flag_continue');
+            $flag_active = $this->input->post('flag_active');
             if(!empty($hdInput)) {
                 $tmp = [];
                 foreach ($hdInput as $key => $value) {
@@ -367,6 +371,7 @@ class schedules extends MY_Admin {
                         'jam_akhir_layanan' => (!empty($jam_akhir_layanan[$key]) ? $jam_akhir_layanan[$key] : ''),
                         'stok' => (!empty($stok[$key]) ? $stok[$key] : ''),
                         'flag_continue' => (!empty($flag_continue[$key]) ? $flag_continue[$key] : ''),
+                        'flag_active' => (!empty($flag_active[$key]) ? $flag_active[$key] : ''),
                     ];
                 }
                 $dataJson = json_encode($tmp);

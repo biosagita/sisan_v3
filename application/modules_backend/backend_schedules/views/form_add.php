@@ -119,6 +119,11 @@
                                                                                  name="flag_continue[]"
                                                                                  placeholder="flag_continue">
                                     </div>
+                                    <div class="col-sm-12">
+                                        <input <?php echo $val['input_attr']; ?> type="text"
+                                                                                 name="flag_active[]"
+                                                                                 placeholder="flag_active">
+                                    </div>
                                     <div class="col-sm-12 text-right">
                                         <button class="btn alert-danger deleteSchedule">DELETE</button>
                                     </div>
