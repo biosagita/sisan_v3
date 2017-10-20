@@ -458,8 +458,8 @@
                 var panelHeaderHeight = parseInt($('#panelHeader').outerHeight());
                 var newHeightPanelList = docHeight - (panelHeaderHeight + 25);
                 var newHeightPanelSidebar = docHeight - 10;
-                $('#panel_list').height(newHeightPanelList);
-                $('#panelSidebar').height(newHeightPanelSidebar);
+                $('#panel_list').css('min-height', newHeightPanelList);
+                $('#panelSidebar').css('min-height', newHeightPanelSidebar);
             };
 
             calculateHeight();
