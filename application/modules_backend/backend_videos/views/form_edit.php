@@ -104,6 +104,10 @@
                     <?php continue; ?>
                 <?php endif; ?>
 
+                <?php if($val['input_type'] == 'file') : ?>
+                    <input type="hidden" name="hdFile" id="hdFile" value="<?php echo $val['data_edit']['input_value']; ?>" />
+                <?php endif; ?>
+
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><?php echo $val['label']; ?></label>
                     <div class="col-sm-6">

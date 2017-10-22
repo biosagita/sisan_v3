@@ -304,6 +304,8 @@ class Videos extends MY_Admin {
 			}
 
 			if(!empty($admin_data)) {
+                if($admin_data['vid_nama_video'] != $_POST['hdFile']) $this->deleteFile($user_id);
+
 				$res = $this->crudmodel->where(array($field_pk => $user_id))->puts($admin_data);
 				if($res) {
 					$this->_data['success_msg'] = 'Update data success.';
@@ -379,6 +381,7 @@ class Videos extends MY_Admin {
 
 	function do_delete() {
 		if($this->input->post('data_id')) {
+		    $this->deleteFile($this->input->post('data_id'));
 			$delete = $this->crudmodel->delete(array($this->_table_pk => $this->input->post('data_id')));
 			if($delete) {
 				$this->_data['success_msg'] = 'Delete data success.';
@@ -392,6 +395,14 @@ class Videos extends MY_Admin {
 		}
 	}
 
+	private function deleteFile($id = 0) {
+        $data = $this->crudmodel->where(array($this->_table_pk => $id ))->get_login();
+        if(!empty($data)) {
+            $filename = 'assets/backstage/upload_video/' . $data['vid_nama_video'];
+            $this->doDeleteFile($filename);
+        }
+    }
+
 	function do_delete_ajax() {
 		$res = array(
 			'err_msg' 		=> '',
@@ -403,6 +414,24 @@ class Videos extends MY_Admin {
 
 		echo json_encode($res);
 	}
+
+    private function doDeleteFile( $filename ) {
+        // try to force symlinks
+        if ( is_link ($filename) ) {
+            $sym = @readlink ($filename);
+            if ( $sym ) {
+                return is_writable ($filename) && @unlink ($filename);
+            }
+        }
+
+        // try to use real path
+        if ( realpath ($filename) && realpath ($filename) !== $filename ) {
+            return is_writable ($filename) && @unlink (realpath ($filename));
+        }
+
+        // default unlink
+        return is_writable ($filename) && @unlink ($filename);
+    }
 	
 }
 
