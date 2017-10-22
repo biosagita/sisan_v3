@@ -44,6 +44,10 @@ class Alldetail extends MY_Admin {
 				'field_name' 			=> 'trans_id_layanan',
 				'just_info' 			=> true,
 			),
+            array(
+                'field_name' 			=> 'admusr_username',
+                'just_info' 			=> true,
+            ),
 		);
 
 		return $additional_field;
@@ -62,23 +66,83 @@ class Alldetail extends MY_Admin {
 				'field_name' 			=> 'lokets_name',
 				'no_order'				=> 1,
 			),
+            array(
+                'title_header_column' 	=> 'Tanggal Transaksi',
+                'field_name' 			=> 'DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal',
+                'alias'					=> 'own_tanggal',
+                'no_order'				=> 2,
+            ),
+            array(
+                'title_header_column' 	=> 'No Ticket',
+                'field_name' 			=> 'CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket',
+                'alias'					=> 'no_ticket',
+                'no_order'				=> 3,
+            ),
+            array(
+                'title_header_column' 	=> 'Waktu Ambil',
+                'field_name' 			=> 'trans_waktu_ambil',
+                'no_order'				=> 4,
+            ),
+            array(
+                'title_header_column' 	=> 'Waktu Tunggu',
+                'field_name' 			=> '1 as waktu_tunggu',
+                'alias'					=> 'waktu_tunggu',
+                'no_order'				=> 5,
+                'result_format'			=> function( $d, $row ) {
+                    $waktu_tunggu = '-';
+                    if(!empty($row['trans_waktu_panggil']) AND $row['trans_waktu_ambil'] != '00:00:00' AND $row['trans_waktu_panggil'] != '00:00:00') {
+                        $time1 = strtotime($row['trans_waktu_ambil']);
+                        $time2 = strtotime($row['trans_waktu_panggil']);
+                        $diff = $time2 - $time1;
+                        $waktu_tunggu = date('H:i:s', $diff);
+                        $tmp = explode(':', $waktu_tunggu);
+                        $tmp2 = ((int) $tmp[0]) - 7;
+                        $tmp[0] = '0' . $tmp2;
+                        $waktu_tunggu = join(':', $tmp);
+                    }
+                    return $waktu_tunggu;
+                },
+            ),
+            array(
+                'title_header_column' 	=> 'Waktu Panggil',
+                'field_name' 			=> 'trans_waktu_panggil',
+                'no_order'				=> 6,
+            ),
+            array(
+                'title_header_column' 	=> 'Waktu Layanan',
+                'field_name' 			=> '1 as waktu_layanan',
+                'alias'					=> 'waktu_layanan',
+                'no_order'				=> 7,
+                'result_format'			=> function( $d, $row ) {
+                    $waktu_layanan = '-';
+                    if(!empty($row['trans_waktu_finish']) AND $row['trans_waktu_panggil'] != '00:00:00' AND $row['trans_waktu_finish'] != '00:00:00') {
+                        $time1 = strtotime($row['trans_waktu_panggil']);
+                        $time2 = strtotime($row['trans_waktu_finish']);
+                        $diff = $time2 - $time1;
+                        $waktu_layanan = date('H:i:s', $diff);
+                        $tmp = explode(':', $waktu_layanan);
+                        $tmp2 = ((int) $tmp[0]) - 7;
+                        $tmp[0] = '0' . $tmp2;
+                        $waktu_layanan = join(':', $tmp);
+                    }
+                    return $waktu_layanan;
+                },
+            ),
+            array(
+                'title_header_column' 	=> 'Selesai',
+                'field_name' 			=> 'trans_waktu_finish',
+                'no_order'				=> 8,
+            ),
 			array(
 				'title_header_column' 	=> 'Nama Layanan',
 				'field_name' 			=> 'lay_nama_layanan',
-				'no_order'				=> 2,
+				'no_order'				=> 9,
 			),
-			array(
-				'title_header_column' 	=> 'Tanggal Transaksi',
-				'field_name' 			=> 'DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal',
-				'alias'					=> 'own_tanggal',
-				'no_order'				=> 3,
-			),
-			array(
-				'title_header_column' 	=> 'No Ticket',
-				'field_name' 			=> 'CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket',
-				'alias'					=> 'no_ticket',
-				'no_order'				=> 4,
-			),
+            array(
+                'title_header_column' 	=> 'User',
+                'field_name' 			=> 'admusr_username',
+                'no_order'				=> 10,
+            ),
 		);
 
 		return $column_list;
@@ -141,6 +205,7 @@ class Alldetail extends MY_Admin {
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'layanan ON (trans_id_layanan = lay_id_layanan) ';
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'lokets ON (trans_id_loket = lokets_id) ';
+        $table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'adminusers ON (trans_id_user = admusr_id) ';
 		$primaryKey = $this->_table_pk;
 		$column_list = $this->get_show_column();
 		$columns = array();
@@ -187,7 +252,7 @@ class Alldetail extends MY_Admin {
 			}
 		}
 
-		$this->db->select('lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket', false);
+		$this->db->select($this->_table_name . '.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket', false);
 		$this->db->from($this->_table_name);
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');
