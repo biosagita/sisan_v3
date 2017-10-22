@@ -67,7 +67,9 @@ class Admin extends MY_Admin {
                 'field_name' 			=> $this->_table_field_pref . 'image',
                 'result_format'			=> function( $d, $row ) {
                     $d = !empty($d) ? $d : 'blank_user.jpg';
-                    return '<img width="40px" height="40px" src="'.site_url('assets/backstage/upload/' . $d).'">';
+                    $imgSrc = site_url('assets/backstage/upload/' . $d);
+                    if (!@getimagesize($imgSrc)) $imgSrc = site_url('assets/backstage/upload/blank_user.jpg');
+                    return '<img width="40px" height="40px" src="'.$imgSrc.'">';
                 },
                 'no_order'				=> 4,
             ),

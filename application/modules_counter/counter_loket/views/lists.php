@@ -63,7 +63,7 @@
             "ajax": {
                 "url": '<?php echo $ajax_lists; ?>',
                 error: function (jq, status, message) {
-                    window.location.href = "<?php site_url('counter_logout/logout'); ?>";
+                    //window.location.href = "<?php site_url('counter_logout/logout'); ?>";
                 }
             },
             "columnDefs": [
@@ -101,7 +101,7 @@
             "ajax": {
                 "url": '<?php echo $ajax_lists_skip; ?>',
                 error: function (jq, status, message) {
-                    window.location.href = "<?php site_url('counter_logout/logout'); ?>";
+                    //window.location.href = "<?php site_url('counter_logout/logout'); ?>";
                 }
             },
             "columnDefs": [
@@ -139,7 +139,7 @@
             "ajax": {
                 "url": '<?php echo $ajax_lists_finish; ?>',
                 error: function (jq, status, message) {
-                    window.location.href = "<?php site_url('counter_logout/logout'); ?>";
+                    //window.location.href = "<?php site_url('counter_logout/logout'); ?>";
                 }
             },
             "columnDefs": [
@@ -355,7 +355,7 @@
             $.post('<?php echo $fnUndo; ?>', {id: id}, function (result) {
 
                 if (result.success) {
-                    refreshTable();
+                    refreshTableSkip();
                 } else {
                     $.messager.show({title: 'Error', msg: result.msg});
                 }
