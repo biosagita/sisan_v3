@@ -1013,6 +1013,9 @@ class Loket extends MY_Counter
                     if (empty($value2->flag_active)) {
                         $data[$key] = $key;
                     }
+                    if ($value2->jam_awal_layanan >= $time OR $value2->jam_akhir_layanan <= $time) {
+                        $data[$key] = $key;
+                    }
                 }
             }
             return $data;

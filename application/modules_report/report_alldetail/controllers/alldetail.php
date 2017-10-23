@@ -252,11 +252,12 @@ class Alldetail extends MY_Admin {
 			}
 		}
 
-		$this->db->select($this->_table_name . '.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket', false);
+		$this->db->select($this->_table_name . '.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
 		$this->db->from($this->_table_name);
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');
 		$this->db->join('lokets', 'trans_id_loket = lokets_id', 'left');
+        $this->db->join('adminusers', 'trans_id_user = admusr_id', 'left');
 		$this->db->order_by('own_tanggal', 'ASC');
 		$this->_data['data_master'] = $this->db->get()->result_array();
 		//print_r($this->_data['data_master']);
@@ -284,11 +285,12 @@ class Alldetail extends MY_Admin {
 			}
 		}
 
-		$this->db->select('lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket', false);
+		$this->db->select($this->_table_name . '.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
 		$this->db->from($this->_table_name);
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');
 		$this->db->join('lokets', 'trans_id_loket = lokets_id', 'left');
+        $this->db->join('adminusers', 'trans_id_user = admusr_id', 'left');
 		$this->db->order_by('own_tanggal', 'ASC');
 		$this->_data['data_master'] = $this->db->get()->result_array();
 
