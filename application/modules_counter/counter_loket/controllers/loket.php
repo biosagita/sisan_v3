@@ -302,8 +302,9 @@ class Loket extends MY_Counter
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
 
+        $orderBy = ' ORDER BY prilay_prioritas, trans_waktu_ambil';
         $whereResult = '';
-        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $currentDate . '" ' . $scheduleCondition;
+        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $currentDate . '" ' . $scheduleCondition . $orderBy;
 
         //echo 'xxx - ' . $whereAll; exit();
 
