@@ -938,42 +938,15 @@ class Loket extends MY_Counter
         return false;
     }
 
-    private function isActiveSchedule($data = null, $currentDate = '')
-    {
-        if (empty($data)) return false;
-        $currentDate = !empty($currentDate) ? $currentDate : date('Y-m-d H:i:s');
-        list($date, $time) = explode(' ', $currentDate);
-        foreach ($data as $value) {
-            if ($value->jam_awal_layanan <= $time AND $value->jam_akhir_layanan >= $time) {
-                return (!empty($value->flag_active) ? $value->flag_active : 0);
-                break;
-            }
-        }
-        return false;
-    }
-
     private function isScheduleLayanan($data = null, $currentDate = '')
     {
         if (empty($data)) return false;
         $currentDate = !empty($currentDate) ? $currentDate : date('Y-m-d H:i:s');
         list($date, $time) = explode(' ', $currentDate);
         foreach ($data as $value) {
+            if (empty($value->flag_active)) continue;
             if ($value->jam_awal_layanan <= $time AND $value->jam_akhir_layanan >= $time) {
                 return true;
-                break;
-            }
-        }
-        return false;
-    }
-
-    private function isContinueSchedule($data = null, $currentDate = '')
-    {
-        if (empty($data)) return false;
-        $currentDate = !empty($currentDate) ? $currentDate : date('Y-m-d H:i:s');
-        list($date, $time) = explode(' ', $currentDate);
-        foreach ($data as $value) {
-            if ($value->jam_awal_layanan <= $time AND $value->jam_akhir_layanan >= $time) {
-                return (!empty($value->flag_continue) ? $value->flag_continue : 0);
                 break;
             }
         }
@@ -1011,9 +984,7 @@ class Loket extends MY_Counter
             $data = [];
             foreach ($res as $key => $value) {
                 foreach ($value as $value2) {
-                    if (empty($value2->flag_active)) {
-                        $data[$key] = $key;
-                    }
+                    if (empty($value2->flag_active)) continue;
                     if ($value2->jam_awal_layanan >= $time OR $value2->jam_akhir_layanan <= $time) {
                         $data[$key] = $key;
                     }
@@ -1030,7 +1001,6 @@ class Loket extends MY_Counter
         $res = $this->getScheduleLayanan($idLayanan, $currentDate);
         if (!empty($res)) {
             foreach ($res as $value) {
-                if (!$this->isActiveSchedule($value, $currentDate)) continue;
                 if (!$this->isScheduleLayanan($value, $currentDate)) continue;
                 return true;
             }
