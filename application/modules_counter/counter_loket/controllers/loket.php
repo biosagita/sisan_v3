@@ -963,9 +963,10 @@ class Loket extends MY_Counter
             $cnt = 0;
             foreach ($res as $key => $value) {
                 foreach ($value as $value2) {
-                    if(empty($value2->flag_active)) continue;
+                    //if(empty($value2->flag_active)) continue;
                     if ($value2->jam_awal_layanan <= $time AND $value2->jam_akhir_layanan >= $time) {
                         $data[$cnt] = [
+                            'flag_active' => $value2->flag_active,
                             'trans_id_layanan' => $key,
                             'jam_awal_tiket' => $value2->jam_awal_tiket,
                             'jam_akhir_tiket' => $value2->jam_akhir_tiket,
@@ -1026,12 +1027,20 @@ class Loket extends MY_Counter
             if (!empty($res)) {
                 $tmp = [];
                 $tmp2 = [];
+                $tmp3 = [];
                 foreach ($res as $key => $value) {
                     $tmp2[$value['trans_id_layanan']] = $value['trans_id_layanan'];
                     $tmp[] = "(anf_transaksi.trans_id_layanan = ".$value['trans_id_layanan']." AND anf_transaksi.trans_waktu_ambil >= '" . $value['jam_awal_tiket'] . "' AND anf_transaksi.trans_waktu_ambil <= '" . $value['jam_akhir_tiket'] . "')";
+                    if(empty($value['flag_active'])) {
+                        $tmp3[] = "(anf_transaksi.trans_id_layanan = ".$value['trans_id_layanan']." AND anf_transaksi.trans_waktu_ambil != '')";
+                    }
                 }
                 if (!empty($tmp)) {
-                    $text = " AND (".join(' OR ', $tmp)." OR anf_transaksi.trans_id_layanan NOT IN (".join(',', $tmp2).") ) ";
+                    $addx = '';
+                    if(!empty($tmp3)) {
+                        $addx = " OR (".join(' OR ', $tmp3).") ";
+                    }
+                    $text = " AND (".join(' OR ', $tmp)." OR anf_transaksi.trans_id_layanan NOT IN (".join(',', $tmp2).") ".$addx." ) ";
                 }
             }
         } else {
