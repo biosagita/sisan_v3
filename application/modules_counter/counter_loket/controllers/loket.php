@@ -960,14 +960,18 @@ class Loket extends MY_Counter
         if (!empty($res)) {
             list($date, $time) = explode(' ', $currentDate);
             $data = [];
+            $cnt = 0;
             foreach ($res as $key => $value) {
                 foreach ($value as $value2) {
+                    if(empty($value2->flag_active)) continue;
                     if ($value2->jam_awal_layanan <= $time AND $value2->jam_akhir_layanan >= $time) {
-                        $data[$key] = [
+                        $data[$cnt] = [
+                            'trans_id_layanan' => $key,
                             'jam_awal_tiket' => $value2->jam_awal_tiket,
                             'jam_akhir_tiket' => $value2->jam_akhir_tiket,
                         ];
                     }
+                    $cnt++;
                 }
             }
             return $data;
@@ -1021,11 +1025,13 @@ class Loket extends MY_Counter
             $res = $this->getTimeTiketSchedule($idLayanan, $currentDate);
             if (!empty($res)) {
                 $tmp = [];
+                $tmp2 = [];
                 foreach ($res as $key => $value) {
-                    $tmp[] = "(anf_transaksi.trans_id_layanan = $key AND anf_transaksi.trans_waktu_ambil >= '" . $value['jam_awal_tiket'] . "' AND anf_transaksi.trans_waktu_ambil <= '" . $value['jam_akhir_tiket'] . "')";
+                    $tmp2[$value['trans_id_layanan']] = $value['trans_id_layanan'];
+                    $tmp[] = "(anf_transaksi.trans_id_layanan = ".$value['trans_id_layanan']." AND anf_transaksi.trans_waktu_ambil >= '" . $value['jam_awal_tiket'] . "' AND anf_transaksi.trans_waktu_ambil <= '" . $value['jam_akhir_tiket'] . "')";
                 }
                 if (!empty($tmp)) {
-                    $text = " AND (".join(' OR ', $tmp).") ";
+                    $text = " AND (".join(' OR ', $tmp)." OR anf_transaksi.trans_id_layanan NOT IN (".join(',', $tmp2).") ) ";
                 }
             }
         } else {
