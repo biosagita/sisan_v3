@@ -989,12 +989,14 @@ class Loket extends MY_Counter
             list($date, $time) = explode(' ', $currentDate);
             $data = [];
             foreach ($res as $key => $value) {
+                $cntTmp1 = 0;
+                $cntTmp2 = 0;
                 foreach ($value as $value2) {
                     if (empty($value2->flag_active)) continue;
-                    if ($value2->jam_awal_layanan >= $time OR $value2->jam_akhir_layanan <= $time) {
-                        $data[$key] = $key;
-                    }
+                    if ($value2->jam_awal_layanan >= $time OR $value2->jam_akhir_layanan <= $time) $cntTmp2++;
+                    $cntTmp1++;
                 }
+                if(!empty($cntTmp1) AND $cntTmp1 == $cntTmp2) $data[$key] = $key;
             }
             return $data;
         }
@@ -1036,6 +1038,10 @@ class Loket extends MY_Counter
                     $text = " AND (".join(' OR ', $tmp)." OR anf_transaksi.trans_id_layanan NOT IN (".join(',', $tmp2).")) ";
                 }
             }
+        }
+        $res = $this->getNonActivedSchedule($idLayanan);
+        if(!empty($res)) {
+            $text .= " AND anf_transaksi.trans_id_layanan NOT IN (".join(',', $res).") ";
         }
         return $text;
     }
