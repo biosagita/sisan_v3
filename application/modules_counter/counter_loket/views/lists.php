@@ -58,6 +58,7 @@
     myowndatatable3 = '';
     $(document).ready(function () {
         myowndatatable = $('#datatable-example').dataTable({
+            "searching": false,
             "processing": true,
             "serverSide": true,
             "ajax": {
@@ -96,6 +97,7 @@
         });
 
         myowndatatable2 = $('#datatable-example-2').dataTable({
+            "searching": false,
             "processing": true,
             "serverSide": true,
             "ajax": {
@@ -134,6 +136,7 @@
         });
 
         myowndatatable3 = $('#datatable-example-3').dataTable({
+            "searching": false,
             "processing": true,
             "serverSide": true,
             "ajax": {
