@@ -4,7 +4,7 @@
 
 <!-- Bootstrap Dropdown -->
 
-<script type="text/javascript" src="<?php echo $assets; ?>/widgets/dropdown/dropdown.js"></script>
+<!--<script type="text/javascript" src="<?php /*echo $assets; */?>/widgets/dropdown/dropdown.js"></script>-->
 
 <!-- Bootstrap Tooltip -->
 
