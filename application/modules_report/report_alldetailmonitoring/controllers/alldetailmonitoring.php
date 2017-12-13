@@ -246,6 +246,8 @@ class Alldetailmonitoring extends MY_Admin {
 	}
 
 	function page_export_text() {
+        $where = [];
+
 		if(!empty($_GET['periode'])) {
 			$periode = explode('_', $_GET['periode']);
 
@@ -253,9 +255,26 @@ class Alldetailmonitoring extends MY_Admin {
 			$date_end = !empty($periode[1]) ? $periode[1] : '';
 
 			if(!empty($date_start) AND !empty($date_end)) {
-				$this->db->where('DATE_FORMAT(trans_tanggal_transaksi, "%Y-%m-%d") BETWEEN "'.$date_start.'" AND "'.$date_end.'"');
+			    $where[] = 'DATE_FORMAT(trans_tanggal_transaksi, "%Y-%m-%d") BETWEEN "'.$date_start.'" AND "'.$date_end.'"';
 			}
 		}
+
+        if(!empty($_GET['trans_id_layanan'])) {
+            $where[] = 'trans_id_layanan = ' . $_GET['trans_id_layanan'];
+        }
+
+        if(!empty($_GET['trans_id_loket'])) {
+            $where[] = 'trans_id_loket = ' . $_GET['trans_id_loket'];
+        }
+
+        if(!empty($_GET['trans_id_user'])) {
+            $where[] = 'trans_id_user = ' . $_GET['trans_id_user'];
+        }
+
+        if(!empty($where)) {
+            $where = join(' AND ', $where);
+            $this->db->where($where);
+        }
 
 		$this->db->select('lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
 		$this->db->from($this->_table_name);
@@ -279,6 +298,8 @@ class Alldetailmonitoring extends MY_Admin {
 		header("Pragma: no-cache");
 		header("Expires: 0");
 
+        $where = [];
+
 		if(!empty($_GET['periode'])) {
 			$periode = explode('_', $_GET['periode']);
 
@@ -286,9 +307,26 @@ class Alldetailmonitoring extends MY_Admin {
 			$date_end = !empty($periode[1]) ? $periode[1] : '';
 
 			if(!empty($date_start) AND !empty($date_end)) {
-				$this->db->where('DATE_FORMAT(trans_tanggal_transaksi, "%Y-%m-%d") BETWEEN "'.$date_start.'" AND "'.$date_end.'"');
+				$where[] = 'DATE_FORMAT(trans_tanggal_transaksi, "%Y-%m-%d") BETWEEN "'.$date_start.'" AND "'.$date_end.'"';
 			}
 		}
+
+        if(!empty($_GET['trans_id_layanan'])) {
+            $where[] = 'trans_id_layanan = ' . $_GET['trans_id_layanan'];
+        }
+
+        if(!empty($_GET['trans_id_loket'])) {
+            $where[] = 'trans_id_loket = ' . $_GET['trans_id_loket'];
+        }
+
+        if(!empty($_GET['trans_id_user'])) {
+            $where[] = 'trans_id_user = ' . $_GET['trans_id_user'];
+        }
+
+        if(!empty($where)) {
+            $where = join(' AND ', $where);
+            $this->db->where($where);
+        }
 
 		$this->db->select($this->_table_name . '.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
 		$this->db->from($this->_table_name);

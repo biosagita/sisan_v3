@@ -45,6 +45,21 @@
                 href += '/?periode='+periode;
             }
 
+            var trans_id_layanan = $('#trans_id_layanan').val();
+            if(trans_id_layanan != '') {
+                href += '&trans_id_layanan='+trans_id_layanan;
+            }
+
+            var trans_id_loket = $('#trans_id_loket').val();
+            if(trans_id_loket != '') {
+                href += '&trans_id_loket='+trans_id_loket;
+            }
+
+            var trans_id_user = $('#trans_id_user').val();
+            if(trans_id_user != '') {
+                href += '&trans_id_user='+trans_id_user;
+            }
+
             window.open(href,'_blank');
         });
 
@@ -58,6 +73,21 @@
             if(periode != '') {
                 periode = periode.replace(' - ', '_');
                 href += '/?periode='+periode;
+            }
+
+            var trans_id_layanan = $('#trans_id_layanan').val();
+            if(trans_id_layanan != '') {
+                href += '&trans_id_layanan='+trans_id_layanan;
+            }
+
+            var trans_id_loket = $('#trans_id_loket').val();
+            if(trans_id_loket != '') {
+                href += '&trans_id_loket='+trans_id_loket;
+            }
+
+            var trans_id_user = $('#trans_id_user').val();
+            if(trans_id_user != '') {
+                href += '&trans_id_user='+trans_id_user;
             }
 
             window.open(href,'_blank');
