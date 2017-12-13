@@ -107,9 +107,14 @@ class Transaksi_model extends CI_Model {
 		return $this->db->get()->row_array();
 	}
 
-	function get_loket_info() {
-		$date_now = date('Y-m-d');
-		$date_now = str_replace('-', '', $date_now);
+	function get_loket_info($now = true) {
+
+	    $where = '';
+	    if($now) {
+            $date_now = date('Y-m-d');
+            $date_now = str_replace('-', '', $date_now);
+            $where = ' WHERE trans_tanggal_transaksi = "' . $date_now . '" ';
+        }
 		
 		$q = 'SELECT 
 		trans_id_transaksi, trans_id_loket, trans_id_layanan, trans_status_transaksi, lay_nama_layanan, lokets_name, trans_id_user, admusr_username, TIME_TO_SEC(TIMEDIFF(trans_waktu_finish, trans_waktu_panggil)) as waktu_performance, TIME_TO_SEC(TIMEDIFF(CURTIME(), trans_waktu_panggil)) as waktu_melayani_second 
@@ -118,7 +123,7 @@ class Transaksi_model extends CI_Model {
 		LEFT JOIN anf_group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan)
 		LEFT JOIN anf_lokets ON (trans_id_loket = lokets_id) 
 		LEFT JOIN anf_adminusers ON (trans_id_user = admusr_id) 
-		WHERE trans_tanggal_transaksi = "' . $date_now . '" 
+		'.$where.' 
 		ORDER BY trans_id_loket';
 
 		$vItems = array(
@@ -137,26 +142,31 @@ class Transaksi_model extends CI_Model {
 			$vItems['loket_info'][$vRow->trans_id_loket] = $vRow->lokets_name;
 			$vItems['user_info'][$vRow->trans_id_loket] = $vRow->admusr_username;
 
-			if(empty($vItems['loket_num_status'][$vRow->trans_id_loket][$vRow->trans_id_layanan][$vRow->trans_status_transaksi])) { 
-				$vItems['loket_num_status'][$vRow->trans_id_loket][$vRow->trans_id_layanan][$vRow->trans_status_transaksi] = 1;
-			} else {
-				$vItems['loket_num_status'][$vRow->trans_id_loket][$vRow->trans_id_layanan][$vRow->trans_status_transaksi]++;
-			}
+			if(!empty($where)) {
+                if(empty($vItems['loket_num_status'][$vRow->trans_id_loket][$vRow->trans_id_layanan][$vRow->trans_status_transaksi])) {
+                    $vItems['loket_num_status'][$vRow->trans_id_loket][$vRow->trans_id_layanan][$vRow->trans_status_transaksi] = 1;
+                } else {
+                    $vItems['loket_num_status'][$vRow->trans_id_loket][$vRow->trans_id_layanan][$vRow->trans_status_transaksi]++;
+                }
 
-			if(empty($vItems['num_status'][$vRow->trans_id_loket][$vRow->trans_status_transaksi])) { 
-				$vItems['num_status'][$vRow->trans_id_loket][$vRow->trans_status_transaksi] = 1;
-			} else {
-				$vItems['num_status'][$vRow->trans_id_loket][$vRow->trans_status_transaksi]++;
-			}
+                if(empty($vItems['num_status'][$vRow->trans_id_loket][$vRow->trans_status_transaksi])) {
+                    $vItems['num_status'][$vRow->trans_id_loket][$vRow->trans_status_transaksi] = 1;
+                } else {
+                    $vItems['num_status'][$vRow->trans_id_loket][$vRow->trans_status_transaksi]++;
+                }
 
-			if($vRow->trans_status_transaksi == 5 AND !empty($vRow->waktu_performance)) {
-				$vItems['waktu_performance'][$vRow->trans_id_loket][$vRow->trans_id_transaksi] = ceil($vRow->waktu_performance / 60);
-			}
+                if($vRow->trans_status_transaksi == 5 AND !empty($vRow->waktu_performance)) {
+                    $vItems['waktu_performance'][$vRow->trans_id_loket][$vRow->trans_id_transaksi] = ceil($vRow->waktu_performance / 60);
+                }
 
-			if($vRow->trans_status_transaksi == 2 AND !empty($vRow->waktu_melayani_second)) {
-				$vItems['waktu_melayani_second'][$vRow->trans_id_loket] = ceil($vRow->waktu_melayani_second / 60);
-			}
+                if($vRow->trans_status_transaksi == 2 AND !empty($vRow->waktu_melayani_second)) {
+                    $vItems['waktu_melayani_second'][$vRow->trans_id_loket] = ceil($vRow->waktu_melayani_second / 60);
+                }
+            } else {
+                $vItems['loket_num_status'][$vRow->trans_id_loket][$vRow->trans_id_layanan][$vRow->trans_status_transaksi] = 0;
 
+                $vItems['num_status'][$vRow->trans_id_loket][$vRow->trans_status_transaksi] = 0;
+            }
 		}
 		return $vItems;
 	}

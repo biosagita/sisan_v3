@@ -15,7 +15,11 @@ class Main extends MY_Counter {
 	
 	function viewing() {
 		$this->_data['warna_box'] 	= $this->settingsx->where(array('sett_keterangan' => 'Dashbordloket'))->get_all();
-		$this->_data['lokets'] 	= $this->transaksix->get_loket_info();
+		$res = $this->transaksix->get_loket_info();
+		if(empty($res['layanan_info'])) {
+            $res = $this->transaksix->get_loket_info(false);
+        }
+		$this->_data['lokets'] 	= $res;
 		$this->_data['ajax_load_dashboard'] 	= site_url('dashboard_main/main/ajax_load_dashboard');
 		
 		//using lib template
@@ -26,7 +30,11 @@ class Main extends MY_Counter {
 
 	function ajax_load_dashboard() {
 		$this->_data['warna_box'] 	= $this->settingsx->where(array('sett_keterangan' => 'Dashbordloket'))->get_all();
-		$this->_data['lokets'] 	= $this->transaksix->get_loket_info();
+        $res = $this->transaksix->get_loket_info();
+        if(empty($res['layanan_info'])) {
+            $res = $this->transaksix->get_loket_info(false);
+        }
+		$this->_data['lokets'] 	= $res;
 
 		$this->load->view('load_dashboard', $this->_data);
 	}
