@@ -157,7 +157,10 @@ class Settings extends MY_Admin {
 			);
 			$cnt++;
 		}
-		generateDataTable($table, $primaryKey, $columns);
+
+        $whereResult = '';
+        $whereAll = ' sett_status = 1';
+		generateDataTable($table, $primaryKey, $columns, $whereResult, $whereAll);
 	}
 
 	function add_ajax() {
