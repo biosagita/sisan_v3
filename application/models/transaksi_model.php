@@ -107,6 +107,46 @@ class Transaksi_model extends CI_Model {
 		return $this->db->get()->row_array();
 	}
 
+    function get_all_loket_info() {
+        $q = 'SELECT * 
+		FROM anf_prioritas_layanan
+		JOIN anf_group_layanan ON (prilay_id_group_layanan = grolay_id_group_layanan)
+		JOIN anf_layanan ON (grolay_id_group_layanan = lay_id_group_layanan)
+		JOIN anf_grouplokets ON (prilay_id_group_loket = grolok_id)
+		JOIN anf_lokets ON (grolok_id = lokets_grolok_id)
+		ORDER BY lokets_id';
+
+        $vItems = array(
+            'layanan_info' 				=> array(),
+            'loket_info' 				=> array(),
+            'user_info' 				=> array(),
+            'loket_num_status' 			=> array(),
+            'num_status' 				=> array(),
+            'waktu_performance' 		=> array(),
+            'waktu_melayani_second' 	=> array(),
+        );
+        $query = $this->db->query($q);
+        foreach ($query->result() as $vRow)
+        {
+            $vItems['layanan_info'][$vRow->lay_id_layanan] = $vRow->lay_nama_layanan;
+            $vItems['loket_info'][$vRow->lokets_id] = $vRow->lokets_name;
+            $vItems['user_info'][$vRow->lokets_id] = '-';
+
+            $vItems['loket_num_status'][$vRow->lokets_id][$vRow->lay_id_layanan][0] = 0;
+            $vItems['loket_num_status'][$vRow->lokets_id][$vRow->lay_id_layanan][1] = 0;
+            $vItems['loket_num_status'][$vRow->lokets_id][$vRow->lay_id_layanan][2] = 0;
+            $vItems['loket_num_status'][$vRow->lokets_id][$vRow->lay_id_layanan][3] = 0;
+            $vItems['loket_num_status'][$vRow->lokets_id][$vRow->lay_id_layanan][5] = 0;
+
+            $vItems['num_status'][$vRow->lokets_id][0] = 0;
+            $vItems['num_status'][$vRow->lokets_id][1] = 0;
+            $vItems['num_status'][$vRow->lokets_id][2] = 0;
+            $vItems['num_status'][$vRow->lokets_id][3] = 0;
+            $vItems['num_status'][$vRow->lokets_id][5] = 0;
+        }
+        return $vItems;
+    }
+
 	function get_loket_info($now = true) {
 
 	    $where = '';

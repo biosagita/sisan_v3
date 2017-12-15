@@ -15,10 +15,19 @@ class Main extends MY_Counter {
 	
 	function viewing() {
 		$this->_data['warna_box'] 	= $this->settingsx->where(array('sett_keterangan' => 'Dashbordloket'))->get_all();
-		$res = $this->transaksix->get_loket_info();
-		if(empty($res['layanan_info'])) {
+		$resTmp = $this->transaksix->get_loket_info();
+		/*if(empty($res['layanan_info'])) {
             $res = $this->transaksix->get_loket_info(false);
+        }*/
+        $res = $this->transaksix->get_all_loket_info();
+        if(!empty($res)) {
+            foreach ($res as $key => $value) {
+                if(!empty($resTmp[$key])) {
+                    $res[$key] = $resTmp[$key];
+                }
+            }
         }
+
 		$this->_data['lokets'] 	= $res;
 		$this->_data['ajax_load_dashboard'] 	= site_url('dashboard_main/main/ajax_load_dashboard');
 		
@@ -30,9 +39,17 @@ class Main extends MY_Counter {
 
 	function ajax_load_dashboard() {
 		$this->_data['warna_box'] 	= $this->settingsx->where(array('sett_keterangan' => 'Dashbordloket'))->get_all();
-        $res = $this->transaksix->get_loket_info();
-        if(empty($res['layanan_info'])) {
+        $resTmp = $this->transaksix->get_loket_info();
+        /*if(empty($res['layanan_info'])) {
             $res = $this->transaksix->get_loket_info(false);
+        }*/
+        $res = $this->transaksix->get_all_loket_info();
+        if(!empty($res)) {
+            foreach ($res as $key => $value) {
+                if(!empty($resTmp[$key])) {
+                    $res[$key] = $resTmp[$key];
+                }
+            }
         }
 		$this->_data['lokets'] 	= $res;
 
