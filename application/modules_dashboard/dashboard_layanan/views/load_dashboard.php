@@ -21,32 +21,43 @@
                 <div class="dashboard-box dashboard-box-chart bg-white content-box">
                     <div class="content-wrapper">
                         <div class="row list-grade" style="text-align:left;margin-top:0;">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="box_layanan satu">
                                     <span>Jumlah Dilayani</span><br />
-                                    <span class="info_number"><?php echo (!empty($layanan['num_status'][$key][5]) ? $layanan['num_status'][$key][5] : 0); ?></span>
+                                    <span class="info_number"><?php echo (!empty($layanan['num_status'][$key][5]) ? $layanan['num_status'][$key][5] : 0); ?></span><br />
+                                    <span>&nbsp;</span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="box_layanan empat">
+                                    <span>Total Layanan<!-- (menit)--></span><br />
+                                    <span class="info_number">
+                                    <?php echo (!empty($layanan['waktu_layanan'][$key]) ? (ceil(array_sum($layanan['waktu_layanan'][$key]) / count($layanan['waktu_layanan'][$key]))) : 0); ?>
+                                </span><br />
+                                    <span>(menit)</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="box_layanan dua">
-                                    <span>Waktu Tunggu (menit)</span><br />
+                                    <span>Total Tunggu<!-- (menit)--></span><br />
                                     <span class="info_number">
                                     <?php echo (!empty($layanan['waktu_tunggu'][$key]) ? (ceil(array_sum($layanan['waktu_tunggu'][$key]) / count($layanan['waktu_tunggu'][$key]))) : 0); ?>
-                                </span>
+                                </span><br />
+                                    <span>(menit)</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="box_layanan tiga">
                                     <span>Sisa Layanan</span><br />
-                                    <span class="info_number"><?php echo (!empty($layanan['num_status'][$key][0]) ? $layanan['num_status'][$key][0] : 0); ?></span>
+                                    <span class="info_number"><?php echo (!empty($layanan['num_status'][$key][0]) ? $layanan['num_status'][$key][0] : 0); ?></span><br />
+                                    <span>&nbsp;</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="box_layanan empat">
-                                    <span>Waktu Layanan (menit)</span><br />
-                                    <span class="info_number">
-                                    <?php echo (!empty($layanan['waktu_layanan'][$key]) ? (ceil(array_sum($layanan['waktu_layanan'][$key]) / count($layanan['waktu_layanan'][$key]))) : 0); ?>
-                                </span>
+                                <div class="box_layanan tiga">
+                                    <span>Panjang Antrian</span><br />
+                                    <span class="info_number"><?php echo (!empty($layanan['num_status'][$key][0]) ? $layanan['num_status'][$key][0] : 0); ?></span><br />
+                                    <span>(menit)</span>
                                 </div>
                             </div>
                         </div>

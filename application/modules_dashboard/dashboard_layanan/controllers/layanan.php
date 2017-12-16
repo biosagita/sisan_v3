@@ -15,7 +15,17 @@ class Layanan extends MY_Counter {
 	
 	function viewing() {
 		$this->_data['warna_box'] 	= $this->settingsx->where(array('sett_keterangan' => 'Dashbordlayanan'))->get_all();
-		$this->_data['layanan'] 	= $this->transaksix->get_layanan_info();
+        $resTmp = $this->transaksix->get_layanan_info();
+        $res = $this->transaksix->get_all_layanan_info();
+        if(!empty($res)) {
+            foreach ($res as $key => $value) {
+                if(!empty($resTmp[$key])) {
+                    $res[$key] = $resTmp[$key];
+                }
+            }
+        }
+
+		$this->_data['layanan'] 	= $res;
 		$this->_data['ajax_load_dashboard'] 	= site_url('dashboard_layanan/layanan/ajax_load_dashboard');
 		
 		//using lib template
@@ -26,7 +36,17 @@ class Layanan extends MY_Counter {
 
 	function ajax_load_dashboard() {
 		$this->_data['warna_box'] 	= $this->settingsx->where(array('sett_keterangan' => 'Dashbordlayanan'))->get_all();
-		$this->_data['layanan'] 	= $this->transaksix->get_layanan_info();
+        $resTmp = $this->transaksix->get_layanan_info();
+        $res = $this->transaksix->get_all_layanan_info();
+        if(!empty($res)) {
+            foreach ($res as $key => $value) {
+                if(!empty($resTmp[$key])) {
+                    $res[$key] = $resTmp[$key];
+                }
+            }
+        }
+
+        $this->_data['layanan'] 	= $res;
 
 		$this->load->view('load_dashboard', $this->_data);
 	}

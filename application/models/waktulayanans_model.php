@@ -60,7 +60,8 @@ class Waktulayanans_model extends CI_Model {
 		$data = array();
 		foreach ($res as $key => $value) {
 			$data[] = array(
-				'name' 	=> ($value['waklay_waktu_awal_1'] . '-' . $value['waklay_waktu_akhir_1']),
+				//'name' 	=> ($value['waklay_waktu_awal_1'] . '-' . $value['waklay_waktu_akhir_1']),
+				'name' 	=> $value['waklay_keterangan'],
 				'value' => $value['waklay_id_waktu_layanan'],
 			); 
 		}

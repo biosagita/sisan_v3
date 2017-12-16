@@ -211,6 +211,37 @@ class Transaksi_model extends CI_Model {
 		return $vItems;
 	}
 
+    function get_all_layanan_info() {
+        $q = 'SELECT * 
+		FROM anf_prioritas_layanan
+		JOIN anf_group_layanan ON (prilay_id_group_layanan = grolay_id_group_layanan)
+		JOIN anf_layanan ON (grolay_id_group_layanan = lay_id_group_layanan)
+		JOIN anf_grouplokets ON (prilay_id_group_loket = grolok_id)
+		JOIN anf_lokets ON (grolok_id = lokets_grolok_id)
+		ORDER BY lokets_id';
+
+        $vItems = array(
+            'layanan_info' 				=> array(),
+            'loket_info' 				=> array(),
+            'num_status' 				=> array(),
+            'waktu_tunggu' 				=> array(),
+            'waktu_layanan' 			=> array(),
+        );
+        $query = $this->db->query($q);
+        foreach ($query->result() as $vRow)
+        {
+            $vItems['layanan_info'][$vRow->lay_id_layanan] = $vRow->lay_nama_layanan;
+            $vItems['loket_info'][$vRow->lay_id_layanan][$vRow->lokets_id] = $vRow->lokets_name;
+
+            $vItems['num_status'][$vRow->lokets_id][0] = 0;
+            $vItems['num_status'][$vRow->lokets_id][1] = 0;
+            $vItems['num_status'][$vRow->lokets_id][2] = 0;
+            $vItems['num_status'][$vRow->lokets_id][3] = 0;
+            $vItems['num_status'][$vRow->lokets_id][5] = 0;
+        }
+        return $vItems;
+    }
+
 	function get_layanan_info() {
 		$date_now = date('Y-m-d');
 		$date_now = str_replace('-', '', $date_now);
