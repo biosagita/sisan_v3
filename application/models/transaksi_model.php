@@ -329,7 +329,7 @@ class Transaksi_model extends CI_Model {
 				$vItems['waktu_tunggu'][$vRow->trans_id_layanan][$vRow->trans_id_transaksi] = ceil($vRow->waktu_tunggu / 60);
 			}
 
-            if(empty($tmp[$vRow->trans_id_loket])) {
+            if(!empty($vRow->trans_id_loket) AND empty($tmp[$vRow->trans_id_loket])) {
                 $res = $this->get_time_list_antrian($vRow->trans_id_loket);
                 if(!empty($res)) {
                     $vItems['info_list_antrian'][$res['trans_id_layanan']] = $res;

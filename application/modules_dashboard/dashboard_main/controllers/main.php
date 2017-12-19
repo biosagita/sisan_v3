@@ -22,7 +22,7 @@ class Main extends MY_Counter {
         $res = $this->transaksix->get_all_loket_info();
         if(!empty($res)) {
             foreach ($res as $key => $value) {
-                if(!empty($resTmp[$key])) {
+                if(!empty($resTmp[$key]['loket_info'])) {
                     $res[$key] = $resTmp[$key];
                 }
             }
