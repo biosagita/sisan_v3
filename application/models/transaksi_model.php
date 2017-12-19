@@ -243,32 +243,21 @@ class Transaksi_model extends CI_Model {
         return $vItems;
     }
 
-    function get_time_list_antrian($loket = 0, $trans_tanggal_transaksi = '') {
+    function get_time_list_antrian($idLayanan = 0, $trans_tanggal_transaksi = '') {
         $vItems = [];
 
         if(empty($trans_tanggal_transaksi)) $trans_tanggal_transaksi = date('Ymd');
         $scheduleCondition = '';
         $addWhere = 'trans_waktu_ambil != "" AND ';
 
-        $q = 'SELECT prilay_id_group_layanan, prilay_id_group_loket 
-		FROM anf_lokets 
-		JOIN anf_prioritas_layanan ON (lokets_grolok_id = prilay_id_group_loket) 
-		WHERE lokets_id = ' . $loket;
-
-        $query = $this->db->query($q);
-        $listlayanan = array();
-        $grouploket = '';
-        foreach ($query->result() as $vRow) {
-            $listlayanan[] = $vRow->prilay_id_group_layanan;
-            $grouploket = $vRow->prilay_id_group_loket;
-        }
-
-        $res = $this->db->query('SELECT trans_id_layanan, trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, TIME_TO_SEC(TIMEDIFF(NOW(), trans_waktu_ambil)) as waktu_antri 
+        $sql = 'SELECT trans_id_layanan, trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, TIME_TO_SEC(TIMEDIFF(DATE_FORMAT(NOW(),"%H:%i:%s"), trans_waktu_ambil)) as waktu_antri 
 			FROM anf_transaksi 
 			LEFT JOIN anf_layanan ON trans_id_layanan=lay_id_layanan 
 			JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
-			WHERE ' . $addWhere . ' prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $trans_tanggal_transaksi . '" ' . $scheduleCondition . '
-			ORDER BY prilay_prioritas ASC, trans_id_transaksi LIMIT 1');
+			WHERE ' . $addWhere . ' trans_id_layanan = '. $idLayanan .' AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $trans_tanggal_transaksi . '" ' . $scheduleCondition . '
+			ORDER BY prilay_prioritas ASC, trans_id_transaksi LIMIT 1'; //exit();
+
+        $res = $this->db->query($sql);
 
         $vRow_next = $res->row_array();
         if(!empty($vRow_next)) {
@@ -329,12 +318,12 @@ class Transaksi_model extends CI_Model {
 				$vItems['waktu_tunggu'][$vRow->trans_id_layanan][$vRow->trans_id_transaksi] = ceil($vRow->waktu_tunggu / 60);
 			}
 
-            if(!empty($vRow->trans_id_loket) AND empty($tmp[$vRow->trans_id_loket])) {
-                $res = $this->get_time_list_antrian($vRow->trans_id_loket);
+            if(empty($tmp[$vRow->trans_id_layanan])) {
+                $res = $this->get_time_list_antrian($vRow->trans_id_layanan);
                 if(!empty($res)) {
                     $vItems['info_list_antrian'][$res['trans_id_layanan']] = $res;
                 }
-                $tmp[$vRow->trans_id_loket] = 1;
+                $tmp[$vRow->trans_id_layanan] = 1;
             }
 
 		}
