@@ -42,7 +42,7 @@
                                     <div class="box_layanan empat">
                                         <span>Total Layanan<!-- (menit)--></span><br />
                                         <span class="info_number">
-                                        <?php echo (!empty($layanan['waktu_layanan'][$key]) ? (ceil(array_sum($layanan['waktu_layanan'][$key]) / count($layanan['waktu_layanan'][$key]))) : 0); ?>
+                                        <?php echo (!empty($layanan['waktu_layanan'][$key]) ? $layanan['waktu_layanan'][$key] : 0); ?>
                                     </span><br />
                                         <span>(menit)</span>
                                     </div>
@@ -51,7 +51,7 @@
                                     <div class="box_layanan dua">
                                         <span>Total Tunggu<!-- (menit)--></span><br />
                                         <span class="info_number">
-                                        <?php echo (!empty($layanan['waktu_tunggu'][$key]) ? (ceil(array_sum($layanan['waktu_tunggu'][$key]) / count($layanan['waktu_tunggu'][$key]))) : 0); ?>
+                                        <?php echo (!empty($layanan['waktu_tunggu'][$key]) ? $layanan['waktu_tunggu'][$key] : 0); ?>
                                     </span><br />
                                         <span>(menit)</span>
                                     </div>
@@ -74,7 +74,7 @@
                             <div class="row list-grade" style="margin-top:0;">
                                 <span>Loket Info</span><br />
                                 <hr />
-                                <p><?php echo (!empty($layanan['loket_info'][$key]) ? join(', ', $layanan['loket_info'][$key]) : ''); ?></p>
+                                <p><?php echo (!empty($layanan['loket_info'][$key]) ? join(', ', $layanan['loket_info'][$key]) : 0); ?></p>
                             </div>
                         </div>
                         <div class="button-pane">
