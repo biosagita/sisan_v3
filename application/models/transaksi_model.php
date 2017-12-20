@@ -311,11 +311,15 @@ class Transaksi_model extends CI_Model {
 			}
 
 			if($vRow->trans_status_transaksi == 5 AND !empty($vRow->waktu_melayani)) {
-				$vItems['waktu_layanan'][$vRow->trans_id_layanan][$vRow->trans_id_transaksi] = ceil($vRow->waktu_melayani / 60);
+				//$vItems['waktu_layanan'][$vRow->trans_id_layanan][$vRow->trans_id_transaksi] = ceil($vRow->waktu_melayani / 60);
+                if(empty($vItems['waktu_layanan'][$vRow->trans_id_layanan])) $vItems['waktu_layanan'][$vRow->trans_id_layanan] = 0;
+				$vItems['waktu_layanan'][$vRow->trans_id_layanan] += ceil($vRow->waktu_melayani / 60);
 			}
 
 			if($vRow->trans_status_transaksi == 2 AND !empty($vRow->waktu_tunggu)) {
-				$vItems['waktu_tunggu'][$vRow->trans_id_layanan][$vRow->trans_id_transaksi] = ceil($vRow->waktu_tunggu / 60);
+				//$vItems['waktu_tunggu'][$vRow->trans_id_layanan][$vRow->trans_id_transaksi] = ceil($vRow->waktu_tunggu / 60);
+                if(empty($vItems['waktu_tunggu'][$vRow->trans_id_layanan])) $vItems['waktu_tunggu'][$vRow->trans_id_layanan] = 0;
+				$vItems['waktu_tunggu'][$vRow->trans_id_layanan] += ceil($vRow->waktu_tunggu / 60);
 			}
 
             if(empty($tmp[$vRow->trans_id_layanan])) {
