@@ -311,7 +311,7 @@
                             <div class="tile-header" style="padding:2px;">
                                 SERVICE TIME
                             </div>
-                            <div class="timer" class="tile-content-wrapper" style="font-size:30px;padding:5px;color:green;">
+                            <div class="timer" class="tile-content-wrapper" style="font-size:30px;padding:18px 5px;color:green;">
                                 <span class="hour">00</span>:<span class="minute">00</span>:<span class="second">00</span>
                             </div>
                         </a>
@@ -350,13 +350,24 @@
                                 <span id="forward_layanan"></span>
                             </div>
                         </div>
+                        <div class="row" style="margin-bottom:5px;background: black;color: white;">
+                            <div class="col-sm-4">
+                                Nama Visitor
+                            </div>
+                            <div class="col-sm-1">
+                                :
+                            </div>
+                            <div class="col-sm-7">
+                                <a data-toggle="modal" href="#myModal" style="color: #ffffff;" id="linkVisitorNama"></a>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-2">
                         <a href="#" title="Example tile shortcut" class="tile-box tile-box-alt btn-black">
                             <div class="tile-header" style="padding:2px;">
                                 IDLE TIME
                             </div>
-                            <div id="timer_2" class="tile-content-wrapper" style="font-size:30px;padding:5px;color:green;">
+                            <div id="timer_2" class="tile-content-wrapper" style="font-size:30px;padding:18px 5px;color:green;">
                                 <span class="hour">00</span>:<span class="minute">00</span>:<span class="second">00</span>
                             </div>
                         </a>
@@ -387,6 +398,58 @@
                     <div class="panel-body" style="min-height: 500px;">
                         <?php echo $contents; ?>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Data Visitor</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="example-box-wrapper">
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <td>Nomor</td>
+                                <td>:</td>
+                                <td><span id="visitorNomor">-</span></td>
+                            </tr>
+                            <tr>
+                                <td>Nama</td>
+                                <td>:</td>
+                                <td><span id="visitorNama">-</span></td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td>:</td>
+                                <td><span id="visitorAlamat">-</span></td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>:</td>
+                                <td><span id="visitorPhone">-</span></td>
+                            </tr>
+                            <tr>
+                                <td>Jenis Kelamin</td>
+                                <td>:</td>
+                                <td><span id="visitorSex">-</span></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>:</td>
+                                <td><span id="visitorEmail">-</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

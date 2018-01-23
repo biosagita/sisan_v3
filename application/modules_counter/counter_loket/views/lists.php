@@ -210,7 +210,7 @@
 
                 refreshTable();
 
-                $('#tiket, #transaction, #start, #forward_layanan').text('');
+                $('#tiket, #transaction, #start, #forward_layanan, #linkVisitorNama').text('');
                 $('#tiket').text('-');
 
                 timer_2.stop();
@@ -233,7 +233,7 @@
             success: function (data) {
                 refreshTable();
 
-                $('#tiket, #transaction, #start, #forward_layanan').text('');
+                $('#tiket, #transaction, #start, #forward_layanan, #linkVisitorNama').text('');
                 $('#tiket').text('-');
 
                 timer_2.stop();
@@ -294,6 +294,15 @@
                 document.getElementById('start').innerHTML = data.start;
                 document.getElementById('forward_layanan').innerHTML = data.layanan_forward;
 
+                //for detail visitor
+                document.getElementById('linkVisitorNama').innerHTML = data.vst_nama;
+                document.getElementById('visitorNama').innerHTML = data.vst_nama;
+                document.getElementById('visitorNomor').innerHTML = data.vst_nomor;
+                document.getElementById('visitorAlamat').innerHTML = data.vst_alamat;
+                document.getElementById('visitorPhone').innerHTML = data.vst_phone;
+                document.getElementById('visitorSex').innerHTML = data.vst_sex;
+                document.getElementById('visitorEmail').innerHTML = data.vst_email;
+
                 refreshTable();
 
                 timer_2.stop();
@@ -333,7 +342,7 @@
 
             if (result.success) {
                 refreshTable();
-                $('#tiket, #transaction, #start, #forward_layanan').text('');
+                $('#tiket, #transaction, #start, #forward_layanan, #linkVisitorNama').text('');
                 $('#tiket').text('-');
 
                 timer_2.stop();
@@ -416,6 +425,15 @@
                         document.getElementById('transaction').innerHTML = data.transaction;
                         document.getElementById('start').innerHTML = data.start;
                         document.getElementById('forward_layanan').innerHTML = data.layanan_forward;
+
+                        //for detail visitor
+                        document.getElementById('linkVisitorNama').innerHTML = data.vst_nama;
+                        document.getElementById('visitorNama').innerHTML = data.vst_nama;
+                        document.getElementById('visitorNomor').innerHTML = data.vst_nomor;
+                        document.getElementById('visitorAlamat').innerHTML = data.vst_alamat;
+                        document.getElementById('visitorPhone').innerHTML = data.vst_phone;
+                        document.getElementById('visitorSex').innerHTML = data.vst_sex;
+                        document.getElementById('visitorEmail').innerHTML = data.vst_email;
 
                         refreshTable();
 
