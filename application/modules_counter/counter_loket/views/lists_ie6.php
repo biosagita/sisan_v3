@@ -32,6 +32,13 @@
                         </div>
                     </div>
                 </div> -->
+                <div class="col">
+                    <div class="cell">
+                        <div class="col" style="text-align:right;">
+                            Jumlah Antrian: <span id="jumlahAntrian">-</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="col" style="background: whitesmoke;">
                     <div class="cell">
                         <div class="col" style="font-size:20px;padding: 10px 0;">
@@ -156,4 +163,30 @@
             console.log(xmlObj);
         }	
     }
+
+    function show_antrian(){
+        if (window.XMLHttpRequest) {
+            http = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            http = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        var url = '<?php echo $totalAntrian; ?>';
+        http.open("POST", url, true);
+        http.send(null);
+        http.onreadystatechange = statechange_show_antrian;
+    }
+
+    function statechange_show_antrian() {
+        if (http.readyState == 4) {
+            var xmlObj = http.responseXML;
+            // console.log(xmlObj);
+            var jumlahAntrian = xmlObj.getElementsByTagName('JUMLAH_ANTRIAN')[0].childNodes[0].nodeValue;
+
+            document.getElementById('jumlahAntrian').innerHTML = jumlahAntrian;
+        }	
+    }
+
+    // show_antrian();
+
+    setInterval(function(){ show_antrian(); }, 1000);
 </script>
