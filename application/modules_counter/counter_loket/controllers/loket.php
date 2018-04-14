@@ -636,6 +636,36 @@ class Loket extends MY_Counter
         echo json_encode($result);
     }
 
+    /**
+     * Function returns XML string for input associative array. 
+     * @param Array $array Input associative array
+     * @param String $wrap Wrapping tag
+     * @param Boolean $upper To set tags in uppercase
+     */
+    function array2xml($array, $wrap='ROW0', $upper=true) {
+        // set initial value for XML string
+        $xml = '';
+        // wrap XML with $wrap TAG
+        if ($wrap != null) {
+            $xml .= "<$wrap>\n";
+        }
+        // main loop
+        foreach ($array as $key=>$value) {
+            // set tags in uppercase if needed
+            if ($upper == true) {
+                $key = strtoupper($key);
+            }
+            // append to XML string
+            $xml .= "<$key>" . htmlspecialchars(trim($value)) . "</$key>";
+        }
+        // close wrap TAG if needed
+        if ($wrap != null) {
+            $xml .= "\n</$wrap>\n";
+        }
+        // return prepared XML string
+        return $xml;
+    }
+
     function fnNext($trans_id_transaksi = '')
     {
         $trans_id_transaksi = $this->input->post('id');
@@ -662,6 +692,7 @@ class Loket extends MY_Counter
         $addWhere = !empty($trans_id_transaksi) ? ('trans_id_transaksi = "' . $trans_id_transaksi . '" AND ') : '';
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
+        //$scheduleCondition = '';
 
         $cal_next = $this->db->query('SELECT trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, anf_visitor.*  
 			FROM anf_transaksi 
@@ -747,7 +778,7 @@ class Loket extends MY_Counter
         $vArrayTemp['vst_sex'] = $vst_sex;
         $vArrayTemp['vst_email'] = $vst_email;
 
-        echo json_encode($vArrayTemp);
+        // echo json_encode($vArrayTemp);
 
         /*
         $sql=$this->db->query("UPDATE anf_transaksi
@@ -783,6 +814,10 @@ class Loket extends MY_Counter
             //close cek layanan forward------------------------------------------------------------------------------
         }
 
+        header('Content-Type: text/xml');
+        header('Pragma: no-cache');
+        echo '<?xml version="1.0" encoding="UTF-8"?>';
+        print $this->array2xml($vArrayTemp);
     }
 
     function fnSkip()
@@ -937,7 +972,12 @@ class Loket extends MY_Counter
 			set  trans_status_transaksi='1' 
 			where trans_no_ticket_awal='$_countmk3[trans_no_ticket_awal]' and trans_no_ticket='$_countmk3[trans_no_ticket]' and trans_id_loket='$Loket' and trans_tanggal_transaksi='$trans_tanggal_transaksi'");
 
-        echo json_encode($result);
+        //echo json_encode($result);
+
+        header('Content-Type: text/xml');
+        header('Pragma: no-cache');
+        echo '<?xml version="1.0" encoding="UTF-8"?>';
+        print $this->array2xml($result);
 
     }
 

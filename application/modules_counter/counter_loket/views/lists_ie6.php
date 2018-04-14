@@ -2,7 +2,7 @@
 <div class="col">
     <div class="cell panel">
         <div class="header">
-            Header
+            Loket Name: <?php echo $loket_name; ?>
         </div>
         <div class="body">
             <div class="cell">
@@ -36,10 +36,10 @@
                     <div class="cell">
                         <div class="col" style="font-size:20px;padding: 10px 0;">
                             <div class="col width-1of3">
-                                Transaction:
+                                Tiket:
                             </div>
                             <div class="col width-fill">
-                                <span id="transaction"></span>
+                                <span id="tiket"></span>
                             </div>
                         </div>
                         <div class="col" style="font-size:20px;padding: 10px 0;">
@@ -55,7 +55,7 @@
                                 Nama Visitor:
                             </div>
                             <div class="col width-fill">
-                                <a data-toggle="modal" href="#myModal" style="color: #ffffff;" id="linkVisitorNama"></a>
+                                <span id="visitorNama"></span>
                             </div>
                         </div>
                     </div>
@@ -65,12 +65,12 @@
                         <div class="col">
                             <div class="col width-1of2">
                                 <div class="cell" style="text-align:center;">
-                                    <button class="button" style="display:initial;float: none;font-size:35px;">NEXT</button>
+                                    <button class="button" style="display:initial;float: none;font-size:35px;" onclick="do_next()">NEXT</button>
                                 </div>
                             </div>
                             <div class="col width-fill">
                                 <div class="cell" style="text-align:center;">
-                                <button class="button" style="display:initial;float: none;font-size:35px;">RECALL</button>
+                                <button class="button" style="display:initial;float: none;font-size:35px;" onclick="do_recall()">RECALL</button>
                                 </div>
                             </div>
                         </div>
@@ -110,3 +110,50 @@
     timer_2.start(1000);
     timer_2.mode(1);
 </script> -->
+
+<script>
+    function do_next(){
+        if (window.XMLHttpRequest) {
+            http = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            http = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        var url = '<?php echo $fnNext; ?>';
+        http.open("POST", url, true);
+        http.send(null);
+        http.onreadystatechange = statechange_panggil;
+    }
+
+    function statechange_panggil() {
+        if (http.readyState == 4) {
+            var xmlObj = http.responseXML;
+            var no_tiket_awal = xmlObj.getElementsByTagName('NO_TIKET_AWAL')[0].childNodes[0].nodeValue;
+            var no_tiket = xmlObj.getElementsByTagName('NO_TIKET')[0].childNodes[0].nodeValue;
+            var vst_nama = xmlObj.getElementsByTagName('VST_NAMA')[0].childNodes[0].nodeValue;
+            var start = xmlObj.getElementsByTagName('START')[0].childNodes[0].nodeValue;
+
+            document.getElementById('tiket').innerHTML = no_tiket_awal + no_tiket;
+            document.getElementById('start').innerHTML = start;
+            document.getElementById('visitorNama').innerHTML = vst_nama;
+        }	
+    }
+
+    function do_recall(){
+        if (window.XMLHttpRequest) {
+            http = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            http = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        var url = '<?php echo $fnRecall; ?>';
+        http.open("POST", url, true);
+        http.send(null);
+        http.onreadystatechange = statechange_recall;
+    }
+
+    function statechange_recall() {
+        if (http.readyState == 4) {
+            var xmlObj = http.responseXML;
+            console.log(xmlObj);
+        }	
+    }
+</script>

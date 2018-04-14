@@ -44,6 +44,7 @@
                 <div class="cell">
                     <ul class="col nav">
                         <li class="active"><a href="#">Imigrasi</a></li>
+                        <li><?php echo $login_name; ?> (<a href="<?php echo $url_logout; ?>">Logout</a>)</li>
                     </ul>
                 </div>
             </div>
