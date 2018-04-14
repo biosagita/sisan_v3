@@ -656,7 +656,7 @@ class Loket extends MY_Counter
                 $key = strtoupper($key);
             }
             // append to XML string
-            $xml .= "<$key>" . htmlspecialchars(trim($value)) . "</$key>";
+            $xml .= "<$key>" . (!empty($value) ? htmlspecialchars(trim($value)) : '-') . "</$key>";
         }
         // close wrap TAG if needed
         if ($wrap != null) {
@@ -691,8 +691,8 @@ class Loket extends MY_Counter
 
         $addWhere = !empty($trans_id_transaksi) ? ('trans_id_transaksi = "' . $trans_id_transaksi . '" AND ') : '';
 
-        $scheduleCondition = $this->getScheduleCondition($listlayanan);
-        //$scheduleCondition = '';
+        //$scheduleCondition = $this->getScheduleCondition($listlayanan);
+        $scheduleCondition = '';
 
         $cal_next = $this->db->query('SELECT trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, anf_visitor.*  
 			FROM anf_transaksi 
