@@ -24,7 +24,7 @@
                 </div>
                 <div class="body">
                     <div class="cell" style="text-align:center;">
-                        <span class="content-wrapper" style="font-size:65px;line-height:120px;">
+                        <span class="content-wrapper" style="font-size:55px;line-height:120px;">
                             <?php echo $val['loket_name']; ?>
                         </span>
                     </div>
