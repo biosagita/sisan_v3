@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" media="all"  href="<?php echo $assets; ?>/ie6/assets/css/site.css" />
         <!--[if lt IE 8]><link rel="stylesheet" href="<?php echo $assets; ?>/ie6/assets/css/cascade/production/icons-ie7.min.css"><![endif]-->
         <!--[if lt IE 9]><script src="<?php echo $assets; ?>/ie6/assets/js/shim/iehtmlshiv.js"></script><![endif]-->
-        <title>Cascade Framework</title>
+        <title>SISAN v3.1 LITE</title>
         <meta name="description" content="Professional Frontend framework that makes building websites easier than ever.">
         <link rel="shortcut icon" href="<?php echo $assets; ?>/ie6/assets/img/favicon.ico" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1">

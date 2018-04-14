@@ -142,6 +142,8 @@
             document.getElementById('tiket').innerHTML = no_tiket_awal + no_tiket;
             document.getElementById('start').innerHTML = start;
             document.getElementById('visitorNama').innerHTML = vst_nama;
+
+            show_antrian();
         }	
     }
 
@@ -161,6 +163,8 @@
         if (http.readyState == 4) {
             var xmlObj = http.responseXML;
             console.log(xmlObj);
+
+            show_antrian();
         }	
     }
 
@@ -186,7 +190,7 @@
         }	
     }
 
-    // show_antrian();
+    show_antrian();
 
-    setInterval(function(){ show_antrian(); }, 1000);
+    setInterval(function(){ show_antrian(); }, 10000);
 </script>
