@@ -2,7 +2,7 @@
 
 class Loket extends MY_Counter
 {
-    private $_template = 'template_counter/main';
+    private $_template = 'template_counter_ie6/main';
     private $_module_controller = 'counter_loket/loket/';
     private $_table_name = 'transaksi';
     private $_table_field_pref = 'trans_';
@@ -222,7 +222,7 @@ class Loket extends MY_Counter
         $this->template->set('url_logout', $this->_data['url_logout']);
         $this->template->set('layanan_forward', $this->_data['layanan_forward']);
         $this->template->set('sample_image', $this->_data['sample_image']);
-        $this->template->load($this->_template, 'lists', $this->_data);
+        $this->template->load($this->_template, 'lists_ie6', $this->_data);
     }
 
     function page_content_ajax()
