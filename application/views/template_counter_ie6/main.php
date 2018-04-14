@@ -66,6 +66,6 @@
                 </div>
             </div>
         </div>
-        <script src="<?php echo $assets; ?>/ie6/assets/js/app.js"></script>
+        <!-- <script src="<?php echo $assets; ?>/ie6/assets/js/app.js"></script> -->
     </body>
 </html>
