@@ -1,8 +1,9 @@
 <!-- <script type="text/javascript" src="<?php echo $assets_counter; ?>/js/timer_ie6.js"></script> -->
-<div class="col">
+<?php foreach($listLayanan as $key => $value) : ?>
+<div class="col width-1of2">
     <div class="cell panel">
         <div class="header">
-            Loket Name: <?php echo $loket_name; ?>
+            Loket Name: <?php echo $loket_name; ?>, Layanan: <?php echo $namaLayanan[$value]; ?>
         </div>
         <div class="body">
             <div class="cell">
@@ -35,7 +36,7 @@
                 <div class="col">
                     <div class="cell">
                         <div class="col" style="text-align:right;">
-                            Jumlah Antrian: <span id="jumlahAntrian">-</span>
+                            Jumlah Antrian: <span id="jumlahAntrian_<?php echo $value; ?>">-</span>
                         </div>
                     </div>
                 </div>
@@ -46,7 +47,7 @@
                                 Tiket:
                             </div>
                             <div class="col width-fill">
-                                <span id="tiket"></span>
+                                <span id="tiket_<?php echo $value; ?>"></span>
                             </div>
                         </div>
                         <div class="col" style="font-size:20px;padding: 10px 0;">
@@ -54,7 +55,7 @@
                                 Start:
                             </div>
                             <div class="col width-fill">
-                                <span id="start"></span>
+                                <span id="start_<?php echo $value; ?>"></span>
                             </div>
                         </div>
                         <div class="col" style="font-size:20px;padding: 10px 0;">
@@ -62,7 +63,7 @@
                                 Nama Visitor:
                             </div>
                             <div class="col width-fill">
-                                <span id="visitorNama"></span>
+                                <span id="visitorNama_<?php echo $value; ?>"></span>
                             </div>
                         </div>
                     </div>
@@ -72,12 +73,12 @@
                         <div class="col">
                             <div class="col width-1of2">
                                 <div class="cell" style="text-align:center;">
-                                    <button class="button" style="display:initial;float: none;font-size:35px;" onclick="do_next()">NEXT</button>
+                                    <button class="button" style="display:initial;float: none;font-size:35px;" onclick="do_next_<?php echo $value; ?>()">NEXT</button>
                                 </div>
                             </div>
                             <div class="col width-fill">
                                 <div class="cell" style="text-align:center;">
-                                <button class="button" style="display:initial;float: none;font-size:35px;" onclick="do_recall()">RECALL</button>
+                                <button class="button" style="display:initial;float: none;font-size:35px;" onclick="do_recall_<?php echo $value; ?>()">RECALL</button>
                                 </div>
                             </div>
                         </div>
@@ -87,6 +88,7 @@
         </div>
     </div>
 </div>
+<?php endforeach; ?>
 
 <!-- <script>
     var timer;
@@ -119,19 +121,23 @@
 </script> -->
 
 <script>
-    function do_next(){
+    var cntTimer = 20000;
+    var cntTimerTimeout = 1000;
+    <?php foreach($listLayanan as $value) : ?>
+
+    function do_next_<?php echo $value; ?>(){
         if (window.XMLHttpRequest) {
             http = new XMLHttpRequest();
         } else if (window.ActiveXObject) {
             http = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        var url = '<?php echo $fnNext; ?>';
+        var url = '<?php echo $fnNext; ?>/<?php echo $value; ?>/<?php echo $grouplokets; ?>';
         http.open("POST", url, true);
         http.send(null);
-        http.onreadystatechange = statechange_panggil;
+        http.onreadystatechange = statechange_panggil_<?php echo $value; ?>;
     }
 
-    function statechange_panggil() {
+    function statechange_panggil_<?php echo $value; ?>() {
         if (http.readyState == 4) {
             var xmlObj = http.responseXML;
             var no_tiket_awal = xmlObj.getElementsByTagName('NO_TIKET_AWAL')[0].childNodes[0].nodeValue;
@@ -139,58 +145,61 @@
             var vst_nama = xmlObj.getElementsByTagName('VST_NAMA')[0].childNodes[0].nodeValue;
             var start = xmlObj.getElementsByTagName('START')[0].childNodes[0].nodeValue;
 
-            document.getElementById('tiket').innerHTML = no_tiket_awal + no_tiket;
-            document.getElementById('start').innerHTML = start;
-            document.getElementById('visitorNama').innerHTML = vst_nama;
+            document.getElementById('tiket_<?php echo $value; ?>').innerHTML = no_tiket_awal + no_tiket;
+            document.getElementById('start_<?php echo $value; ?>').innerHTML = start;
+            document.getElementById('visitorNama_<?php echo $value; ?>').innerHTML = vst_nama;
 
-            show_antrian();
+            show_antrian_<?php echo $value; ?>();
         }	
     }
 
-    function do_recall(){
+    function do_recall_<?php echo $value; ?>(){
         if (window.XMLHttpRequest) {
             http = new XMLHttpRequest();
         } else if (window.ActiveXObject) {
             http = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        var url = '<?php echo $fnRecall; ?>';
+        var url = '<?php echo $fnRecall; ?>/<?php echo $value; ?>/<?php echo $grouplokets; ?>';
         http.open("POST", url, true);
         http.send(null);
-        http.onreadystatechange = statechange_recall;
+        http.onreadystatechange = statechange_recall_<?php echo $value; ?>;
     }
 
-    function statechange_recall() {
+    function statechange_recall_<?php echo $value; ?>() {
         if (http.readyState == 4) {
             var xmlObj = http.responseXML;
             console.log(xmlObj);
 
-            show_antrian();
+            show_antrian_<?php echo $value; ?>();
         }	
     }
 
-    function show_antrian(){
+    function show_antrian_<?php echo $value; ?>(){
         if (window.XMLHttpRequest) {
             http = new XMLHttpRequest();
         } else if (window.ActiveXObject) {
             http = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        var url = '<?php echo $totalAntrian; ?>';
+        var url = '<?php echo $totalAntrian; ?>/<?php echo $value; ?>/<?php echo $grouplokets; ?>';
         http.open("POST", url, true);
         http.send(null);
-        http.onreadystatechange = statechange_show_antrian;
+        http.onreadystatechange = statechange_show_antrian_<?php echo $value; ?>;
     }
 
-    function statechange_show_antrian() {
+    function statechange_show_antrian_<?php echo $value; ?>() {
         if (http.readyState == 4) {
             var xmlObj = http.responseXML;
             // console.log(xmlObj);
             var jumlahAntrian = xmlObj.getElementsByTagName('JUMLAH_ANTRIAN')[0].childNodes[0].nodeValue;
 
-            document.getElementById('jumlahAntrian').innerHTML = jumlahAntrian;
+            document.getElementById('jumlahAntrian_<?php echo $value; ?>').innerHTML = jumlahAntrian;
         }	
     }
-
-    show_antrian();
-
-    setInterval(function(){ show_antrian(); }, 10000);
+    
+        //show_antrian_<?php echo $value; ?>();
+        setTimeout(function(){ show_antrian_<?php echo $value; ?>(); }, cntTimerTimeout);
+        setInterval(function(){ show_antrian_<?php echo $value; ?>(); }, cntTimer);
+        cntTimer = cntTimer + 10000;
+        cntTimerTimeout = cntTimerTimeout + 500;
+    <?php endforeach; ?>
 </script>

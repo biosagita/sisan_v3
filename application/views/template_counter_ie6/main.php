@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="site-body">
-            <div class="site-center" style="width:600px;">
+            <div class="site-center">
                 <div class="cell">
                     <?php echo $contents; ?>
                 </div>

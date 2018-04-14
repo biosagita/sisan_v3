@@ -214,6 +214,31 @@ class Loket extends MY_Counter
         $this->_data['blank_image'] = site_url('assets/blank_user.jpg');
         $this->_data['sample_image'] = site_url('assets/sample.jpg');
 
+        $Loket = $this->_data['cookie_loket_id'];
+
+        $q = 'SELECT prilay_id_group_layanan, prilay_id_group_loket, lay_nama_layanan 
+		FROM anf_lokets 
+		JOIN anf_prioritas_layanan ON (lokets_grolok_id = prilay_id_group_loket)
+        JOIN anf_group_layanan ON (prilay_id_group_layanan = grolay_id_group_layanan)
+        JOIN anf_layanan ON (grolay_id_group_layanan = lay_id_group_layanan) 
+		WHERE lokets_id = ' . $Loket;
+
+        $query = $this->db->query($q);
+        $listlayanan = array();
+        $grouploket = '';
+        $namaLayanan = '';
+        foreach ($query->result() as $vRow) {
+            $listlayanan[] = $vRow->prilay_id_group_layanan;
+            $grouploket = $vRow->prilay_id_group_loket;
+            $namaLayanan[$vRow->prilay_id_group_layanan] = $vRow->lay_nama_layanan;
+        }
+
+        $this->_data['listLayanan'] = $listlayanan;
+        $this->_data['grouplokets'] = $grouploket;
+        $this->_data['namaLayanan'] = $namaLayanan;
+
+        // print_r($this->_data);
+
         //using lib template
         $this->template->set('title', $this->_page_title);
         $this->template->set('loket_name', $this->_data['loket_name']);
@@ -667,7 +692,7 @@ class Loket extends MY_Counter
         return $xml;
     }
 
-    function totalAntrian($trans_id_transaksi = '') {
+    function totalAntrian($groupLayananId = '', $groupLoketId = '', $trans_id_transaksi = '') {
         $trans_id_transaksi = $this->input->post('id');
 
         $trans_tanggal_transaksi = date('Ymd');
@@ -689,6 +714,15 @@ class Loket extends MY_Counter
             $grouploket = $vRow->prilay_id_group_loket;
         }
 
+        if(!empty($groupLayananId)) {
+            $listlayanan = [];
+            $listlayanan[] = $groupLayananId;
+        }
+
+        if(!empty($groupLoketId)) {
+            $grouploket = $groupLoketId;
+        }
+
         $addWhere = !empty($trans_id_transaksi) ? ('trans_id_transaksi = "' . $trans_id_transaksi . '" AND ') : '';
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
@@ -706,6 +740,8 @@ class Loket extends MY_Counter
         //echo count($res);
 
         $vArrayTemp['jumlah_antrian'] = count($res);
+        $vArrayTemp['group_layanan_id'] = $groupLayananId;
+        $vArrayTemp['group_loket_id'] = $groupLoketId;
 
         header('Content-Type: text/xml');
         header('Pragma: no-cache');
@@ -713,7 +749,7 @@ class Loket extends MY_Counter
         print $this->array2xml($vArrayTemp);
     }
 
-    function fnNext($trans_id_transaksi = '')
+    function fnNext($groupLayananId = '', $groupLoketId = '', $trans_id_transaksi = '')
     {
         $trans_id_transaksi = $this->input->post('id');
 
@@ -734,6 +770,15 @@ class Loket extends MY_Counter
         foreach ($query->result() as $vRow) {
             $listlayanan[] = $vRow->prilay_id_group_layanan;
             $grouploket = $vRow->prilay_id_group_loket;
+        }
+
+        if(!empty($groupLayananId)) {
+            $listlayanan = [];
+            $listlayanan[] = $groupLayananId;
+        }
+
+        if(!empty($groupLoketId)) {
+            $grouploket = $groupLoketId;
         }
 
         $addWhere = !empty($trans_id_transaksi) ? ('trans_id_transaksi = "' . $trans_id_transaksi . '" AND ') : '';
@@ -861,6 +906,9 @@ class Loket extends MY_Counter
             //close cek layanan forward------------------------------------------------------------------------------
         }
 
+        $vArrayTemp['group_layanan_id'] = $groupLayananId;
+        $vArrayTemp['group_loket_id'] = $groupLoketId;
+
         header('Content-Type: text/xml');
         header('Pragma: no-cache');
         echo '<?xml version="1.0" encoding="UTF-8"?>';
@@ -985,7 +1033,7 @@ class Loket extends MY_Counter
         echo json_encode($result);
     }
 
-    function fnRecall()
+    function fnRecall($groupLayananId = '', $groupLoketId = '')
     {
         $result = array(
             'success' => true,
@@ -1007,6 +1055,11 @@ class Loket extends MY_Counter
             $listlayanan[] = $vRow->prilay_id_group_layanan;
         }
 
+        if(!empty($groupLayananId)) {
+            $listlayanan = [];
+            $listlayanan[] = $groupLayananId;
+        }
+
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
 
         $ct_id_lay = $this->db->query("SELECT trans_tanggal_transaksi,trans_no_ticket_awal,trans_no_ticket,grolay_nama_group_layanan,trans_waktu_panggil,trans_id_layanan,trans_id_group_layanan 
@@ -1020,6 +1073,9 @@ class Loket extends MY_Counter
 			where trans_no_ticket_awal='$_countmk3[trans_no_ticket_awal]' and trans_no_ticket='$_countmk3[trans_no_ticket]' and trans_id_loket='$Loket' and trans_tanggal_transaksi='$trans_tanggal_transaksi'");
 
         //echo json_encode($result);
+
+        $result['group_layanan_id'] = $groupLayananId;
+        $result['group_loket_id'] = $groupLoketId;
 
         header('Content-Type: text/xml');
         header('Pragma: no-cache');
