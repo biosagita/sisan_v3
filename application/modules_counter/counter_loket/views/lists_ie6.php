@@ -5,7 +5,7 @@
         </div>
         <div class="body">
             <div class="cell">
-                <div class="col">
+                <div class="col" style="background:black;margin-bottom:20px;">
                     <div class="col width-1of2">
                         <div class="cell" style="text-align:center;">
                             <a href="#" title="Example tile shortcut" class="tile-box tile-box-alt btn-black">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col" style="background: moccasin;">
+                <div class="col" style="background: whitesmoke;">
                     <div class="cell">
                         <div class="col" style="font-size:20px;padding: 10px 0;">
                             <div class="col width-1of3">
