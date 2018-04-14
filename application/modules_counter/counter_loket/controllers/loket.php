@@ -82,9 +82,14 @@ class Loket extends MY_Counter
                 'alias' => 'ticket',
                 'no_order' => 1,
             ),
+            // array(
+            //     'title_header_column' => 'Type',
+            //     'field_name' => 'grolay_nama_group_layanan',
+            //     'no_order' => 2,
+            // ),
             array(
-                'title_header_column' => 'Type',
-                'field_name' => 'grolay_nama_group_layanan',
+                'title_header_column' => 'Nama',
+                'field_name' => 'vst_nama',
                 'no_order' => 2,
             ),
             array(
@@ -120,9 +125,14 @@ class Loket extends MY_Counter
                 'alias' => 'ticket',
                 'no_order' => 1,
             ),
+            // array(
+            //     'title_header_column' => 'Type',
+            //     'field_name' => 'grolay_nama_group_layanan',
+            //     'no_order' => 2,
+            // ),
             array(
-                'title_header_column' => 'Type',
-                'field_name' => 'grolay_nama_group_layanan',
+                'title_header_column' => 'Nama',
+                'field_name' => 'vst_nama',
                 'no_order' => 2,
             ),
             array(
@@ -158,9 +168,14 @@ class Loket extends MY_Counter
                 'alias' => 'ticket',
                 'no_order' => 1,
             ),
+            // array(
+            //     'title_header_column' => 'Type',
+            //     'field_name' => 'grolay_nama_group_layanan',
+            //     'no_order' => 2,
+            // ),
             array(
-                'title_header_column' => 'Type',
-                'field_name' => 'grolay_nama_group_layanan',
+                'title_header_column' => 'Nama',
+                'field_name' => 'vst_nama',
                 'no_order' => 2,
             ),
             array(
@@ -251,6 +266,7 @@ class Loket extends MY_Counter
         $table = $this->db->dbprefix . $this->_table_name;
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) ';
+        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'visitor ON (trans_id_visitor = vst_id_visitor) ';
         $primaryKey = $this->_table_pk;
         $column_list = $this->get_show_column();
         $columns = array();
@@ -317,6 +333,7 @@ class Loket extends MY_Counter
         $table = $this->db->dbprefix . $this->_table_name;
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) ';
+        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'visitor ON (trans_id_visitor = vst_id_visitor) ';
         $primaryKey = $this->_table_pk;
         $column_list = $this->get_show_column_skip();
         $columns = array();
@@ -380,6 +397,7 @@ class Loket extends MY_Counter
         $table = $this->db->dbprefix . $this->_table_name;
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) ';
+        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'visitor ON (trans_id_visitor = vst_id_visitor) ';
         $primaryKey = $this->_table_pk;
         $column_list = $this->get_show_column_finish();
         $columns = array();

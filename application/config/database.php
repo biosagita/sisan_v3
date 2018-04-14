@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'insan';
-$db['default']['password'] = 'insan';
-$db['default']['database'] = 'db_sisan_v3.0.1';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'root';
+$db['default']['database'] = 'sisan';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'anf_';
 $db['default']['pconnect'] = TRUE;
