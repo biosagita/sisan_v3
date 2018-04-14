@@ -41,7 +41,7 @@ class Login extends MY_Counter {
 		$this->template->set('assets', $this->_data['assets']);
 		$this->template->set('loket_name', $this->_data['loket_name']);
 		$this->template->set('url_changeloket', $this->_data['url_changeloket']);
-		$this->template->load('template_login/login', 'login', $this->_data);
+		$this->template->load('template_login_ie6/login', 'login', $this->_data);
 	}
 
 	function login_ajax() {

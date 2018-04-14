@@ -34,7 +34,7 @@ class Changeloket extends MY_Counter {
 		//using lib template
 		$this->template->set('title', 'Antrian : Loket Destination');
 		$this->template->set('assets', $this->_data['assets']);
-		$this->template->load('template_loketdestination/main', 'index', $this->_data);
+		$this->template->load('template_loketdestination_ie6/main', 'index', $this->_data);
 	}
 
 }

@@ -1,52 +1,54 @@
-<div>
-    <a href="<?php echo $url_changeloket; ?>" title="Example tile shortcut" class="tile-box tile-box-alt btn-danger">
-        <div class="tile-header" style="padding:2px;">
-            Room
-        </div>
-        <div class="tile-content-wrapper" style="font-size:30px;padding:5px;">
-            <?php echo $loket_name; ?>
-        </div>
-    </a>
-</div>
-
-<form method="post" action="<?php echo $url_login; ?>" id="login_form" data-parsley-validate>
-    <input type="hidden" name="hd_login" id="hd_login" value="1">
-    <div class="content-box wow bounceInDown modal-content">
-        <h3 class="content-box-header content-box-header-alt bg-default">
-            <span class="icon-separator">
-                <i class="glyph-icon icon-lock"></i>
-            </span>
-            <span class="header-wrapper">
-                <small>Login to your account.</small>
-            </span>
-        </h3>
-
-        <?php if(!empty($login_errmsg)) : ?>
-            <div class="alert alert-danger">
-                <p><?php echo $login_errmsg; ?></p>
-            </div>
-        <?php endif; ?>
-
-        <div id="login_errmsg" class="alert alert-danger" style="display:none"></div>
-
-        <div class="content-box-wrapper">
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="txt_username" id="txt_username" placeholder="Username" required>
-                    <span class="input-group-addon bg-blue">
-                        <i class="glyph-icon icon-user"></i>
-                    </span>
+<div class="col">
+    <div class="cell panel">
+        <div class="body">
+            <div class="cell">
+                <div class="col">
+                        <div style="padding: 0 10px 10px 10px;text-align: center;">
+                            <a style="font-size:20px;" href="<?php echo $url_changeloket; ?>">LOGIN ROOM: <strong><?php echo $loket_name; ?></strong></a>
+                        </div>
+                        <?php if(!empty($login_errmsg)) : ?>
+                            <div class="alert alert-danger">
+                                <p><?php echo $login_errmsg; ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <form method="post" action="<?php echo $url_login; ?>" id="login_form" data-parsley-validate>
+                        <input type="hidden" name="hd_login" id="hd_login" value="1">
+                            <div class="col">
+                                <div class="col width-1of4">
+                                    <div class="cell">
+                                        <label for="txt_username">Username<span class="color-red"> *</span></label>
+                                    </div>
+                                </div>
+                                <div class="col width-fill">
+                                    <div class="cell">
+                                        <input type="text" name="txt_username" id="txt_username" placeholder="Your username" data-required="true" data-error-message="Username is required" class="text parsley-validated">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col width-1of4">
+                                    <div class="cell">
+                                        <label for="psw_password">Pasword<span class="color-red"> *</span></label>
+                                    </div>
+                                </div>
+                                <div class="col width-fill">
+                                    <div class="cell">
+                                        <input type="password" name="psw_password" id="psw_password" placeholder="Your password" data-required="true" data-error-message="Password is required" class="text parsley-validated">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col width-1of4">
+                                </div>
+                                <div class="col width-fill">
+                                    <div class="cell">
+                                        <button class="button" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="password" class="form-control" name="psw_password" id="psw_password" placeholder="Password" required>
-                    <span class="input-group-addon bg-blue">
-                        <i class="glyph-icon icon-unlock-alt"></i>
-                    </span>
-                </div>
-            </div>
-            <button class="btn btn-success btn-block" id="login_btn_signin">Sign In</button>
         </div>
     </div>
-</form>
+</div>
