@@ -1,6 +1,6 @@
 <?php
 
-function generateDataTable($table, $primaryKey, $columns, $whereResult=null, $whereAll=null) {
+function generateDataTable($table, $primaryKey, $columns, $whereResult=null, $whereAll=null, $showReturn = false) {
 	$CI =& get_instance();
 	$CI->load->library('ssp');
 	$CI->load->database();
@@ -12,8 +12,12 @@ function generateDataTable($table, $primaryKey, $columns, $whereResult=null, $wh
 	    'db'   => $CI->db->database,
 	    'host' => $CI->db->hostname
 	);
-	 
-	echo json_encode(
-	    SSP::complex( $_GET, $sql_details, $table, $primaryKey, $columns, $whereResult, $whereAll)
-	);
+
+	if($showReturn) {
+		return SSP::complex( $_GET, $sql_details, $table, $primaryKey, $columns, $whereResult, $whereAll);
+	} else {
+		echo json_encode(
+		    SSP::complex( $_GET, $sql_details, $table, $primaryKey, $columns, $whereResult, $whereAll)
+		);
+	}
 }

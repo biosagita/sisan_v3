@@ -1,7 +1,13 @@
+<style type="text/css">
+    .datasheet td, .datasheet th {
+        padding: 6px 8px;
+    }
+</style>
+
 <div class="col">
     <div class="cell panel">
         <div class="header">
-            <p style="text-align: right;">Total Data : 10</p>
+            <p style="text-align: right;">Total Data : <?php echo $rows['recordsTotal']; ?></p>
         </div>
         <div class="body">
             <div class="cell">
@@ -19,37 +25,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $cnt = 1; foreach ($rows['data'] as $key => $value) : ?>
                             <tr>
-                                <th>1</th>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
+                                <td><?php echo $cnt; ?></td>
+                                <td><?php echo $value[1]; ?></td>
+                                <td><?php echo $value[2]; ?></td>
+                                <td><?php echo $value[3]; ?></td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
-                            </tr>
-                            <tr>
-                                <th>4</th>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
-                            </tr>
-                            <tr>
-
-                                <th>5</th>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
-                            </tr>
+                            <?php $cnt++; endforeach; ?>
                         </tbody>
                     </table>
                     <div class="footer pagination">

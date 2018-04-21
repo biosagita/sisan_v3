@@ -100,6 +100,11 @@ class Loket extends MY_Counter
                 },
                 'no_order' => 4,
             ),
+            array(
+                'title_header_column' => 'Time Finish',
+                'field_name' => $this->_table_field_pref . 'waktu_finish',
+                'no_order' => 5,
+            ),
         );
 
         return $column_list;
@@ -256,6 +261,71 @@ class Loket extends MY_Counter
 
     function listQueue()
     {
+        $this->load->helper('mydatatable');
+        $table = $this->db->dbprefix . $this->_table_name;
+        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
+        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) ';
+        $primaryKey = $this->_table_pk;
+        $column_list = $this->get_show_column();
+        $columns = array();
+        $cnt = 0;
+        foreach ($column_list as $key => $value) {
+            $columns[] = array(
+                'db' => $value['field_name'],
+                'dt' => !empty($value['no_order']) ? $value['no_order'] : $cnt,
+                'formatter' => !empty($value['result_format']) ? $value['result_format'] : '',
+                'show_no_static' => !empty($value['show_no_static']) ? $value['show_no_static'] : '',
+                'just_info' => !empty($value['just_info']) ? $value['just_info'] : '',
+                'alias' => !empty($value['alias']) ? $value['alias'] : '',
+                'ignore_search' => !empty($value['ignore_search']) ? $value['ignore_search'] : '',
+            );
+            $cnt++;
+        }
+
+        $additional_field = $this->get_additional_field();
+
+        if (!empty($additional_field)) {
+            foreach ($additional_field as $key => $value) {
+                $columns[] = array(
+                    'db' => $value['field_name'],
+                    'dt' => !empty($value['no_order']) ? $value['no_order'] : $cnt,
+                    'formatter' => !empty($value['result_format']) ? $value['result_format'] : '',
+                    'show_no_static' => !empty($value['show_no_static']) ? $value['show_no_static'] : '',
+                    'just_info' => !empty($value['just_info']) ? $value['just_info'] : '',
+                    'alias' => !empty($value['alias']) ? $value['alias'] : '',
+                    'ignore_search' => !empty($value['ignore_search']) ? $value['ignore_search'] : '',
+                );
+                $cnt++;
+            }
+        }
+
+        $Loket = $this->_data['cookie_loket_id'];
+
+        $currentDate = date('Ymd');
+        $q = 'SELECT prilay_id_group_layanan, prilay_id_group_loket 
+        FROM anf_lokets JOIN anf_prioritas_layanan ON (lokets_grolok_id = prilay_id_group_loket) 
+        WHERE lokets_id = ' . $Loket;
+
+        $query = $this->db->query($q);
+        $listlayanan = array();
+        $grouploket = '';
+        foreach ($query->result() as $vRow) {
+            $listlayanan[] = $vRow->prilay_id_group_layanan;
+            $grouploket = $vRow->prilay_id_group_loket;
+        }
+
+        // $scheduleCondition = $this->getScheduleCondition($listlayanan);
+        $scheduleCondition = '';
+
+        $orderBy = ' ORDER BY prilay_prioritas, trans_waktu_ambil';
+        $whereResult = '';
+        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $currentDate . '" ' . $scheduleCondition . $orderBy;
+
+        //echo 'xxx - ' . $whereAll; exit();
+
+        $showReturn = true;
+        $this->_data['rows'] = generateDataTable($table, $primaryKey, $columns, $whereResult, $whereAll, $showReturn);
+
         $this->_data['info_page'] = $this->_page_content_info;
         $this->_data['url_list_queue'] = site_url($this->_module_controller . 'listQueue');
         $this->_data['url_list_skip'] = site_url($this->_module_controller . 'listSkip');
@@ -273,6 +343,71 @@ class Loket extends MY_Counter
 
     function listSkip()
     {
+        $this->load->helper('mydatatable');
+        $table = $this->db->dbprefix . $this->_table_name;
+        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
+        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) ';
+        $primaryKey = $this->_table_pk;
+        $column_list = $this->get_show_column();
+        $columns = array();
+        $cnt = 0;
+        foreach ($column_list as $key => $value) {
+            $columns[] = array(
+                'db' => $value['field_name'],
+                'dt' => !empty($value['no_order']) ? $value['no_order'] : $cnt,
+                'formatter' => !empty($value['result_format']) ? $value['result_format'] : '',
+                'show_no_static' => !empty($value['show_no_static']) ? $value['show_no_static'] : '',
+                'just_info' => !empty($value['just_info']) ? $value['just_info'] : '',
+                'alias' => !empty($value['alias']) ? $value['alias'] : '',
+                'ignore_search' => !empty($value['ignore_search']) ? $value['ignore_search'] : '',
+            );
+            $cnt++;
+        }
+
+        $additional_field = $this->get_additional_field();
+
+        if (!empty($additional_field)) {
+            foreach ($additional_field as $key => $value) {
+                $columns[] = array(
+                    'db' => $value['field_name'],
+                    'dt' => !empty($value['no_order']) ? $value['no_order'] : $cnt,
+                    'formatter' => !empty($value['result_format']) ? $value['result_format'] : '',
+                    'show_no_static' => !empty($value['show_no_static']) ? $value['show_no_static'] : '',
+                    'just_info' => !empty($value['just_info']) ? $value['just_info'] : '',
+                    'alias' => !empty($value['alias']) ? $value['alias'] : '',
+                    'ignore_search' => !empty($value['ignore_search']) ? $value['ignore_search'] : '',
+                );
+                $cnt++;
+            }
+        }
+
+        $Loket = $this->_data['cookie_loket_id'];
+
+        $currentDate = date('Ymd');
+        $q = 'SELECT prilay_id_group_layanan, prilay_id_group_loket 
+        FROM anf_lokets JOIN anf_prioritas_layanan ON (lokets_grolok_id = prilay_id_group_loket) 
+        WHERE lokets_id = ' . $Loket;
+
+        $query = $this->db->query($q);
+        $listlayanan = array();
+        $grouploket = '';
+        foreach ($query->result() as $vRow) {
+            $listlayanan[] = $vRow->prilay_id_group_layanan;
+            $grouploket = $vRow->prilay_id_group_loket;
+        }
+
+        // $scheduleCondition = $this->getScheduleCondition($listlayanan);
+        $scheduleCondition = '';
+
+        $orderBy = ' ORDER BY prilay_prioritas, trans_waktu_ambil';
+        $whereResult = '';
+        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 3 AND trans_tanggal_transaksi = "' . $currentDate . '" ' . $scheduleCondition . $orderBy;
+
+        //echo 'xxx - ' . $whereAll; exit();
+
+        $showReturn = true;
+        $this->_data['rows'] = generateDataTable($table, $primaryKey, $columns, $whereResult, $whereAll, $showReturn);
+
         $this->_data['info_page'] = $this->_page_content_info;
         $this->_data['url_list_queue'] = site_url($this->_module_controller . 'listQueue');
         $this->_data['url_list_skip'] = site_url($this->_module_controller . 'listSkip');
@@ -290,6 +425,71 @@ class Loket extends MY_Counter
 
     function listFinish()
     {
+        $this->load->helper('mydatatable');
+        $table = $this->db->dbprefix . $this->_table_name;
+        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
+        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) ';
+        $primaryKey = $this->_table_pk;
+        $column_list = $this->get_show_column();
+        $columns = array();
+        $cnt = 0;
+        foreach ($column_list as $key => $value) {
+            $columns[] = array(
+                'db' => $value['field_name'],
+                'dt' => !empty($value['no_order']) ? $value['no_order'] : $cnt,
+                'formatter' => !empty($value['result_format']) ? $value['result_format'] : '',
+                'show_no_static' => !empty($value['show_no_static']) ? $value['show_no_static'] : '',
+                'just_info' => !empty($value['just_info']) ? $value['just_info'] : '',
+                'alias' => !empty($value['alias']) ? $value['alias'] : '',
+                'ignore_search' => !empty($value['ignore_search']) ? $value['ignore_search'] : '',
+            );
+            $cnt++;
+        }
+
+        $additional_field = $this->get_additional_field();
+
+        if (!empty($additional_field)) {
+            foreach ($additional_field as $key => $value) {
+                $columns[] = array(
+                    'db' => $value['field_name'],
+                    'dt' => !empty($value['no_order']) ? $value['no_order'] : $cnt,
+                    'formatter' => !empty($value['result_format']) ? $value['result_format'] : '',
+                    'show_no_static' => !empty($value['show_no_static']) ? $value['show_no_static'] : '',
+                    'just_info' => !empty($value['just_info']) ? $value['just_info'] : '',
+                    'alias' => !empty($value['alias']) ? $value['alias'] : '',
+                    'ignore_search' => !empty($value['ignore_search']) ? $value['ignore_search'] : '',
+                );
+                $cnt++;
+            }
+        }
+
+        $Loket = $this->_data['cookie_loket_id'];
+
+        $currentDate = date('Ymd');
+        $q = 'SELECT prilay_id_group_layanan, prilay_id_group_loket 
+        FROM anf_lokets JOIN anf_prioritas_layanan ON (lokets_grolok_id = prilay_id_group_loket) 
+        WHERE lokets_id = ' . $Loket;
+
+        $query = $this->db->query($q);
+        $listlayanan = array();
+        $grouploket = '';
+        foreach ($query->result() as $vRow) {
+            $listlayanan[] = $vRow->prilay_id_group_layanan;
+            $grouploket = $vRow->prilay_id_group_loket;
+        }
+
+        // $scheduleCondition = $this->getScheduleCondition($listlayanan);
+        $scheduleCondition = '';
+
+        $orderBy = ' ORDER BY prilay_prioritas, trans_waktu_ambil';
+        $whereResult = '';
+        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 5 AND trans_tanggal_transaksi = "' . $currentDate . '" ' . $scheduleCondition . $orderBy;
+
+        //echo 'xxx - ' . $whereAll; exit();
+
+        $showReturn = true;
+        $this->_data['rows'] = generateDataTable($table, $primaryKey, $columns, $whereResult, $whereAll, $showReturn);
+
         $this->_data['info_page'] = $this->_page_content_info;
         $this->_data['url_list_queue'] = site_url($this->_module_controller . 'listQueue');
         $this->_data['url_list_skip'] = site_url($this->_module_controller . 'listSkip');
