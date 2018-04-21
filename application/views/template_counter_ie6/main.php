@@ -52,6 +52,11 @@
         <div class="site-body">
             <div class="site-center">
                 <div class="cell">
+                    <div style="float: right;">
+                        <a target="_blank" href="<?php echo $url_list_queue; ?>">List Queue</a> | <a target="_blank" href="<?php echo $url_list_skip; ?>">List Skip</a> | <a target="_blank" href="<?php echo $url_list_finish; ?>">List Finish</a>
+                    </div>
+                </div>
+                <div class="cell">
                     <?php echo $contents; ?>
                 </div>
             </div>

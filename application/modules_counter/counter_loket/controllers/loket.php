@@ -248,7 +248,61 @@ class Loket extends MY_Counter
         $this->template->set('url_logout', $this->_data['url_logout']);
         $this->template->set('layanan_forward', $this->_data['layanan_forward']);
         $this->template->set('sample_image', $this->_data['sample_image']);
+        $this->_data['url_list_queue'] = site_url($this->_module_controller . 'listQueue');
+        $this->_data['url_list_skip'] = site_url($this->_module_controller . 'listSkip');
+        $this->_data['url_list_finish'] = site_url($this->_module_controller . 'listFinish');
         $this->template->load($this->_template, 'lists_ie6', $this->_data);
+    }
+
+    function listQueue()
+    {
+        $this->_data['info_page'] = $this->_page_content_info;
+        $this->_data['url_list_queue'] = site_url($this->_module_controller . 'listQueue');
+        $this->_data['url_list_skip'] = site_url($this->_module_controller . 'listSkip');
+        $this->_data['url_list_finish'] = site_url($this->_module_controller . 'listFinish');
+        $this->template->set('title', $this->_page_title);
+        $this->template->set('loket_name', $this->_data['loket_name']);
+        $this->template->set('login_name', $this->_data['login_name']);
+        $this->template->set('assets', $this->_data['assets']);
+        $this->template->set('assets_front', $this->_data['assets_front']);
+        $this->template->set('url_logout', $this->_data['url_logout']);
+        $this->template->set('layanan_forward', $this->_data['layanan_forward']);
+        $this->template->set('sample_image', $this->_data['sample_image']);
+        $this->template->load($this->_template, 'lists_queue_ie6', $this->_data);
+    }
+
+    function listSkip()
+    {
+        $this->_data['info_page'] = $this->_page_content_info;
+        $this->_data['url_list_queue'] = site_url($this->_module_controller . 'listQueue');
+        $this->_data['url_list_skip'] = site_url($this->_module_controller . 'listSkip');
+        $this->_data['url_list_finish'] = site_url($this->_module_controller . 'listFinish');
+        $this->template->set('title', $this->_page_title);
+        $this->template->set('loket_name', $this->_data['loket_name']);
+        $this->template->set('login_name', $this->_data['login_name']);
+        $this->template->set('assets', $this->_data['assets']);
+        $this->template->set('assets_front', $this->_data['assets_front']);
+        $this->template->set('url_logout', $this->_data['url_logout']);
+        $this->template->set('layanan_forward', $this->_data['layanan_forward']);
+        $this->template->set('sample_image', $this->_data['sample_image']);
+        $this->template->load($this->_template, 'lists_skip_ie6', $this->_data);
+    }
+
+    function listFinish()
+    {
+        $this->_data['info_page'] = $this->_page_content_info;
+        $this->_data['url_list_queue'] = site_url($this->_module_controller . 'listQueue');
+        $this->_data['url_list_skip'] = site_url($this->_module_controller . 'listSkip');
+        $this->_data['url_list_finish'] = site_url($this->_module_controller . 'listFinish');
+        $this->template->set('title', $this->_page_title);
+        $this->template->set('loket_name', $this->_data['loket_name']);
+        $this->template->set('login_name', $this->_data['login_name']);
+        $this->template->set('assets', $this->_data['assets']);
+        $this->template->set('assets_front', $this->_data['assets_front']);
+        $this->template->set('url_logout', $this->_data['url_logout']);
+        $this->template->set('layanan_forward', $this->_data['layanan_forward']);
+        $this->template->set('sample_image', $this->_data['sample_image']);
+        $this->template->load($this->_template, 'lists_finish_ie6', $this->_data);
     }
 
     function page_content_ajax()
