@@ -13,16 +13,14 @@
                         <thead>
                             <tr>
                                 <th style="width: 2%;">#</th>
-                                <th style="width: 10%;" nowrap="nowrap">ID</th>
-                                <th style="width: 20%;" nowrap="nowrap">Name</th>
-                                <th style="width: 22%;" nowrap="nowrap">Dept</th>
-                                <th style="width: 46%;" nowrap="nowrap">Notes</th>
+                                <th style="width: 10%;" nowrap="nowrap">No Ticket</th>
+                                <th style="width: 20%;" nowrap="nowrap">Layanan</th>
+                                <th style="width: 22%;" nowrap="nowrap">Time In</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>1</th>
-                                <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
@@ -32,11 +30,9 @@
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
                             </tr>
                             <tr>
                                 <th>3</th>
-                                <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
@@ -46,12 +42,10 @@
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
-                                <td><input type="text" class="text"></td>
                             </tr>
                             <tr>
 
                                 <th>5</th>
-                                <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
                                 <td><input type="text" class="text"></td>
