@@ -1045,7 +1045,7 @@ class Loket extends MY_Counter
 			LEFT JOIN anf_layanan ON trans_id_layanan=lay_id_layanan 
 			JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
 			LEFT JOIN anf_visitor ON (trans_id_visitor = vst_id_visitor) 
-			WHERE ' . $addWhere . ' prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $trans_tanggal_transaksi . '" ' . $scheduleCondition . '
+			WHERE ' . $addWhere . ' prilay_id_group_loket = ' . $grouploket . ' AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $trans_tanggal_transaksi . '" ' . $scheduleCondition . '
 			ORDER BY prilay_prioritas ASC, trans_id_transaksi LIMIT 1');
 
         $vRow_next = $cal_next->row_array();
@@ -1169,7 +1169,7 @@ class Loket extends MY_Counter
         print $this->array2xml($vArrayTemp);
     }
 
-    function fnSkip()
+    function fnSkip($groupLayananId = '', $groupLoketId = '')
     {
         $result = array(
             'success' => true,
@@ -1187,15 +1187,28 @@ class Loket extends MY_Counter
 
         $query = $this->db->query($q);
         $listlayanan = array();
+        $grouploket = '';
         foreach ($query->result() as $vRow) {
             $listlayanan[] = $vRow->prilay_id_group_layanan;
+            $grouploket = $vRow->prilay_id_group_loket;
+        }
+
+        if(!empty($groupLayananId)) {
+            $listlayanan = [];
+            $listlayanan[] = $groupLayananId;
+        }
+
+        if(!empty($groupLoketId)) {
+            $grouploket = $groupLoketId;
         }
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
 
         $ct_id_lay = $this->db->query("SELECT trans_tanggal_transaksi,trans_no_ticket_awal,trans_no_ticket,grolay_nama_group_layanan,trans_waktu_panggil,trans_id_layanan,trans_id_group_layanan 
-			from anf_transaksi JOIN anf_group_layanan ON trans_id_group_layanan=grolay_id_group_layanan 
-			where trans_status_transaksi IN (1,2) and trans_id_group_layanan IN (" . join(',', $listlayanan) . ") and trans_id_loket='$Loket' and trans_tanggal_transaksi='$trans_tanggal_transaksi' ".$scheduleCondition." 
+			from anf_transaksi 
+            JOIN anf_group_layanan ON (trans_id_group_layanan=grolay_id_group_layanan)
+            JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
+			where trans_status_transaksi IN (1,2) and prilay_id_group_loket = " . $grouploket . " AND trans_id_group_layanan IN (" . join(',', $listlayanan) . ") and trans_id_loket='$Loket' and trans_tanggal_transaksi='$trans_tanggal_transaksi' ".$scheduleCondition." 
 			order by trans_id_transaksi desc ");
         $_countmk3 = $ct_id_lay->row_array();
 
@@ -1203,7 +1216,12 @@ class Loket extends MY_Counter
 			set  trans_status_transaksi='3' 
 			where trans_no_ticket_awal='$_countmk3[trans_no_ticket_awal]' and trans_no_ticket='$_countmk3[trans_no_ticket]' and trans_id_loket='$Loket' and trans_tanggal_transaksi='$trans_tanggal_transaksi'");
 
-        echo json_encode($result);
+        // echo json_encode($result);
+
+        header('Content-Type: text/xml');
+        header('Pragma: no-cache');
+        echo '<?xml version="1.0" encoding="UTF-8"?>';
+        print $this->array2xml($result);
     }
 
     function fnUndo($trans_id_transaksi = '')

@@ -71,14 +71,19 @@
                 <div class="col">
                     <div class="cell">
                         <div class="col">
-                            <div class="col width-1of2">
+                            <div class="col width-1of3">
                                 <div class="cell" style="text-align:center;">
-                                    <button class="button" style="display:initial;float: none;font-size:35px;" onclick="do_next_<?php echo $value; ?>()">NEXT</button>
+                                    <button class="button" style="display:initial;float: none;font-size:25px;" onclick="do_next_<?php echo $value; ?>()">NEXT</button>
+                                </div>
+                            </div>
+                            <div class="col width-1of3">
+                                <div class="cell" style="text-align:center;">
+                                    <button class="button" style="display:initial;float: none;font-size:25px;" onclick="do_skip_<?php echo $value; ?>()">SKIP</button>
                                 </div>
                             </div>
                             <div class="col width-fill">
                                 <div class="cell" style="text-align:center;">
-                                <button class="button" style="display:initial;float: none;font-size:35px;" onclick="do_recall_<?php echo $value; ?>()">RECALL</button>
+                                <button class="button" style="display:initial;float: none;font-size:25px;" onclick="do_recall_<?php echo $value; ?>()">RECALL</button>
                                 </div>
                             </div>
                         </div>
@@ -151,6 +156,34 @@
 
             show_antrian_<?php echo $value; ?>();
         }	
+    }
+
+    function do_skip_<?php echo $value; ?>(){
+        if (window.XMLHttpRequest) {
+            http = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            http = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        var url = '<?php echo $fnSkip; ?>/<?php echo $value; ?>/<?php echo $grouplokets; ?>';
+        http.open("POST", url, true);
+        http.send(null);
+        http.onreadystatechange = statechange_skip_<?php echo $value; ?>;
+    }
+
+    function statechange_skip_<?php echo $value; ?>() {
+        if (http.readyState == 4) {
+            var xmlObj = http.responseXML;
+            var no_tiket_awal = '';
+            var no_tiket = '';
+            var vst_nama = '';
+            var start = '';
+
+            document.getElementById('tiket_<?php echo $value; ?>').innerHTML = no_tiket_awal + no_tiket;
+            document.getElementById('start_<?php echo $value; ?>').innerHTML = start;
+            document.getElementById('visitorNama_<?php echo $value; ?>').innerHTML = vst_nama;
+
+            // show_antrian_<?php echo $value; ?>();
+        }   
     }
 
     function do_recall_<?php echo $value; ?>(){
