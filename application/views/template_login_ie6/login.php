@@ -31,6 +31,16 @@
                 width: 100%;
             }
 
+            .panel .header, .panel .body, .panel .footer {
+                border-width: 0 1px 1px 0;
+                background: #0f677f;
+                color: #fff;
+            }
+
+            .menu .links a, a, .pipes a, .menu .stat a, .menu .links a:hover, a:hover, .pipes a:hover, .menu .stat a:hover {
+                color: #fff;
+            }
+
         </style>
     </head>
     <body>

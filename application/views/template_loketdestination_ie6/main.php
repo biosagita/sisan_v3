@@ -11,7 +11,11 @@
         <link rel="shortcut icon" href="<?php echo $assets; ?>/ie6/assets/img/favicon.ico" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style type="text/css">
-
+        .panel .header, .panel .body, .panel .footer {
+            border-width: 0 1px 1px 0;
+            background: #0f677f;
+            color: #fff;
+        }
 
         </style>
     </head>

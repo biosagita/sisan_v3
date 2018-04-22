@@ -5,7 +5,7 @@
         <div class="header">
             Loket Name: <?php echo $loket_name; ?>, Layanan: <?php echo $namaLayanan[$value]; ?>
         </div>
-        <div class="body">
+        <div class="body" style="background: #106c78;">
             <div class="cell">
                 <!-- <div class="col" style="background:black;margin-bottom:20px;">
                     <div class="col width-1of2">
@@ -34,8 +34,8 @@
                     </div>
                 </div> -->
                 <div class="col">
-                    <div class="cell">
-                        <div class="col" style="text-align:right;">
+                    <div class="cell" style="margin-right: 0;">
+                        <div class="col" style="text-align:right;color:#fff;">
                             Jumlah Antrian: <span id="jumlahAntrian_<?php echo $value; ?>">-</span>
                         </div>
                     </div>
