@@ -73,17 +73,17 @@
                         <div class="col">
                             <div class="col width-1of3">
                                 <div class="cell" style="text-align:center;">
-                                    <button class="button" style="display:initial;float: none;font-size:25px;" onclick="do_next_<?php echo $value; ?>()">NEXT</button>
+                                    <button class="button" style="display:initial;float: none;font-size:15px;" onclick="do_next_<?php echo $value; ?>()">NEXT</button>
                                 </div>
                             </div>
                             <div class="col width-1of3">
                                 <div class="cell" style="text-align:center;">
-                                    <button class="button" style="display:initial;float: none;font-size:25px;" onclick="do_skip_<?php echo $value; ?>()">SKIP</button>
+                                    <button class="button" style="display:initial;float: none;font-size:15px;" onclick="do_skip_<?php echo $value; ?>()">SKIP</button>
                                 </div>
                             </div>
                             <div class="col width-fill">
                                 <div class="cell" style="text-align:center;">
-                                <button class="button" style="display:initial;float: none;font-size:25px;" onclick="do_recall_<?php echo $value; ?>()">RECALL</button>
+                                <button class="button" style="display:initial;float: none;font-size:15px;" onclick="do_recall_<?php echo $value; ?>()">RECALL</button>
                                 </div>
                             </div>
                         </div>

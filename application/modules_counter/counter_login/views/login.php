@@ -19,7 +19,7 @@
                                         <label for="txt_username">Username<span class="color-red"> *</span></label>
                                     </div>
                                 </div>
-                                <div class="col width-fill">
+                                <div class="col width-1of2">
                                     <div class="cell">
                                         <input type="text" name="txt_username" id="txt_username" placeholder="Your username" data-required="true" data-error-message="Username is required" class="text parsley-validated">
                                     </div>
@@ -31,7 +31,7 @@
                                         <label for="psw_password">Pasword<span class="color-red"> *</span></label>
                                     </div>
                                 </div>
-                                <div class="col width-fill">
+                                <div class="col width-1of2">
                                     <div class="cell">
                                         <input type="password" name="psw_password" id="psw_password" placeholder="Your password" data-required="true" data-error-message="Password is required" class="text parsley-validated">
                                     </div>
