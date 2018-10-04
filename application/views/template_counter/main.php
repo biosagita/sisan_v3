@@ -180,6 +180,10 @@
   #myVideo {
       background-color: #9ab87a;
   }
+
+  #myModalWebCamera{
+    top: 20%;
+  }
   </style>
 
 </head>
@@ -472,7 +476,7 @@
         </div>
     </div>
 
-    <a style="display: none;" data-toggle="modal" href="#myModalWebCamera" id="linkShowWebCamera"></a>
+    <a style="display: none;" data-toggle="modal" href="#myModalWebCamera" id="linkShowWebCamera" data-keyboard="false" data-backdrop="static"></a>
 
     <div class="modal fade" id="myModalWebCamera">
         <div class="modal-dialog">
