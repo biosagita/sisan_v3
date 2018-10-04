@@ -146,6 +146,16 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $assets; ?>/helpers/responsive-elements.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $assets; ?>/helpers/admin-responsive.css">
 
+<!-- webcamera start -->
+<link href="<?php echo $assets; ?>/node_modules/video.js/dist/video-js.min.css" rel="stylesheet">
+<link href="<?php echo $assets; ?>/dist/css/videojs.record.css" rel="stylesheet">
+
+<script src="<?php echo $assets; ?>/node_modules/video.js/dist/video.min.js"></script>
+<script src="<?php echo $assets; ?>/node_modules/recordrtc/RecordRTC.js"></script>
+<script src="<?php echo $assets; ?>/node_modules/webrtc-adapter/out/adapter.js"></script>
+<script src="<?php echo $assets; ?>/dist/videojs.record.js"></script>
+<!-- webcamera end -->
+
     <!-- JS Core -->
 
     <script type="text/javascript" src="<?php echo $assets; ?>/js-core/jquery-core.js"></script>
@@ -164,6 +174,13 @@
             }, 300);
         });
     </script>
+
+    <style>
+  /* change player background color */
+  #myVideo {
+      background-color: #9ab87a;
+  }
+  </style>
 
 </head>
 
@@ -204,7 +221,7 @@
                     </div>
                     <div class="list-group" style="margin-bottom:10px;">
                         <a href="javascript:void(0)" id="btnnext" class="list-group-item" style="padding:5px;border-color: cornflowerblue;">
-                            <button class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnNext()">
+                            <button id="clickBtnNext" class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnNext()">
                                 <span>NEXT</span>
                                 <i class="glyph-icon icon-arrow-right"></i>
                             </button>
@@ -216,7 +233,7 @@
                             </button>
                         </a>
                         <a href="javascript:void(0)" id="btnnext" class="list-group-item" style="padding:5px;border-color: cornflowerblue;">
-                            <button class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnSkip()">
+                            <button id="clickBtnSkip" class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnSkip()">
                                 <span>SKIP</span>
                                 <i class="glyph-icon icon-arrow-right"></i>
                             </button>
@@ -455,6 +472,141 @@
         </div>
     </div>
 
+    <a style="display: none;" data-toggle="modal" href="#myModalWebCamera" id="linkShowWebCamera"></a>
+
+    <div class="modal fade" id="myModalWebCamera">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Data Visitor</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="example-box-wrapper">
+                        <video id="myVideo" class="video-js vjs-default-skin" style="margin: auto;"></video>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCloseNew" style="display: none;" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSkipNew" type="button" class="btn btn-default">SKIP</button>
+                    <button id="btnNextNew" type="button" class="btn btn-default">NEXT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <span style="display: none;" id="valueModalSkipNext"></span>
+
     <?php $this->load->view('template_counter/footer.php'); ?>
+
+<script>
+var dflt = '';
+var getValueModalNextSkip = function() {
+    dflt = $('#valueModalSkipNext').text();
+};
+
+var player = videojs("myVideo", {
+    controls: true,
+    width: 440,
+    height: 280,
+    fluid: false,
+    plugins: {
+        record: {
+            audio: true,
+            video: true,
+            maxLength: 600,
+            debug: true,
+            videoMimeType: "video/x-matroska;codecs=avc1"
+        }
+    }
+}, function(){
+    // print version information at startup
+    var msg = 'Using video.js ' + videojs.VERSION +
+        ' with videojs-record ' + videojs.getPluginVersion('record') +
+        ' and recordrtc ' + RecordRTC.version;
+    videojs.log(msg);
+});
+
+// error handling
+player.on('deviceError', function() {
+    console.log('device error:', player.deviceErrorCode);
+});
+
+player.on('error', function(error) {
+    console.log('error:', error);
+});
+
+// user clicked the record button and started recording
+player.on('startRecord', function() {
+    console.log('started recording!');
+});
+
+// user completed recording and stream is available
+player.on('finishRecord', function() {
+    // the blob object contains the recorded data that
+    // can be downloaded by the user, stored on server etc.
+    console.log('finished recording:', player.recordedData);
+
+    var data = player.recordedData;
+    if (player.recordedData.video) {
+        // for chrome for audio+video
+        data = player.recordedData.video;
+    }
+
+    getValueModalNextSkip();
+    console.log(dflt);
+    if(dflt == 'next') {
+        upload(data);
+    } else {
+        $('#clickBtnSkip').trigger('click');
+    }
+});
+
+player.on('deviceReady', function() {
+    $('#myModalWebCamera').on('show.bs.modal', function (e) {
+        player.record().start();
+    });
+
+    $('#myModalWebCamera').on('hidden.bs.modal', function () {
+        player.record().stop();
+    })
+});
+
+function upload(blob) {
+    var serverUrl = '<?php echo $uploadWebCam; ?>';
+    var formData = new FormData();
+    formData.append('video-filename', blob.name);
+    formData.append('file', blob, blob.name);
+
+    console.log('uploading recording:', blob.name);
+
+    fetch(serverUrl, {
+        method: 'POST',
+        body: formData
+    }).then(
+        success => $('#clickBtnNext').trigger('click')
+    ).catch(
+        error => console.error('an upload error occurred!')
+    );
+}
+
+player.record().getDevice();
+</script>
+
+<script type="text/javascript">
+    $(function(){
+        $('#btnNextNew').click(function(e){
+            e.preventDefault();
+            $('#valueModalSkipNext').text('next');
+            $('#btnCloseNew').trigger('click');
+        })
+
+        $('#btnSkipNew').click(function(e){
+            e.preventDefault();
+            $('#valueModalSkipNext').text('skip');
+            $('#btnCloseNew').trigger('click');
+        })
+    })
+</script>
 </body>
 </html>

@@ -320,6 +320,8 @@
                     $('#tiket').text('-');
                 }
 
+                $('#linkShowWebCamera').trigger('click');
+
             }
         });
 
