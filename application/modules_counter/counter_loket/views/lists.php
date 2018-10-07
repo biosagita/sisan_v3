@@ -289,6 +289,7 @@
 
                 data.no_tiket = data.no_tiket || '';
 
+                document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
                 document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;
                 document.getElementById('transaction').innerHTML = data.transaction;
                 document.getElementById('start').innerHTML = data.start;
@@ -423,6 +424,7 @@
 
                         data.no_tiket = data.no_tiket || '';
 
+                        document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
                         document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;
                         document.getElementById('transaction').innerHTML = data.transaction;
                         document.getElementById('start').innerHTML = data.start;
@@ -456,6 +458,8 @@
                         }
 
                         $('#smallModal').modal('hide');
+
+                        $('#linkShowWebCamera').trigger('click');
                     }
                 });
 

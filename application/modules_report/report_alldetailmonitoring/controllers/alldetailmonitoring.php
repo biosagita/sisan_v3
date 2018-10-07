@@ -143,6 +143,11 @@ class Alldetailmonitoring extends MY_Admin {
                 'field_name' 			=> 'admusr_username',
                 'no_order'				=> 10,
             ),
+            array(
+                'title_header_column' 	=> 'Webcam File',
+                'field_name' 			=> 'trans_webcam_file',
+                'no_order'				=> 11,
+            ),
 		);
 
 		return $column_list;
@@ -276,7 +281,7 @@ class Alldetailmonitoring extends MY_Admin {
             $this->db->where($where);
         }
 
-		$this->db->select('lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
+		$this->db->select('trans_webcam_file, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
 		$this->db->from($this->_table_name);
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');

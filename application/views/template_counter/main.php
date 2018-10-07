@@ -206,9 +206,7 @@
                             <div class="tile-header" style="padding:2px;">
                                 <?php echo $login_name; ?>
                             </div>
-                            <div class="tile-content-wrapper" style="font-size:30px;padding:5px;">
-                                <?php echo $loket_name; ?>
-                            </div>
+                            <div id="loketName" class="tile-content-wrapper" style="font-size:30px;padding:5px;"><?php echo $loket_name; ?></div>
                         </a>
                     </div>
                     <div>
@@ -249,7 +247,7 @@
                             </button>
                         </a>
                         <a href="javascript:void(0)" id="btnnext" class="list-group-item" style="padding:5px;border-color: cornflowerblue;">
-                            <button class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnFinish()">
+                            <button id="clickBtnFinish" class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnFinish()">
                                 <span>FINISH</span>
                                 <i class="glyph-icon icon-arrow-right"></i>
                             </button>
@@ -338,6 +336,7 @@
                         </a>
                     </div>
                     <div class="col-sm-8" style="font-size:16px;">
+                        <span style="display: none;" id="trans_id_transaksi"></span>
                         <div class="row" style="margin-bottom:5px;background: black;color: white;">
                             <div class="col-sm-4">
                                 Transaction
@@ -482,31 +481,57 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> -->
                     <h4 class="modal-title">Data Visitor</h4>
                 </div>
                 <div class="modal-body">
                     <div class="example-box-wrapper">
                         <video id="myVideo" class="video-js vjs-default-skin" style="margin: auto;"></video>
                     </div>
+                    <div>
+                        <form id="frmWebCamera" method="post" class="form-horizontal bordered-row">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input name="sort_no" id="sort_no" type="text" class="form-control" placeholder="Sort No.">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input name="transaction_no" id="transaction_no" type="text" class="form-control" placeholder="Transaction No.">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input name="nama_nasabah" id="nama_nasabah" type="text" class="form-control" placeholder="Nama Nasabah">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input name="subject" id="subject" type="text" class="form-control" placeholder="Subject">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input name="officer" id="officer" type="text" class="form-control" placeholder="Officer">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="btnCloseNew" style="display: none;" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button id="btnSkipNew" type="button" class="btn btn-default">SKIP</button>
                     <button id="btnNextNew" type="button" class="btn btn-default">NEXT</button>
+                    <button id="btnFinishNew" type="button" class="btn btn-default">FINISH</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <span style="display: none;" id="valueModalSkipNext"></span>
+    <span style="display: none;" id="valueModalSkipNextFinish"></span>
 
     <?php $this->load->view('template_counter/footer.php'); ?>
 
 <script>
 var dflt = '';
 var getValueModalNextSkip = function() {
-    dflt = $('#valueModalSkipNext').text();
+    dflt = $('#valueModalSkipNextFinish').text();
 };
 
 var player = videojs("myVideo", {
@@ -518,7 +543,7 @@ var player = videojs("myVideo", {
         record: {
             audio: true,
             video: true,
-            maxLength: 600,
+            maxLength: <?php echo $uploadWebCamTime; ?>,
             debug: true,
             videoMimeType: "video/x-matroska;codecs=avc1"
         }
@@ -559,7 +584,7 @@ player.on('finishRecord', function() {
 
     getValueModalNextSkip();
     console.log(dflt);
-    if(dflt == 'next') {
+    if(dflt == 'next' || dflt == 'finish') {
         upload(data);
     } else {
         $('#clickBtnSkip').trigger('click');
@@ -568,6 +593,11 @@ player.on('finishRecord', function() {
 
 player.on('deviceReady', function() {
     $('#myModalWebCamera').on('show.bs.modal', function (e) {
+        $('#sort_no').val('');
+        $('#transaction_no').val('');
+        $('#nama_nasabah').val('');
+        $('#subject').val('');
+        $('#officer').val('');
         player.record().start();
     });
 
@@ -579,8 +609,23 @@ player.on('deviceReady', function() {
 function upload(blob) {
     var serverUrl = '<?php echo $uploadWebCam; ?>';
     var formData = new FormData();
+    var trans_id_transaksi = $('#trans_id_transaksi').text();
+    var sort_no = $('#sort_no').val();
+    var transaction_no = $('#transaction_no').val();
+    var nama_nasabah = $('#nama_nasabah').val();
+    var subject = $('#subject').val();
+    var officer = $('#officer').val();
+    var loketName = $('#loketName').text();
+
     formData.append('video-filename', blob.name);
     formData.append('file', blob, blob.name);
+    formData.append('trans_id_transaksi', trans_id_transaksi);
+    formData.append('sort_no', sort_no);
+    formData.append('transaction_no', transaction_no);
+    formData.append('nama_nasabah', nama_nasabah);
+    formData.append('subject', subject);
+    formData.append('officer', officer);
+    formData.append('loketName', loketName);
 
     console.log('uploading recording:', blob.name);
 
@@ -588,7 +633,14 @@ function upload(blob) {
         method: 'POST',
         body: formData
     }).then(
-        success => $('#clickBtnNext').trigger('click')
+        success => {
+            if(dflt == 'next') {
+                $('#clickBtnNext').trigger('click');
+            }
+            if(dflt == 'finish') {
+                $('#clickBtnFinish').trigger('click');
+            }
+        }
     ).catch(
         error => console.error('an upload error occurred!')
     );
@@ -599,16 +651,44 @@ player.record().getDevice();
 
 <script type="text/javascript">
     $(function(){
+        var validationFormWebCam = function() {
+            var sort_no = $('#sort_no').val();
+            var transaction_no = $('#transaction_no').val();
+            var nama_nasabah = $('#nama_nasabah').val();
+            var subject = $('#subject').val();
+            var officer = $('#officer').val();
+
+            if(sort_no == '' || transaction_no == '' || nama_nasabah == '' || subject == '' || officer == '') {
+                return false;
+            }
+
+            return true;
+        };
+
         $('#btnNextNew').click(function(e){
             e.preventDefault();
-            $('#valueModalSkipNext').text('next');
-            $('#btnCloseNew').trigger('click');
+            if(validationFormWebCam()) {
+                $('#valueModalSkipNextFinish').text('next');
+                $('#btnCloseNew').trigger('click');
+            } else {
+                alert('Oops.. form harus diisi!');
+            }
         })
 
         $('#btnSkipNew').click(function(e){
             e.preventDefault();
-            $('#valueModalSkipNext').text('skip');
+            $('#valueModalSkipNextFinish').text('skip');
             $('#btnCloseNew').trigger('click');
+        })
+
+        $('#btnFinishNew').click(function(e){
+            e.preventDefault();
+            if(validationFormWebCam()) {
+                $('#valueModalSkipNextFinish').text('finish');
+                $('#btnCloseNew').trigger('click');
+            } else {
+                alert('Oops.. form harus diisi!');
+            }
         })
     })
 </script>

@@ -199,6 +199,10 @@ class Loket extends MY_Counter
         $tmp = $this->loketsx->where(array('lokets_id' => $this->_data['cookie_loket_id']))->get_row();
         $this->_data['loket_name'] = $tmp['lokets_name'];
 
+        $this->load->model('settings_model', 'settingsx');
+        $tmp_webcam_path = $this->settingsx->where(array('sett_setting' => 'webcam_upload_path'))->get_row();
+        $tmp_webcam_time = $this->settingsx->where(array('sett_setting' => 'webcam_upload_time'))->get_row();
+
         $this->load->model('adminuser_model', 'adminuserx');
         $tmp2 = $this->adminuserx->where(array('admusr_id' => $this->session->userdata('admin_id')))->get_login_userlevel();
         $this->_data['login_name'] = $tmp2['admusr_username'] . ' (' . $tmp['lokets_type'] . ')';
@@ -218,6 +222,8 @@ class Loket extends MY_Counter
         $this->_data['fnSkip'] = site_url($this->_module_controller . 'fnSkip');
         $this->_data['fnUndo'] = site_url($this->_module_controller . 'fnUndo');
         $this->_data['uploadWebCam'] = site_url($this->_module_controller . 'uploadWebCam');
+        $this->_data['uploadWebCamPath'] = $tmp_webcam_path['sett_nilai'];
+        $this->_data['uploadWebCamTime'] = 60 * $tmp_webcam_time['sett_nilai'];
 
         $this->_data['column_list'] = $this->get_show_column();
         $this->_data['column_list'] = $this->get_show_column();
@@ -842,12 +848,28 @@ class Loket extends MY_Counter
     }
 
     function uploadWebCam() {
+        $this->load->model('adminuser_model', 'adminuserx');
+        $tmp2 = $this->adminuserx->where(array('admusr_id' => $this->session->userdata('admin_id')))->get_login_userlevel();
+
+        $this->load->model('settings_model', 'settingsx');
+        $tmp_webcam_path = $this->settingsx->where(array('sett_setting' => 'webcam_upload_path'))->get_row();
+
+        $trans_id_transaksi = $_POST['trans_id_transaksi'];
+        $sort_no = $_POST['sort_no'];
+        $transaction_no = $_POST['transaction_no'];
+        $nama_nasabah = $_POST['nama_nasabah'];
+        $subject = $_POST['subject'];
+        $officer = $_POST['officer'];
+        $loketName = $_POST['loketName'];
+
         $fileName = '';
         $tempName = '';
         $file_idx = '';
         
         $file_idx = 'file';
-        $fileName = $_POST['video-filename'];
+        $loketName = str_replace(' ', '_', $loketName);
+        $userlogin = str_replace(' ', '_', $tmp2['admusr_username']);
+        $fileName = $loketName.'_'.date('Ymd').'_'.$userlogin.'_'.$_POST['video-filename'];
         $tempName = $_FILES[$file_idx]['tmp_name'];
         
         if (empty($fileName) || empty($tempName)) {
@@ -860,7 +882,8 @@ class Loket extends MY_Counter
             return;
         }
 
-        $filePath = 'assets/frontend/upload_video/' . $fileName;
+        // $filePath = 'assets/frontend/upload_video/' . $fileName;
+        $filePath = $tmp_webcam_path['sett_nilai'] . $fileName;
         
         // make sure that one can upload only allowed audio/video files
         $allowed = array(
@@ -876,7 +899,8 @@ class Loket extends MY_Counter
         if($extension == 'x-matroska') {
             $extension = 'mkv';
             $fileName = str_replace('x-matroska', 'mkv', $fileName);
-            $filePath = 'assets/frontend/upload_video/' . $fileName;
+            // $filePath = 'assets/frontend/upload_video/' . $fileName;
+            $filePath = $tmp_webcam_path['sett_nilai'] . $fileName;
         }
 
         if (!$extension || empty($extension) || !in_array($extension, $allowed)) {
@@ -908,6 +932,15 @@ class Loket extends MY_Counter
                 echo 'Problem saving file: '.$tempName;
             }
             return;
+        } else {
+            $this->db->query("UPDATE anf_transaksi 
+            set trans_sort_no='$sort_no', 
+            trans_transaction_no='$transaction_no', 
+            trans_nama_nasabah='$nama_nasabah', 
+            trans_subject='$subject', 
+            trans_officer='$officer', 
+            trans_webcam_file='$fileName' 
+            where trans_id_transaksi = '$trans_id_transaksi' ");
         }
         
         echo 'success';
