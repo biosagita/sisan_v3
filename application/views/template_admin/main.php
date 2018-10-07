@@ -204,6 +204,16 @@
     <link rel="stylesheet" type="text/css" href="<?php echo $assets; ?>/helpers/responsive-elements.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $assets; ?>/helpers/admin-responsive.css">
 
+    <!-- webcamera start -->
+    <link href="<?php echo $assets; ?>/node_modules/video.js/dist/video-js.min.css" rel="stylesheet">
+    <link href="<?php echo $assets; ?>/dist/css/videojs.record.css" rel="stylesheet">
+
+    <script src="<?php echo $assets; ?>/node_modules/video.js/dist/video.min.js"></script>
+    <script src="<?php echo $assets; ?>/node_modules/recordrtc/RecordRTC.js"></script>
+    <script src="<?php echo $assets; ?>/node_modules/webrtc-adapter/out/adapter.js"></script>
+    <script src="<?php echo $assets; ?>/dist/videojs.record.js"></script>
+    <!-- webcamera end -->
+
     <!-- JS Core -->
 
     <script type="text/javascript" src="<?php echo $assets; ?>/js-core/jquery-core.js"></script>
@@ -250,6 +260,25 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="myModalWebCameraPlay">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Web Camera</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="example-box-wrapper">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a data-toggle="modal" href="#myModalWebCameraPlay" style="color: #ffffff;" id="linkModalWebCameraPlay"></a>
+
     <?php $this->load->view('template_admin/footer.php'); ?>
 </div>
 </body>

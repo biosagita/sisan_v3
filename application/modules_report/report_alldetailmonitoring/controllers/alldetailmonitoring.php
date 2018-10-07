@@ -147,6 +147,12 @@ class Alldetailmonitoring extends MY_Admin {
                 'title_header_column' 	=> 'Webcam File',
                 'field_name' 			=> 'trans_webcam_file',
                 'no_order'				=> 11,
+                'result_format'			=> function( $d, $row ) {
+                	$this->load->model('settings_model', 'settingsx');
+			        $tmp_webcam_path = $this->settingsx->where(array('sett_setting' => 'webcam_upload_path'))->get_row();
+                	$videoUrl = $tmp_webcam_path['sett_nilai'].$row['trans_webcam_file'];
+                	return '<a target="_blank" href="'.$videoUrl.'">'.$row['trans_webcam_file'].'</a>';
+                }
             ),
 		);
 
@@ -202,9 +208,9 @@ class Alldetailmonitoring extends MY_Admin {
 		$this->_data['trans_id_layanan'] 		= $this->input->post('trans_id_layanan');
 		$this->_data['trans_id_loket'] 			= $this->input->post('trans_id_loket');
 		$this->_data['trans_id_user'] 			= $this->input->post('trans_id_user');
-		//$this->_data['trans_tanggal_transaksi'] = $this->input->post('trans_tanggal_transaksi');
+		$this->_data['trans_tanggal_transaksi'] = $this->input->post('trans_tanggal_transaksi');
         $dateNow = date('Y-m-d');
-        $this->_data['trans_tanggal_transaksi'] = "$dateNow - $dateNow";
+        // $this->_data['trans_tanggal_transaksi'] = "$dateNow - $dateNow";
 		$this->load->view('lists_filter', $this->_data);
 	}
 
