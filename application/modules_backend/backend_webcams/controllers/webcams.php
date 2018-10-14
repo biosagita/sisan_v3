@@ -237,7 +237,7 @@ class Webcams extends MY_Admin {
 
 	function edit_ajax() {
 		$data_id = $this->input->post('data_id');
-		$data = $this->crudmodel->where(array($this->_table_pk => $data_id ))->get_login();
+		$data = $this->crudmodel->where(array($this->_table_pk => $data_id ))->get_row();
 		$this->_data['data_row'] = $data;
 
 		$this->_data['input_list'] 			= $this->get_input_field_new($data);
