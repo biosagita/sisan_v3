@@ -771,6 +771,7 @@ class Loket extends MY_Counter
         $vArrayTemp['vst_phone'] = $vst_phone;
         $vArrayTemp['vst_sex'] = $vst_sex;
         $vArrayTemp['vst_email'] = $vst_email;
+        $vArrayTemp['admin_username'] = $this->session->userdata('admin_username');
 
         echo json_encode($vArrayTemp);
 

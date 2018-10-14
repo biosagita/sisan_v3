@@ -337,6 +337,7 @@
                     </div>
                     <div class="col-sm-8" style="font-size:16px;">
                         <span style="display: none;" id="trans_id_transaksi"></span>
+                        <span style="display: none;" id="admin_username"></span>
                         <div class="row" style="margin-bottom:5px;background: black;color: white;">
                             <div class="col-sm-4">
                                 Transaction
@@ -492,7 +493,7 @@
                         <form id="frmWebCamera" method="post" class="form-horizontal bordered-row">
                             <div class="form-group">
                                 <div class="col-sm-6">
-                                    <input name="sort_no" id="sort_no" type="text" class="form-control" placeholder="Sort No.">
+                                    <input name="sort_no" id="sort_no" type="text" class="form-control" placeholder="Sort No." readonly="readonly">
                                 </div>
                                 <div class="col-sm-6">
                                     <input name="transaction_no" id="transaction_no" type="text" class="form-control" placeholder="Transaction No.">
@@ -508,7 +509,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-6">
-                                    <input name="officer" id="officer" type="text" class="form-control" placeholder="Officer">
+                                    <input name="officer" id="officer" type="text" class="form-control" placeholder="Officer" readonly="readonly">
                                 </div>
                             </div>
                         </form>
@@ -593,11 +594,9 @@ player.on('finishRecord', function() {
 
 player.on('deviceReady', function() {
     $('#myModalWebCamera').on('show.bs.modal', function (e) {
-        $('#sort_no').val('');
         $('#transaction_no').val('');
         $('#nama_nasabah').val('');
         $('#subject').val('');
-        $('#officer').val('');
         player.record().start();
     });
 
@@ -610,6 +609,7 @@ function upload(blob) {
     var serverUrl = '<?php echo $uploadWebCam; ?>';
     var formData = new FormData();
     var trans_id_transaksi = $('#trans_id_transaksi').text();
+    var admin_username = $('#admin_username').text();
     var sort_no = $('#sort_no').val();
     var transaction_no = $('#transaction_no').val();
     var nama_nasabah = $('#nama_nasabah').val();
@@ -620,6 +620,7 @@ function upload(blob) {
     formData.append('video-filename', blob.name);
     formData.append('file', blob, blob.name);
     formData.append('trans_id_transaksi', trans_id_transaksi);
+    formData.append('admin_username', admin_username);
     formData.append('sort_no', sort_no);
     formData.append('transaction_no', transaction_no);
     formData.append('nama_nasabah', nama_nasabah);

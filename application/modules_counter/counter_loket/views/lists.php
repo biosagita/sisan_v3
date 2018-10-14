@@ -290,6 +290,9 @@
                 data.no_tiket = data.no_tiket || '';
 
                 document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
+                document.getElementById('admin_username').innerHTML = data.admin_username;
+                $('#sort_no').val(data.trans_id_transaksi);
+                $('#officer').val(data.admin_username);
                 document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;
                 document.getElementById('transaction').innerHTML = data.transaction;
                 document.getElementById('start').innerHTML = data.start;
@@ -425,6 +428,9 @@
                         data.no_tiket = data.no_tiket || '';
 
                         document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
+                        document.getElementById('admin_username').innerHTML = data.admin_username;
+                        $('#sort_no').val(data.trans_id_transaksi);
+                        $('#officer').val(data.admin_username);
                         document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;
                         document.getElementById('transaction').innerHTML = data.transaction;
                         document.getElementById('start').innerHTML = data.start;

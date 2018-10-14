@@ -229,6 +229,11 @@ class MY_Admin extends MY_Controller {
 								'url_link' => site_url('backend_lokets/lokets/page_content_ajax'),
                                 'icon' => '<i class="glyph-icon icon-linecons-diamond"></i>',
 							),
+							array(
+								'label' => 'Webcam Transaksi',
+								'url_link' => site_url('backend_webcams/webcams/page_content_ajax'),
+                                'icon' => '<i class="glyph-icon icon-linecons-diamond"></i>',
+							),
 						),
 					),
 					array(
