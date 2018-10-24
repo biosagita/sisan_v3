@@ -202,6 +202,7 @@ class Loket extends MY_Counter
         $this->load->model('settings_model', 'settingsx');
         $tmp_webcam_path = $this->settingsx->where(array('sett_setting' => 'webcam_upload_path'))->get_row();
         $tmp_webcam_time = $this->settingsx->where(array('sett_setting' => 'webcam_upload_time'))->get_row();
+        $tmp_webcam_url = $this->settingsx->where(array('sett_setting' => 'webcam_upload_url'))->get_row();
 
         $this->load->model('adminuser_model', 'adminuserx');
         $tmp2 = $this->adminuserx->where(array('admusr_id' => $this->session->userdata('admin_id')))->get_login_userlevel();
@@ -221,7 +222,7 @@ class Loket extends MY_Counter
         $this->_data['fnRecall'] = site_url($this->_module_controller . 'fnRecall');
         $this->_data['fnSkip'] = site_url($this->_module_controller . 'fnSkip');
         $this->_data['fnUndo'] = site_url($this->_module_controller . 'fnUndo');
-        $this->_data['uploadWebCam'] = site_url($this->_module_controller . 'uploadWebCam');
+        $this->_data['uploadWebCam'] = $tmp_webcam_url['sett_nilai'];
         $this->_data['uploadWebCamPath'] = $tmp_webcam_path['sett_nilai'];
         $this->_data['uploadWebCamTime'] = 60 * $tmp_webcam_time['sett_nilai'];
 

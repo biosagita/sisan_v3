@@ -81,7 +81,8 @@ class Webcams extends MY_Admin {
                 'result_format'			=> function( $d, $row ) {
                 	$this->load->model('settings_model', 'settingsx');
 			        $tmp_webcam_path = $this->settingsx->where(array('sett_setting' => 'webcam_upload_path'))->get_row();
-                	$videoUrl = $tmp_webcam_path['sett_nilai'].$row['trans_webcam_file'];
+			        $tmp_webcam_url = $this->settingsx->where(array('sett_setting' => 'webcam_upload_url'))->get_row();
+                	$videoUrl = $tmp_webcam_url['sett_nilai'].$tmp_webcam_path['sett_nilai'].$row['trans_webcam_file'];
                 	return '<a target="_blank" href="'.$videoUrl.'">'.$row['trans_webcam_file'].'</a>';
                 }
             ),

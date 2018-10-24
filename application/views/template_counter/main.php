@@ -627,6 +627,8 @@ function upload(blob) {
     formData.append('subject', subject);
     formData.append('officer', officer);
     formData.append('loketName', loketName);
+    formData.append('webcam_path', '<?php echo $uploadWebCamPath; ?>');
+    formData.append('loketName', loketName);
 
     console.log('uploading recording:', blob.name);
 
