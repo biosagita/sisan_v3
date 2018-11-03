@@ -87,13 +87,13 @@
         $('#print_text').click(function(e){
             e.preventDefault();
 
-            var href = $(this).attr('href');
+            var href = $(this).attr('href') + '/?df=1';
 
             var periode = $('#daterangepicker-example').val();
 
             if(periode != '') {
                 periode = periode.replace(' - ', '_');
-                href += '/?periode='+periode;
+                href += '&periode='+periode;
             }
 
             var trans_id_layanan = $('#trans_id_layanan').val();
@@ -117,13 +117,13 @@
         $('#print_excel').click(function(e){
             e.preventDefault();
 
-            var href = $(this).attr('href');
+            var href = $(this).attr('href') + '/?df=1';
 
             var periode = $('#daterangepicker-example').val();
 
             if(periode != '') {
                 periode = periode.replace(' - ', '_');
-                href += '/?periode='+periode;
+                href += '&periode='+periode;
             }
 
             var trans_id_layanan = $('#trans_id_layanan').val();
