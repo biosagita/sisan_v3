@@ -2,7 +2,7 @@
     <tr><td><b><?php echo $data_company['f_comp_name']; ?></b> 
     <tr><td>
 
-    <tr><th><font style="font-size: 20px;">Data Laporan All Detail</font><BR> 
+    <tr><th><font style="font-size: 20px;">Data Laporan Visitor</font><BR> 
 </table>
 <p></p>
 <table width=100%>
@@ -21,6 +21,8 @@
         <th width=20% > Selesai
         <th width=20% > Nama Layanan
         <th width=20% > User
+        <th width=20% > NUPTK
+        <th width=20% > Tipe Antrian
 
 <?php 
 $no=1;
@@ -45,6 +47,10 @@ foreach($data_master as $data_master_result):
         $tmp[0] = '0' . $tmp2;
         $data_master_result['waktu_layanan'] = join(':', $tmp);
     }
+
+    if($data_master_result['trans_tipe_antrian'] == 1) $data_master_result['trans_tipe_antrian'] = 'Online';
+    if($data_master_result['trans_tipe_antrian'] == 2) $data_master_result['trans_tipe_antrian'] = 'Offline';
+
     print"<tr>
             <td align=center width=5% >$no
             <td align=center  >".$data_master_result['lokets_name']."
@@ -57,6 +63,8 @@ foreach($data_master as $data_master_result):
             <td align=center >".$data_master_result['trans_waktu_finish']."
             <td align=center >".$data_master_result['lay_nama_layanan']."
             <td align=center >".$data_master_result['admusr_username']."
+            <td align=center >".$data_master_result['nuptk']."
+            <td align=center >".$data_master_result['trans_tipe_antrian']."
             ";
 $no++;
 endforeach;
