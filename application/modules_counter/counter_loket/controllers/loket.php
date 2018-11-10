@@ -217,7 +217,7 @@ class Loket extends MY_Counter
         $this->_data['fnRecall'] = site_url($this->_module_controller . 'fnRecall');
         $this->_data['fnSkip'] = site_url($this->_module_controller . 'fnSkip');
         $this->_data['fnUndo'] = site_url($this->_module_controller . 'fnUndo');
-        $this->_data['uploadWebCam'] = site_url($this->_module_controller . 'uploadWebCam');
+        $this->_data['ajaxVisitor'] = site_url($this->_module_controller . 'ajaxVisitor');
 
         $this->_data['column_list'] = $this->get_show_column();
         $this->_data['column_list'] = $this->get_show_column();
@@ -841,75 +841,28 @@ class Loket extends MY_Counter
         echo json_encode($result);
     }
 
-    function uploadWebCam() {
-        $fileName = '';
-        $tempName = '';
-        $file_idx = '';
-        
-        $file_idx = 'file';
-        $fileName = $_POST['video-filename'];
-        $tempName = $_FILES[$file_idx]['tmp_name'];
-        
-        if (empty($fileName) || empty($tempName)) {
-            if(empty($tempName)) {
-                echo 'Invalid temp_name: '.$tempName;
-                return;
-            }
+    function ajaxVisitor() {
+        print_r($_POST);
 
-            echo 'Invalid file name: '.$fileName;
-            return;
-        }
+        /*if(!empty($_POST)) {
+            $trans_id_transaksi = $_POST['trans_id_transaksi'];
+            $nik_nuptk = $_POST['nik_nuptk'];
+            $nik = $_POST['nik'];
+            $nama = $_POST['nama'];
+            $nama_sekolah = $_POST['nama_sekolah'];
+            $permasalahan = $_POST['permasalahan'];
+            $tanggapan = $_POST['tanggapan'];
 
-        $filePath = 'assets/frontend/upload_video/' . $fileName;
-        
-        // make sure that one can upload only allowed audio/video files
-        $allowed = array(
-            'webm',
-            'wav',
-            'mp4',
-            "mkv",
-            'mp3',
-            'ogg'
-        );
-        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+            $this->db->query("UPDATE anf_transaksi 
+                set nik_nuptk='$nik_nuptk', 
+                nik='$nik', 
+                nama='$nama', 
+                nama_sekolah='$nama_sekolah', 
+                permasalahan='$permasalahan', 
+                tanggapan='$tanggapan' 
+                where trans_id_transaksi = '$trans_id_transaksi' ");
+        }*/
 
-        if($extension == 'x-matroska') {
-            $extension = 'mkv';
-            $fileName = str_replace('x-matroska', 'mkv', $fileName);
-            $filePath = 'assets/frontend/upload_video/' . $fileName;
-        }
-
-        if (!$extension || empty($extension) || !in_array($extension, $allowed)) {
-            echo 'Invalid file extension: '.$extension;
-            return;
-        }
-        
-        if (!move_uploaded_file($tempName, $filePath)) {
-            if(!empty($_FILES["file"]["error"])) {
-                $listOfErrors = array(
-                    '1' => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
-                    '2' => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
-                    '3' => 'The uploaded file was only partially uploaded.',
-                    '4' => 'No file was uploaded.',
-                    '6' => 'Missing a temporary folder. Introduced in PHP 5.0.3.',
-                    '7' => 'Failed to write file to disk. Introduced in PHP 5.1.0.',
-                    '8' => 'A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help.'
-                );
-                $error = $_FILES["file"]["error"];
-
-                if(!empty($listOfErrors[$error])) {
-                    echo $listOfErrors[$error];
-                }
-                else {
-                    echo 'Not uploaded because of error #'.$_FILES["file"]["error"];
-                }
-            }
-            else {
-                echo 'Problem saving file: '.$tempName;
-            }
-            return;
-        }
-        
         echo 'success';
     }
 

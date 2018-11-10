@@ -486,14 +486,53 @@
                     <h4 class="modal-title">Data Visitor</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="example-box-wrapper">
-                        <video id="myVideo" class="video-js vjs-default-skin" style="margin: auto;"></video>
+                    <div>
+                        <form id="frmModal" method="post" class="form-horizontal bordered-row">
+                            <input type="hidden" name="trans_id_transaksi" id="trans_id_transaksi">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="nik_nuptk">NIK/NUPTK (User Request):</label>
+                                <div class="col-sm-8">
+                                    <input name="nik_nuptk" class="form-control" id="nik_nuptk">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="nik">NIK:</label>
+                                    <div class="col-sm-8">
+                                    <input name="nik" class="form-control" id="nik">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="nama">Nama:</label>
+                                <div class="col-sm-8">
+                                    <input name="nama" class="form-control" id="nama">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="nama_sekolah">Nama Sekolah:</label>
+                                <div class="col-sm-8">
+                                    <input name="nama_sekolah" class="form-control" id="nama_sekolah">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="permasalahan">Permasalahan:</label>
+                                <div class="col-sm-8">
+                                    <input name="permasalahan" class="form-control" id="permasalahan">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="tanggapan">Tanggapan:</label>
+                                <div class="col-sm-8">
+                                    <input name="tanggapan" class="form-control" id="tanggapan">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button id="btnCloseNew" style="display: none;" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button id="btnSkipNew" type="button" class="btn btn-default">SKIP</button>
-                    <button id="btnNextNew" type="button" class="btn btn-default">NEXT</button>
+                    <!-- <button id="btnNextNew" type="button" class="btn btn-default">NEXT</button> -->
+                    <button id="btnFinishNew" type="button" class="btn btn-default">FINISH</button>
                 </div>
             </div>
         </div>
@@ -503,112 +542,53 @@
 
     <?php $this->load->view('template_counter/footer.php'); ?>
 
-<script>
-var dflt = '';
-var getValueModalNextSkip = function() {
-    dflt = $('#valueModalSkipNext').text();
-};
-
-var player = videojs("myVideo", {
-    controls: true,
-    width: 440,
-    height: 280,
-    fluid: false,
-    plugins: {
-        record: {
-            audio: true,
-            video: true,
-            maxLength: 600,
-            debug: true,
-            videoMimeType: "video/x-matroska;codecs=avc1"
-        }
-    }
-}, function(){
-    // print version information at startup
-    var msg = 'Using video.js ' + videojs.VERSION +
-        ' with videojs-record ' + videojs.getPluginVersion('record') +
-        ' and recordrtc ' + RecordRTC.version;
-    videojs.log(msg);
-});
-
-// error handling
-player.on('deviceError', function() {
-    console.log('device error:', player.deviceErrorCode);
-});
-
-player.on('error', function(error) {
-    console.log('error:', error);
-});
-
-// user clicked the record button and started recording
-player.on('startRecord', function() {
-    console.log('started recording!');
-});
-
-// user completed recording and stream is available
-player.on('finishRecord', function() {
-    // the blob object contains the recorded data that
-    // can be downloaded by the user, stored on server etc.
-    console.log('finished recording:', player.recordedData);
-
-    var data = player.recordedData;
-    if (player.recordedData.video) {
-        // for chrome for audio+video
-        data = player.recordedData.video;
-    }
-
-    getValueModalNextSkip();
-    console.log(dflt);
-    if(dflt == 'next') {
-        upload(data);
-    } else {
-        $('#clickBtnSkip').trigger('click');
-    }
-});
-
-player.on('deviceReady', function() {
-    $('#myModalWebCamera').on('show.bs.modal', function (e) {
-        player.record().start();
-    });
-
-    $('#myModalWebCamera').on('hidden.bs.modal', function () {
-        player.record().stop();
-    })
-});
-
-function upload(blob) {
-    var serverUrl = '<?php echo $uploadWebCam; ?>';
-    var formData = new FormData();
-    formData.append('video-filename', blob.name);
-    formData.append('file', blob, blob.name);
-
-    console.log('uploading recording:', blob.name);
-
-    fetch(serverUrl, {
-        method: 'POST',
-        body: formData
-    }).then(
-        success => $('#clickBtnNext').trigger('click')
-    ).catch(
-        error => console.error('an upload error occurred!')
-    );
-}
-
-player.record().getDevice();
-</script>
-
 <script type="text/javascript">
     $(function(){
+        var validationForm = function() {
+            var nik_nuptk = $('#nik_nuptk').val();
+            var nik = $('#nik').val();
+            var nama = $('#nama').val();
+            var nama_sekolah = $('#nama_sekolah').val();
+            var permasalahan = $('#permasalahan').val();
+            var tanggapan = $('#tanggapan').val();
+
+            if(nik_nuptk == '' || nik == '' || nama == '' || nama_sekolah == '' || permasalahan == '' || tanggapan == '') {
+                return false;
+            }
+
+            return true;
+        };
+
         $('#btnNextNew').click(function(e){
             e.preventDefault();
-            $('#valueModalSkipNext').text('next');
-            $('#btnCloseNew').trigger('click');
+            if(validationForm()) {
+                //script here
+            } else {
+                alert('Oops.. form harus diisi!');
+            }
         })
 
         $('#btnSkipNew').click(function(e){
             e.preventDefault();
-            $('#valueModalSkipNext').text('skip');
             $('#btnCloseNew').trigger('click');
+        })
+
+        $('#btnFinishNew').click(function(e){
+            e.preventDefault();
+            if(validationForm()) {
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo $ajaxVisitor; ?>',
+                    dataType: 'json',
+                    data: $('#frmModal').serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        // $('#btnCloseNew').trigger('click');
+                    }
+                });
+            } else {
+                alert('Oops.. form harus diisi!');
+            }
         })
     })
 </script>
