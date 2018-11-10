@@ -296,6 +296,11 @@ class MY_Admin extends MY_Controller {
 								'url_link' => site_url('report_pu/pu/page_content_ajax'),
                                 'icon' => '<i class="glyph-icon icon-linecons-diamond"></i>',
 							),
+							array(
+								'label' => 'Visitor',
+								'url_link' => site_url('report_visitor/visitor/page_content_ajax'),
+                                'icon' => '<i class="glyph-icon icon-linecons-diamond"></i>',
+							),
 						),
 					),
 				),

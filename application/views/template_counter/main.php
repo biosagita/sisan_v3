@@ -496,9 +496,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-4" for="nik">NIK:</label>
+                                <label class="control-label col-sm-4" for="nuptk">NUPTK:</label>
                                     <div class="col-sm-8">
-                                    <input name="nik" class="form-control" id="nik">
+                                    <input name="nuptk" class="form-control" id="nuptk">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -530,7 +530,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="btnCloseNew" style="display: none;" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button id="btnSkipNew" type="button" class="btn btn-default">SKIP</button>
+                    <button id="btnSkipNew" type="button" class="btn btn-default">CLOSE</button>
                     <!-- <button id="btnNextNew" type="button" class="btn btn-default">NEXT</button> -->
                     <button id="btnFinishNew" type="button" class="btn btn-default">FINISH</button>
                 </div>
@@ -546,13 +546,13 @@
     $(function(){
         var validationForm = function() {
             var nik_nuptk = $('#nik_nuptk').val();
-            var nik = $('#nik').val();
+            var nuptk = $('#nuptk').val();
             var nama = $('#nama').val();
             var nama_sekolah = $('#nama_sekolah').val();
             var permasalahan = $('#permasalahan').val();
             var tanggapan = $('#tanggapan').val();
 
-            if(nik_nuptk == '' || nik == '' || nama == '' || nama_sekolah == '' || permasalahan == '' || tanggapan == '') {
+            if(nik_nuptk == '' || nuptk == '' || nama == '' || nama_sekolah == '' || permasalahan == '' || tanggapan == '') {
                 return false;
             }
 
@@ -583,7 +583,7 @@
                     data: $('#frmModal').serialize(),
                     success: function (data) {
                         console.log(data);
-                        // $('#btnCloseNew').trigger('click');
+                        $('#btnCloseNew').trigger('click');
                     }
                 });
             } else {

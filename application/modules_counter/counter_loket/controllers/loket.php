@@ -682,7 +682,7 @@ class Loket extends MY_Counter
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
 
-        $cal_next = $this->db->query('SELECT trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, anf_visitor.*  
+        $cal_next = $this->db->query('SELECT trans_id_visitor_online,trans_id_profile,trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, anf_visitor.*  
 			FROM anf_transaksi 
 			LEFT JOIN anf_layanan ON trans_id_layanan=lay_id_layanan 
 			JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
@@ -699,6 +699,8 @@ class Loket extends MY_Counter
         $estimasi = $vRow_next['lay_estimasi'];
         $nama_file = $vRow_next['trans_nama_file'];
         $no_tiket_awal = $vRow_next['trans_no_ticket_awal'];
+        $trans_id_visitor_online = $vRow_next['trans_id_visitor_online'];
+        $trans_id_profile = $vRow_next['trans_id_profile'];
 
         //for detail visitor
         $vst_nomor = $vRow_next['vst_nomor'];
@@ -708,7 +710,7 @@ class Loket extends MY_Counter
         $vst_sex = $vRow_next['vst_sex'];
         $vst_email = $vRow_next['vst_email'];
 
-        $ct_id_lay = $this->db->query("SELECT trans_tanggal_transaksi,trans_no_ticket_awal,trans_no_ticket,grolay_nama_group_layanan,trans_waktu_panggil,trans_id_layanan,trans_id_group_layanan from anf_transaksi 
+        $ct_id_lay = $this->db->query("SELECT trans_id_visitor_online, trans_id_profile,trans_tanggal_transaksi,trans_no_ticket_awal,trans_no_ticket,grolay_nama_group_layanan,trans_waktu_panggil,trans_id_layanan,trans_id_group_layanan from anf_transaksi 
 			JOIN anf_group_layanan ON trans_id_group_layanan=grolay_id_group_layanan 
 			where trans_status_transaksi IN (1,2) and trans_id_loket='$Loket' and trans_tanggal_transaksi='$trans_tanggal_transaksi' ".$scheduleCondition."
 			order by trans_id_transaksi desc ");
@@ -774,9 +776,15 @@ class Loket extends MY_Counter
               where trans_no_ticket='$next_id' and trans_id_group_layanan IN (".join(',', $listlayanan).") and trans_tanggal_transaksi='$trans_tanggal_transaksi'");
         */
 
-        $sql = $this->db->query("UPDATE anf_transaksi 
-		  	set  trans_status_transaksi='1',trans_waktu_panggil='$trans_waktu_panggil',trans_id_loket='$Loket', trans_id_user='" . $this->session->userdata('admin_id') . "'
-		  	where trans_no_ticket_awal = '$no_tiket_awal' and trans_no_ticket='$next_id' and trans_id_group_layanan IN (" . join(',', $listlayanan) . ") and trans_tanggal_transaksi='$trans_tanggal_transaksi'");
+        if(!empty($trans_id_visitor_online)) {
+            $sql = $this->db->query("UPDATE anf_transaksi 
+            set  trans_status_transaksi='1',trans_waktu_panggil='$trans_waktu_panggil',trans_id_loket='$Loket', trans_id_user='" . $this->session->userdata('admin_id') . "'
+            where trans_no_ticket_awal = '$no_tiket_awal' and trans_no_ticket='$next_id' and trans_id_visitor_online = '$trans_id_visitor_online' and trans_id_group_layanan IN (" . join(',', $listlayanan) . ") and trans_tanggal_transaksi='$trans_tanggal_transaksi'");
+        } else {
+            $sql = $this->db->query("UPDATE anf_transaksi 
+            set  trans_status_transaksi='1',trans_waktu_panggil='$trans_waktu_panggil',trans_id_loket='$Loket', trans_id_user='" . $this->session->userdata('admin_id') . "'
+            where trans_no_ticket_awal = '$no_tiket_awal' and trans_no_ticket='$next_id' and trans_id_group_layanan IN (" . join(',', $listlayanan) . ") and trans_tanggal_transaksi='$trans_tanggal_transaksi'");
+        }
 
         if ($_countmk3['trans_tanggal_transaksi'] > '0') {
             $sql = $this->db->query("UPDATE anf_transaksi 
@@ -787,6 +795,8 @@ class Loket extends MY_Counter
 
             if (!empty($lay_id_layanan_forward)) {
                 $vItems = array(
+                    'trans_id_profile' => $_countmk3['trans_id_profile'],
+                    'trans_id_visitor_online' => $_countmk3['trans_id_visitor_online'],
                     'trans_tanggal_transaksi' => $trans_tanggal_transaksi,
                     'trans_waktu_ambil' => $trans_waktu_panggil,
                     'trans_no_ticket_awal' => $_countmk3['trans_no_ticket_awal'],
@@ -842,12 +852,12 @@ class Loket extends MY_Counter
     }
 
     function ajaxVisitor() {
-        print_r($_POST);
+        // print_r($_POST);
 
-        /*if(!empty($_POST)) {
+        if(!empty($_POST)) {
             $trans_id_transaksi = $_POST['trans_id_transaksi'];
             $nik_nuptk = $_POST['nik_nuptk'];
-            $nik = $_POST['nik'];
+            $nuptk = $_POST['nuptk'];
             $nama = $_POST['nama'];
             $nama_sekolah = $_POST['nama_sekolah'];
             $permasalahan = $_POST['permasalahan'];
@@ -855,15 +865,15 @@ class Loket extends MY_Counter
 
             $this->db->query("UPDATE anf_transaksi 
                 set nik_nuptk='$nik_nuptk', 
-                nik='$nik', 
+                nuptk='$nuptk', 
                 nama='$nama', 
                 nama_sekolah='$nama_sekolah', 
                 permasalahan='$permasalahan', 
                 tanggapan='$tanggapan' 
                 where trans_id_transaksi = '$trans_id_transaksi' ");
-        }*/
+        }
 
-        echo 'success';
+        echo json_encode(['err_msg' => '']);
     }
 
     function fnUndo($trans_id_transaksi = '')
