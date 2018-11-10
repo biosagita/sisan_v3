@@ -492,37 +492,37 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nik_nuptk">NIK/NUPTK (User Request):</label>
                                 <div class="col-sm-8">
-                                    <input name="nik_nuptk" class="form-control" id="nik_nuptk">
+                                    <input name="nik_nuptk" class="form-control inputdel" id="nik_nuptk">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nuptk">NUPTK:</label>
                                     <div class="col-sm-8">
-                                    <input name="nuptk" class="form-control" id="nuptk">
+                                    <input name="nuptk" class="form-control inputdel" id="nuptk">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nama">Nama:</label>
                                 <div class="col-sm-8">
-                                    <input name="nama" class="form-control" id="nama">
+                                    <input name="nama" class="form-control inputdel" id="nama">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nama_sekolah">Nama Sekolah:</label>
                                 <div class="col-sm-8">
-                                    <input name="nama_sekolah" class="form-control" id="nama_sekolah">
+                                    <input name="nama_sekolah" class="form-control inputdel" id="nama_sekolah">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="permasalahan">Permasalahan:</label>
                                 <div class="col-sm-8">
-                                    <input name="permasalahan" class="form-control" id="permasalahan">
+                                    <input name="permasalahan" class="form-control inputdel" id="permasalahan">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="tanggapan">Tanggapan:</label>
                                 <div class="col-sm-8">
-                                    <input name="tanggapan" class="form-control" id="tanggapan">
+                                    <input name="tanggapan" class="form-control inputdel" id="tanggapan">
                                 </div>
                             </div>
                         </form>
@@ -584,6 +584,7 @@
                     success: function (data) {
                         console.log(data);
                         $('#btnCloseNew').trigger('click');
+                        $('.inputdel').val('');
                     }
                 });
             } else {
