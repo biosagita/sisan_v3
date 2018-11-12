@@ -290,6 +290,14 @@
                 data.no_tiket = data.no_tiket || '';
 
                 $('#trans_id_transaksi').val(data.trans_id_transaksi);
+
+                $('#nik_nuptk').val(data.user_request);
+                $('#nuptk').val(data.nuptk);
+                $('#nama').val(data.nama);
+                $('#nama_sekolah').val(data.nama_sekolah);
+                $('#permasalahan').val(data.permasalahan);
+                $('#tanggapan').val(data.tanggapan);
+
                 // document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
                 document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;
                 document.getElementById('transaction').innerHTML = data.transaction;
@@ -426,6 +434,14 @@
                         data.no_tiket = data.no_tiket || '';
 
                         $('#trans_id_transaksi').val(data.trans_id_transaksi);
+
+                        $('#nik_nuptk').val(data.user_request);
+                        $('#nuptk').val(data.nuptk);
+                        $('#nama').val(data.nama);
+                        $('#nama_sekolah').val(data.nama_sekolah);
+                        $('#permasalahan').val(data.permasalahan);
+                        $('#tanggapan').val(data.tanggapan);
+                
                         // document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
                         document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;
                         document.getElementById('transaction').innerHTML = data.transaction;
