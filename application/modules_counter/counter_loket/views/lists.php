@@ -291,9 +291,13 @@
 
                 $('#trans_id_transaksi').val(data.trans_id_transaksi);
 
+                $('#nik_nuptk_text').val(data.user_request);
                 $('#nik_nuptk').val(data.user_request);
+                $('#nuptk_text').val(data.nuptk);
                 $('#nuptk').val(data.nuptk);
+                $('#nama_text').val(data.nama);
                 $('#nama').val(data.nama);
+                $('#nama_sekolah_text').val(data.nama_sekolah);
                 $('#nama_sekolah').val(data.nama_sekolah);
                 $('#permasalahan').val(data.permasalahan);
                 $('#tanggapan').val(data.tanggapan);
@@ -435,9 +439,13 @@
 
                         $('#trans_id_transaksi').val(data.trans_id_transaksi);
 
+                        $('#nik_nuptk_text').val(data.user_request);
                         $('#nik_nuptk').val(data.user_request);
+                        $('#nuptk_text').val(data.nuptk);
                         $('#nuptk').val(data.nuptk);
+                        $('#nama_text').val(data.nama);
                         $('#nama').val(data.nama);
+                        $('#nama_sekolah_text').val(data.nama_sekolah);
                         $('#nama_sekolah').val(data.nama_sekolah);
                         $('#permasalahan').val(data.permasalahan);
                         $('#tanggapan').val(data.tanggapan);

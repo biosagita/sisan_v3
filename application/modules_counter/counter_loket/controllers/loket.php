@@ -943,7 +943,7 @@ class Loket extends MY_Counter
         );
 
         $sql = $this->db->query("UPDATE anf_transaksi 
-	  	set  trans_status_transaksi='0', trans_id_loket='' 
+	  	set  trans_status_transaksi='0', trans_id_loket='0' 
 	  	where trans_id_transaksi = '$trans_id_transaksi' ");
 
         echo json_encode($result);

@@ -492,25 +492,29 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nik_nuptk">NIK/NUPTK (User Request):</label>
                                 <div class="col-sm-8">
-                                    <input name="nik_nuptk" class="form-control inputdel" id="nik_nuptk">
+                                    <input name="nik_nuptk_text" class="form-control inputdel" readonly="readonly" id="nik_nuptk_text">
+                                    <input name="nik_nuptk" class="form-control inputdel" id="nik_nuptk" style="display: none;">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nuptk">NUPTK:</label>
                                     <div class="col-sm-8">
-                                    <input name="nuptk" class="form-control inputdel" id="nuptk">
+                                    <input name="nuptk_text" class="form-control inputdel" readonly="readonly" id="nuptk_text">
+                                    <input name="nuptk" class="form-control inputdel" id="nuptk" style="display: none;">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nama">Nama:</label>
                                 <div class="col-sm-8">
-                                    <input name="nama" class="form-control inputdel" id="nama">
+                                    <input name="nama_text" class="form-control inputdel" readonly="readonly" id="nama_text">
+                                    <input name="nama" class="form-control inputdel" id="nama" style="display: none;">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nama_sekolah">Nama Sekolah:</label>
                                 <div class="col-sm-8">
-                                    <input name="nama_sekolah" class="form-control inputdel" id="nama_sekolah">
+                                    <input name="nama_sekolah_text" class="form-control inputdel" readonly="readonly" id="nama_sekolah_text">
+                                    <input name="nama_sekolah" class="form-control inputdel" id="nama_sekolah" style="display: none;">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -545,14 +549,14 @@
 <script type="text/javascript">
     $(function(){
         var validationForm = function() {
-            var nik_nuptk = $('#nik_nuptk').val();
-            var nuptk = $('#nuptk').val();
-            var nama = $('#nama').val();
-            var nama_sekolah = $('#nama_sekolah').val();
+            // var nik_nuptk = $('#nik_nuptk').val();
+            // var nuptk = $('#nuptk').val();
+            // var nama = $('#nama').val();
+            // var nama_sekolah = $('#nama_sekolah').val();
             var permasalahan = $('#permasalahan').val();
             var tanggapan = $('#tanggapan').val();
 
-            if(nik_nuptk == '' || nuptk == '' || nama == '' || nama_sekolah == '' || permasalahan == '' || tanggapan == '') {
+            if(permasalahan == '' || tanggapan == '') {
                 return false;
             }
 

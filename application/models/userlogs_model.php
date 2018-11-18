@@ -56,7 +56,7 @@ class Userlogs_model extends CI_Model {
 	}
 
 	function log_logout($user_id) {
-		$q = 'SELECT usrlog_log_id FROM anf_user_log WHERE usrlog_user_id = "'.$user_id.'" AND usrlog_logout_date = "0000-00-00 00:00:00" ORDER BY usrlog_login_date DESC LIMIT 1';
+		$q = 'SELECT usrlog_log_id FROM anf_user_log WHERE usrlog_user_id = "'.$user_id.'" AND (usrlog_logout_date = "0000-00-00 00:00:00" OR usrlog_logout_date IS NULL) ORDER BY usrlog_login_date DESC LIMIT 1';
 
 		$query = $this->db->query($q);
 		$usrlog_log_id = '';
