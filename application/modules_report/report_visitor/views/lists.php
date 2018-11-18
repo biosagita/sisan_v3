@@ -52,50 +52,27 @@
             <div class="row">
                 <div class="col-sm-5">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Layanan</label>
+                        <label class="col-sm-3 control-label">Tipe Antrian</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="trans_id_layanan" id="trans_id_layanan">
-                                <option value="">-- Pilih Layanan --</option>
-                                <?php foreach($option_layanan as $vOpt) : ?>
-                                    <option value="<?php echo $vOpt['value']; ?>"><?php echo $vOpt['name']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Loket</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" name="trans_id_loket" id="trans_id_loket">
-                                <option value="">-- Pilih Loket --</option>
-                                <?php foreach($option_loket as $vOpt) : ?>
-                                    <option value="<?php echo $vOpt['value']; ?>"><?php echo $vOpt['name']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Tipe</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" name="trans_tipe_antrian" id="trans_id_loket">
+                            <select class="form-control" name="id_tipe" id="id_tipe">
                                 <option value="">-- Pilih Tipe --</option>
-                                    <option value="1">Online</option>
-                                    <option value="2">Offline</option>
+                                    <option value="GR">Guru</option>
+                                    <option value="UM">Umum</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Jenis Antrian</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="jenis_antrian" id="jenis_antrian">
+                                <option value="">-- Pilih Jenis --</option>
+                                    <option value="pers">Personal</option>
+                                    <option value="kol">Kolektif</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-5">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">User</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" name="trans_id_user" id="trans_id_user">
-                                <option value="">-- Pilih User --</option>
-                                <?php foreach($option_user as $vOpt) : ?>
-                                    <option value="<?php echo $vOpt['value']; ?>"><?php echo $vOpt['name']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Tanggal</label>
                         <div class="col-sm-9">

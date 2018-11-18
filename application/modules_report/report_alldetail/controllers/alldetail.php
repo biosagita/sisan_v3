@@ -48,6 +48,9 @@ class Alldetail extends MY_Admin {
                 'field_name' 			=> 'admusr_username',
                 'just_info' 			=> true,
             ),
+            array(
+                'field_name' 			=> 'trans_tanggal_transaksi',
+            ),
 		);
 
 		return $additional_field;

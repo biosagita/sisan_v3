@@ -12,11 +12,9 @@
                 "url": '<?php echo $ajax_lists; ?>',
                 "data": function ( d ) {
                     d.extraFilterData = {
-                        'trans_id_layanan'          : '<?php echo $trans_id_layanan; ?>',
-                        'trans_id_loket'            : '<?php echo $trans_id_loket; ?>',
-                        'trans_id_user'             : '<?php echo $trans_id_user; ?>',
-                        'trans_tanggal_transaksi'   : '<?php echo $trans_tanggal_transaksi; ?>',
-                        'trans_tipe_antrian'   : '<?php echo $trans_tipe_antrian; ?>'
+                        'id_tipe'          : '<?php echo $id_tipe; ?>',
+                        'jenis_antrian'            : '<?php echo $jenis_antrian; ?>',
+                        'trans_tanggal_transaksi'   : '<?php echo $trans_tanggal_transaksi; ?>'
                     };
                 }
             },
@@ -46,19 +44,14 @@
                 href += '&periode='+periode;
             }
 
-            var trans_id_layanan = $('#trans_id_layanan').val();
-            if(trans_id_layanan != '') {
-                href += '&trans_id_layanan='+trans_id_layanan;
+            var id_tipe = $('#id_tipe').val();
+            if(id_tipe != '') {
+                href += '&id_tipe='+id_tipe;
             }
 
-            var trans_id_loket = $('#trans_id_loket').val();
-            if(trans_id_loket != '') {
-                href += '&trans_id_loket='+trans_id_loket;
-            }
-
-            var trans_id_user = $('#trans_id_user').val();
-            if(trans_id_user != '') {
-                href += '&trans_id_user='+trans_id_user;
+            var jenis_antrian = $('#jenis_antrian').val();
+            if(jenis_antrian != '') {
+                href += '&jenis_antrian='+jenis_antrian;
             }
 
             window.open(href,'_blank');
@@ -76,19 +69,14 @@
                 href += '&periode='+periode;
             }
 
-            var trans_id_layanan = $('#trans_id_layanan').val();
-            if(trans_id_layanan != '') {
-                href += '&trans_id_layanan='+trans_id_layanan;
+            var id_tipe = $('#id_tipe').val();
+            if(id_tipe != '') {
+                href += '&id_tipe='+id_tipe;
             }
 
-            var trans_id_loket = $('#trans_id_loket').val();
-            if(trans_id_loket != '') {
-                href += '&trans_id_loket='+trans_id_loket;
-            }
-
-            var trans_id_user = $('#trans_id_user').val();
-            if(trans_id_user != '') {
-                href += '&trans_id_user='+trans_id_user;
+            var jenis_antrian = $('#jenis_antrian').val();
+            if(jenis_antrian != '') {
+                href += '&jenis_antrian='+jenis_antrian;
             }
 
             window.open(href,'_blank');

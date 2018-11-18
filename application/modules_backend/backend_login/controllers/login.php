@@ -86,7 +86,7 @@ class Login extends MY_Admin {
 						$vData = array(
 							'usrlog_user_id'	=> $administrator['admusr_id'],
 							'usrlog_login_date'	=> date('Y-m-d H:i:s'),
-                            'usrlog_logout_date'	=> '0000-00-00 00:00:00',
+                            // 'usrlog_logout_date'	=> '0000-00-00 00:00:00',
 							'usrlog_login_ip'	=> get_client_ip(),
 						);
 

@@ -89,7 +89,7 @@ class Loket extends MY_Counter
             // ),
             array(
                 'title_header_column' => 'Nama',
-                'field_name' => 'vst_nama',
+                'field_name' => 'nama',
                 'no_order' => 2,
             ),
             array(
@@ -132,7 +132,7 @@ class Loket extends MY_Counter
             // ),
             array(
                 'title_header_column' => 'Nama',
-                'field_name' => 'vst_nama',
+                'field_name' => 'nama',
                 'no_order' => 2,
             ),
             array(
@@ -175,7 +175,7 @@ class Loket extends MY_Counter
             // ),
             array(
                 'title_header_column' => 'Nama',
-                'field_name' => 'vst_nama',
+                'field_name' => 'nama',
                 'no_order' => 2,
             ),
             array(
@@ -267,7 +267,7 @@ class Loket extends MY_Counter
         $table = $this->db->dbprefix . $this->_table_name;
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) ';
-        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'visitor ON (trans_id_visitor = vst_id_visitor) ';
+        $table .= ' LEFT JOIN t_master_profile ON (id_profile = trans_id_profile) ';
         $primaryKey = $this->_table_pk;
         $column_list = $this->get_show_column();
         $columns = array();
@@ -319,9 +319,12 @@ class Loket extends MY_Counter
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
 
+        $onlineCondition = $this->getOnlineCondition();
+
         $orderBy = ' ORDER BY prilay_prioritas, trans_waktu_ambil';
         $whereResult = '';
-        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $currentDate . '" ' . $scheduleCondition . $orderBy;
+        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $currentDate . '" 
+        ' . $scheduleCondition . $onlineCondition . $orderBy;
 
         //echo 'xxx - ' . $whereAll; exit();
 
@@ -334,7 +337,7 @@ class Loket extends MY_Counter
         $table = $this->db->dbprefix . $this->_table_name;
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) ';
-        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'visitor ON (trans_id_visitor = vst_id_visitor) ';
+        $table .= ' LEFT JOIN t_master_profile ON (id_profile = trans_id_profile) ';
         $primaryKey = $this->_table_pk;
         $column_list = $this->get_show_column_skip();
         $columns = array();
@@ -386,9 +389,12 @@ class Loket extends MY_Counter
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
 
+        $onlineCondition = $this->getOnlineCondition();
+
         $orderBy = ' ORDER BY prilay_prioritas, trans_waktu_ambil';
         $whereResult = '';
-        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 3 AND trans_tanggal_transaksi = "' . $currentDate . '" ' . $scheduleCondition . $orderBy;
+        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 3 AND trans_tanggal_transaksi = "' . $currentDate . '" 
+        ' . $scheduleCondition . $onlineCondition . $orderBy;
         generateDataTable($table, $primaryKey, $columns, $whereResult, $whereAll);
     }
 
@@ -398,7 +404,7 @@ class Loket extends MY_Counter
         $table = $this->db->dbprefix . $this->_table_name;
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
         $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) ';
-        $table .= ' LEFT JOIN ' . $this->db->dbprefix . 'visitor ON (trans_id_visitor = vst_id_visitor) ';
+        $table .= ' LEFT JOIN t_master_profile ON (id_profile = trans_id_profile) ';
         $primaryKey = $this->_table_pk;
         $column_list = $this->get_show_column_finish();
         $columns = array();
@@ -450,9 +456,12 @@ class Loket extends MY_Counter
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
 
+        $onlineCondition = $this->getOnlineCondition();
+
         $orderBy = ' ORDER BY prilay_prioritas, trans_waktu_ambil';
         $whereResult = '';
-        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 5 AND trans_tanggal_transaksi = "' . $currentDate . '" ' . $scheduleCondition . $orderBy;
+        $whereAll = 'prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 5 AND trans_tanggal_transaksi = "' . $currentDate . '" 
+        ' . $scheduleCondition . $onlineCondition . $orderBy;
         generateDataTable($table, $primaryKey, $columns, $whereResult, $whereAll);
     }
 
@@ -493,13 +502,17 @@ class Loket extends MY_Counter
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
 
+        $onlineCondition = $this->getOnlineCondition();
+
         $cal_next = $this->db->query("SELECT trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, anf_visitor.*, vo.user_request, vo.permasalahan, vo.tanggapan, vo.nama_sekolah, vo.nama, vo.nuptk 
 			FROM anf_transaksi 
 			LEFT JOIN anf_layanan ON trans_id_layanan = lay_id_layanan 
 			JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
 			LEFT JOIN anf_visitor ON (trans_id_visitor = vst_id_visitor) 
             LEFT JOIN anf_visitor_online ON (trans_id_visitor_online = id)
-			where trans_status_transaksi = '0' and trans_id_group_layanan IN (" . join(',', $listlayanan) . ") and trans_tanggal_transaksi='$trans_tanggal_transaksi' and trans_no_ticket_awal = '$trans_no_ticket_awal' and trans_no_ticket = '$trans_no_ticket' ".$scheduleCondition." 
+			where trans_status_transaksi = '0' and trans_id_group_layanan IN (" . join(',', $listlayanan) . ") and trans_tanggal_transaksi='$trans_tanggal_transaksi' and trans_no_ticket_awal = '$trans_no_ticket_awal' and trans_no_ticket = '$trans_no_ticket' 
+            ".$scheduleCondition." 
+            ".$onlineCondition." 
 			order by prilay_prioritas ASC, trans_id_transaksi asc LIMIT 1");
 
         $vRow_next = $cal_next->row_array();
@@ -718,13 +731,17 @@ class Loket extends MY_Counter
 
         $scheduleCondition = $this->getScheduleCondition($listlayanan);
 
+        $onlineCondition = $this->getOnlineCondition();
+
         $cal_next = $this->db->query('SELECT trans_id_visitor_online,trans_id_profile,trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, anf_visitor.*, vo.user_request, vo.permasalahan, vo.tanggapan, vo.nama_sekolah, vo.nama, vo.nuptk  
 			FROM anf_transaksi 
 			LEFT JOIN anf_layanan ON trans_id_layanan=lay_id_layanan 
 			JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
             LEFT JOIN anf_visitor ON (trans_id_visitor = vst_id_visitor) 
 			LEFT JOIN anf_visitor_online vo ON (trans_id_visitor_online = vo.id) 
-			WHERE ' . $addWhere . ' prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $trans_tanggal_transaksi . '" ' . $scheduleCondition . '
+			WHERE ' . $addWhere . ' prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $trans_tanggal_transaksi . '" 
+            ' . $scheduleCondition . '
+            ' . $onlineCondition . '
 			ORDER BY prilay_prioritas ASC, trans_id_transaksi LIMIT 1');
 
         $vRow_next = $cal_next->row_array();
@@ -922,12 +939,12 @@ class Loket extends MY_Counter
             $tanggapan = $_POST['tanggapan'];
 
             $this->db->query("UPDATE anf_transaksi 
-                set nik_nuptk='$nik_nuptk', 
-                nuptk='$nuptk', 
-                nama='$nama', 
-                nama_sekolah='$nama_sekolah', 
-                permasalahan='$permasalahan', 
-                tanggapan='$tanggapan' 
+                set trans_nik_nuptk='$nik_nuptk', 
+                trans_nuptk='$nuptk', 
+                trans_nama='$nama', 
+                trans_nama_sekolah='$nama_sekolah', 
+                trans_permasalahan='$permasalahan', 
+                trans_tanggapan='$tanggapan' 
                 where trans_id_transaksi = '$trans_id_transaksi' ");
         }
 
@@ -1205,6 +1222,26 @@ class Loket extends MY_Counter
             if (!empty($tmp)) return join(',', $tmp);
         }
         return false;
+    }
+
+    private function getOnlineCondition() {
+        $ret = '';
+
+        $this->load->model('settings_model', 'settingsx');
+        $tmp = $this->settingsx->where(array('sett_setting' => 'start_time_online'))->get_row();
+        $jamOnline = $tmp['sett_nilai'];
+
+        if(!empty($jamOnline)) {
+            $jamOnline .= ':00';
+            $timeNow = date('H:i:s');
+            if($timeNow < $jamOnline) {
+                $ret .= ' AND trans_id_visitor_online = 0';
+            } else {
+                // $ret .= ' AND trans_id_visitor_online != 0';
+            }
+        }
+
+        return $ret;
     }
 
 }

@@ -36,6 +36,9 @@ class Wtc extends MY_Admin {
 				'field_name' 			=> 'lokets_name',
 				'just_info' 			=> true,
 			),
+			array(
+                'field_name' 			=> 'trans_tanggal_transaksi',
+            ),
 		);
 
 		return $additional_field;

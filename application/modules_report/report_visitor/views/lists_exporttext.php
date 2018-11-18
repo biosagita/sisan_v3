@@ -11,18 +11,17 @@
 <table width=100% border=1 cellpadding=3 cellspacing=0 >
     <tr>
         <th width=5%  > NO
-        <th width=20% > Nama Loket
-        <th width=20% > Tanggal Transaksi
+        <th width=20% > ID
         <th width=20% > No Ticket
+        <th width=20% > Tanggal Transaksi
         <th width=20% > Waktu Ambil
-        <th width=20% > Waktu Tunggu
-        <th width=20% > Waktu Panggil
-        <th width=20% > Waktu Layanan
-        <th width=20% > Selesai
-        <th width=20% > Nama Layanan
-        <th width=20% > User
-        <th width=20% > NUPTK
         <th width=20% > Tipe Antrian
+        <th width=20% > Jenis Antrian
+        <th width=20% > Permasalahan
+        <th width=20% > Nama
+        <th width=20% > Nama Sekolah
+        <th width=20% > Ref ID
+        <th width=20% > NIK NUPTK
 
 <?php 
 $no=1;
@@ -53,18 +52,17 @@ foreach($data_master as $data_master_result):
 
     print"<tr>
             <td align=center width=5% >$no
-            <td align=center  >".$data_master_result['lokets_name']."
-            <td align=center  >".$data_master_result['own_tanggal']."
+            <td align=center  >".$data_master_result['id']."
             <td align=center >".$data_master_result['no_ticket']."
+            <td align=center  >".$data_master_result['own_tanggal']."
             <td align=center >".$data_master_result['trans_waktu_ambil']."
-            <td align=center >".$data_master_result['waktu_tunggu']."
-            <td align=center >".$data_master_result['trans_waktu_panggil']."
-            <td align=center >".$data_master_result['waktu_layanan']."
-            <td align=center >".$data_master_result['trans_waktu_finish']."
-            <td align=center >".$data_master_result['lay_nama_layanan']."
-            <td align=center >".$data_master_result['admusr_username']."
-            <td align=center >".$data_master_result['nuptk']."
-            <td align=center >".$data_master_result['trans_tipe_antrian']."
+            <td align=center >".$data_master_result['id_tipe']."
+            <td align=center >".$data_master_result['jenis_antrian']."
+            <td align=center >".$data_master_result['permasalahan']."
+            <td align=center >".$data_master_result['nama']."
+            <td align=center >".$data_master_result['nama_sekolah']."
+            <td align=center >".$data_master_result['ref_id']."
+            <td align=center >".$data_master_result['user_request']."
             ";
 $no++;
 endforeach;
