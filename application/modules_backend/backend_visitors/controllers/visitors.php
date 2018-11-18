@@ -63,6 +63,48 @@ class Visitors extends MY_Admin {
 	}
 
 	private function get_input_field_new($data_value = array()) {
+		$source_jenis_kelamin = [
+			[
+				'name' => 'Laki-laki',
+				'value' => 'L',
+			],
+			[
+				'name' => 'Perempuan',
+				'value' => 'P',
+			]
+		];
+
+		$source_pendidikan_terakhir = [
+			[
+				'name' => 'SD',
+				'value' => 'SD',
+			],
+			[
+				'name' => 'SMP',
+				'value' => 'SMP',
+			],
+			[
+				'name' => 'SMA',
+				'value' => 'SMA',
+			],
+			[
+				'name' => 'D1',
+				'value' => 'D1',
+			],
+			[
+				'name' => 'D3',
+				'value' => 'D3',
+			],
+			[
+				'name' => 'S1',
+				'value' => 'S1',
+			],
+			[
+				'name' => 'S2',
+				'value' => 'S2',
+			],
+		];
+
 		$data_input = array(
 			array(
 				'db_field' 		=> $this->_table_field_pref . 'id_profile',
@@ -78,7 +120,6 @@ class Visitors extends MY_Admin {
 				'db_process'	=> true,
 				'input_type'	=> 'text',
 				'input_attr'	=> 'type="text" class="form-control" placeholder="Company Name..."',
-				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
 					'db_process'	=> true,
@@ -102,7 +143,6 @@ class Visitors extends MY_Admin {
 				'db_process'	=> true,
 				'input_type'	=> 'textarea',
 				'input_attr'	=> 'type="text" class="form-control" placeholder="Alamat..."',
-				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
 					'db_process'	=> true,
@@ -112,10 +152,9 @@ class Visitors extends MY_Admin {
 				'label' 		=> 'Jenis Kelamin',
 				'db_field' 		=> $this->_table_field_pref . 'jenis_kelamin',
 				'db_process'	=> true,
-				'input_type'	=> 'text',
+				'input_type'	=> 'select',
 				'input_attr'	=> 'type="text" class="form-control" placeholder="Jenis Kelamin..."',
-				'required'		=> 'required',
-				'data_source'	=> '',
+				'data_source'	=> $source_jenis_kelamin,
 				'data_edit'		=> array(
 					'db_process'	=> true,
 				),
@@ -124,10 +163,9 @@ class Visitors extends MY_Admin {
 				'label' 		=> 'Pendidikan Terakhir',
 				'db_field' 		=> $this->_table_field_pref . 'bentuk_pendidikan',
 				'db_process'	=> true,
-				'input_type'	=> 'text',
+				'input_type'	=> 'select',
 				'input_attr'	=> 'type="text" class="form-control" placeholder="Pendidikan Terakhir..."',
-				'required'		=> 'required',
-				'data_source'	=> '',
+				'data_source'	=> $source_pendidikan_terakhir,
 				'data_edit'		=> array(
 					'db_process'	=> true,
 				),
@@ -138,7 +176,6 @@ class Visitors extends MY_Admin {
 				'db_process'	=> true,
 				'input_type'	=> 'text',
 				'input_attr'	=> 'type="text" class="form-control" placeholder="Pekerjaan..."',
-				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
 					'db_process'	=> true,
@@ -150,7 +187,6 @@ class Visitors extends MY_Admin {
 				'db_process'	=> true,
 				'input_type'	=> 'text',
 				'input_attr'	=> 'type="text" class="form-control" placeholder="Email..."',
-				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
 					'db_process'	=> true,
@@ -162,7 +198,6 @@ class Visitors extends MY_Admin {
 				'db_process'	=> true,
 				'input_type'	=> 'text',
 				'input_attr'	=> 'type="text" class="form-control" placeholder="No. Handphone..."',
-				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
 					'db_process'	=> true,
