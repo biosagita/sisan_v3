@@ -180,7 +180,8 @@ class Visitors extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'nuptk',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" class="form-control" placeholder="Company Name..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="NIK..."',
+				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
 					'db_process'	=> true,
@@ -191,7 +192,7 @@ class Visitors extends MY_Admin {
 				'db_field' 		=> $this->_table_field_pref . 'nama',
 				'db_process'	=> true,
 				'input_type'	=> 'text',
-				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Company Name..."',
+				'input_attr'	=> 'type="text" data-parsley-minlength="1" class="form-control" placeholder="Nama Lengkap..."',
 				'required'		=> 'required',
 				'data_source'	=> '',
 				'data_edit'		=> array(
@@ -482,6 +483,17 @@ class Visitors extends MY_Admin {
 		
 		if($this->form_validation->run()) {
 			$res = false;
+
+			$q = 'SELECT nuptk FROM t_master_profile WHERE nuptk = "'.$admin_data['nuptk'].'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) {
+	        	$this->_data['err_msg'] = 'Oops.. NIK ini sudah ada';
+	        	return FALSE;
+	        }
+
+	        $admin_data['id_profile'] = $admin_data['nuptk'];
+
 			if(!empty($admin_data)) {
 				$res = $this->crudmodel->posts($admin_data);
 				if($res) {
@@ -611,6 +623,16 @@ class Visitors extends MY_Admin {
 				$this->_data['err_msg'] = 'user id or primary key is empty.';
 				return $res;
 			}
+
+			$q = 'SELECT id_profile, nuptk FROM t_master_profile WHERE nuptk = "'.$admin_data['nuptk'].'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow) AND $resRow['id_profile'] != $user_id) {
+	        	$this->_data['err_msg'] = 'Oops.. NIK ini sudah ada';
+	        	return FALSE;
+	        }
+
+	        $admin_data['id_profile'] = $admin_data['nuptk'];
 
 			if(!empty($admin_data)) {
 				$res = $this->crudmodel->where(array($field_pk => $user_id))->puts($admin_data);
