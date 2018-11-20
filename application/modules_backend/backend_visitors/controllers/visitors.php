@@ -48,6 +48,12 @@ class Visitors extends MY_Admin {
 				'title_header_column' 	=> 'Jenis Kelamin',
 				'field_name' 			=> $this->_table_field_pref . 'jenis_kelamin',
 				'no_order'				=> 3,
+				'result_format'			=> function( $d, $row ) {
+                    $res = '';
+                    if($row['jenis_kelamin'] == 'L') $res = 'Laki-laki';
+                    if($row['jenis_kelamin'] == 'P') $res = 'Perempuan';
+                    return $res;
+                },
 			),
 			array(
 				'title_header_column' 	=> 'Action',
@@ -511,6 +517,14 @@ class Visitors extends MY_Admin {
 		$this->_data['data_row'] = $data;
 
 		$this->_data['input_list'] 			= $this->get_input_field_new($data);
+
+		$this->_data['wilayah'] = [];
+		if(!empty($data['id_wilayah'])) {
+			$q = 'SELECT * FROM t_master_wilayah WHERE id_wilayah = "'.$data['id_wilayah'].'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $this->_data['wilayah'] = $resRow;
+		}
 
 		$this->_data['ajax_action_edit'] 	= site_url($this->_module_controller . 'do_edit_ajax');
 		$this->_data['ajax_kabupaten'] 	= site_url($this->_module_controller . 'ajax_kabupaten');

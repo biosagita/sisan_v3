@@ -109,6 +109,62 @@
                 }   
             });
         });
+
+        var isiWilayah = function(id_prov = '', id_kab = '', id_kec = '', id_kel = '') {
+            $('#propinsi option[value="'+id_prov+'"]').attr('selected', true);
+
+            $.ajax({
+                url: "<?php echo $ajax_kabupaten; ?>",
+                type: "post",
+                data: {'id_prov':id_prov},
+                datatype: 'html',
+                success: function(data){
+                    $('#kabupaten option').remove();
+                    $('#kabupaten').append(data);
+
+                    $('#kabupaten option[value="'+id_kab+'"]').attr('selected', true);
+                },
+                error:function(){
+                  console.log('test');
+                }   
+            });
+
+            $.ajax({
+                url: "<?php echo $ajax_kecamatan; ?>",
+                type: "post",
+                data: {'id_prov':id_prov,'id_kab':id_kab},
+                datatype: 'html',
+                success: function(data){
+                    $('#kecamatan option').remove();
+                    $('#kecamatan').append(data);
+
+                    $('#kecamatan option[value="'+id_kec+'"]').attr('selected', true);
+                },
+                error:function(){
+                  console.log('test');
+                }   
+            });
+
+            $.ajax({
+                url: "<?php echo $ajax_kelurahan; ?>",
+                type: "post",
+                data: {'id_prov':id_prov,'id_kab':id_kab,'id_kec':id_kec},
+                datatype: 'html',
+                success: function(data){
+                    $('#kelurahan option').remove();
+                    $('#kelurahan').append(data);
+
+                    $('#kelurahan option[value="'+id_kel+'"]').attr('selected', true);
+                },
+                error:function(){
+                  console.log('test');
+                }   
+            });
+        };
+
+        <?php if(!empty($wilayah)): ?>
+        isiWilayah('<?php echo $wilayah["id_prov"]; ?>', '<?php echo $wilayah["id_kab"]; ?>', '<?php echo $wilayah["id_kec"]; ?>', '<?php echo $wilayah["id_desa"]; ?>');
+        <?php endif; ?>
     });
 </script>
 
