@@ -43,6 +43,72 @@
             $(param.panel_form).empty();
             autoScrolling('html, body');
         });
+
+        $('#propinsi').change(function(e){
+            var nilai = $(this).val();
+
+            $('#kabupaten option').remove();
+            $('#kecamatan option').remove();
+            $('#kelurahan option').remove();
+
+            $.ajax({
+                url: "<?php echo $ajax_kabupaten; ?>",
+                type: "post",
+                data: {'id_prov':nilai},
+                datatype: 'html',
+                success: function(data){
+                    $('#kabupaten option').remove();
+                    $('#kabupaten').append(data);
+                },
+                error:function(){
+                  console.log('test');
+                }   
+            }); 
+        });
+
+        $('#kabupaten').change(function(e){
+            var nilai_prov = $('#propinsi').val();
+            var nilai = $(this).val();
+
+            $('#kecamatan option').remove();
+            $('#kelurahan option').remove();
+
+            $.ajax({
+                url: "<?php echo $ajax_kecamatan; ?>",
+                type: "post",
+                data: {'id_prov':nilai_prov,'id_kab':nilai},
+                datatype: 'html',
+                success: function(data){
+                    $('#kecamatan option').remove();
+                    $('#kecamatan').append(data);
+                },
+                error:function(){
+                  console.log('test');
+                }   
+            });
+        });
+
+        $('#kecamatan').change(function(e){
+            var nilai_prov = $('#propinsi').val();
+            var nilai_kab = $('#kabupaten').val();
+            var nilai = $(this).val();
+            
+            $('#kelurahan option').remove();
+
+            $.ajax({
+                url: "<?php echo $ajax_kelurahan; ?>",
+                type: "post",
+                data: {'id_prov':nilai_prov,'id_kab':nilai_kab,'id_kec':nilai},
+                datatype: 'html',
+                success: function(data){
+                    $('#kelurahan option').remove();
+                    $('#kelurahan').append(data);
+                },
+                error:function(){
+                  console.log('test');
+                }   
+            });
+        });
     });
 </script>
 
@@ -74,7 +140,7 @@
                             <select name="<?php echo $val['db_field']; ?>" id="<?php echo $val['db_field']; ?>" <?php echo $val['input_attr']; ?> <?php echo (!empty($val['data_edit']['required']) ? $val['data_edit']['required'] : ''); ?>>
                                 <option value="">-- Choose --</option>
                                 <?php foreach($val['data_source'] as $vOpt) : ?>
-                                    <option value="<?php echo $vOpt['value']; ?>" <?php echo ((!empty($val['data_edit']['input_value']) AND $val['data_edit']['input_value'] == $vOpt['value']) ? 'selected' : '') ?>><?php echo $vOpt['name']; ?></option>
+                                    <option <?php echo (!empty($vOpt['other']) ? ('class="related_'.$vOpt['other'].'"') : ''); ?> value="<?php echo $vOpt['value']; ?>" <?php echo ((!empty($val['data_edit']['input_value']) AND $val['data_edit']['input_value'] == $vOpt['value']) ? 'selected' : '') ?>><?php echo $vOpt['name']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         <?php elseif($val['input_type'] == 'textarea') : ?>

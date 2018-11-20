@@ -105,6 +105,61 @@ class Visitors extends MY_Admin {
 			],
 		];
 
+		$source_propinsi = [];
+		$q = 'SELECT id_prov, prov FROM t_master_wilayah GROUP BY id_prov ORDER BY prov';
+        $res = $this->db->query($q);
+        $resRow = $res->result_array();
+        if(!empty($resRow)) {
+        	foreach ($resRow as $key => $value) {
+        		$source_propinsi[] = [
+        			'name' => $value['prov'], 
+        			'value' => $value['id_prov'], 
+        		];
+        	}
+        }
+
+		$source_kabupaten = [];
+		/*$q = 'SELECT id_prov, id_kab, kab FROM t_master_wilayah GROUP BY id_kab ORDER BY kab';
+        $res = $this->db->query($q);
+        $resRow = $res->result_array();
+        if(!empty($resRow)) {
+        	foreach ($resRow as $key => $value) {
+        		$source_kabupaten[] = [
+        			'name' => $value['kab'], 
+        			'value' => $value['id_kab'], 
+        			'other' => $value['id_prov'], 
+        		];
+        	}
+        }*/
+
+		$source_kecamatan = [];
+		/*$q = 'SELECT id_kab, id_kec, kec FROM t_master_wilayah GROUP BY id_kec ORDER BY kec';
+        $res = $this->db->query($q);
+        $resRow = $res->result_array();
+        if(!empty($resRow)) {
+        	foreach ($resRow as $key => $value) {
+        		$source_kecamatan[] = [
+        			'name' => $value['kec'], 
+        			'value' => $value['id_kec'], 
+        			'other' => $value['id_kab'],
+        		];
+        	}
+        }*/
+
+		$source_kelurahan = [];
+		/*$q = 'SELECT id_kec, id_desa, desa FROM t_master_wilayah GROUP BY id_desa ORDER BY desa';
+        $res = $this->db->query($q);
+        $resRow = $res->result_array();
+        if(!empty($resRow)) {
+        	foreach ($resRow as $key => $value) {
+        		$source_kelurahan[] = [
+        			'name' => $value['desa'], 
+        			'value' => $value['id_desa'], 
+        			'other' => $value['id_kec'],
+        		];
+        	}
+        }*/
+
 		$data_input = array(
 			array(
 				'db_field' 		=> $this->_table_field_pref . 'id_profile',
@@ -203,6 +258,34 @@ class Visitors extends MY_Admin {
 					'db_process'	=> true,
 				),
 			),
+			array(
+				'label' 		=> 'Propinsi',
+				'db_field' 		=> $this->_table_field_pref . 'propinsi',
+				'input_type'	=> 'select',
+				'input_attr'	=> 'type="text" class="form-control" placeholder="Propinsi..."',
+				'data_source'	=> $source_propinsi,
+			),
+			array(
+				'label' 		=> 'Kabupaten / Kota',
+				'db_field' 		=> $this->_table_field_pref . 'kabupaten',
+				'input_type'	=> 'select',
+				'input_attr'	=> 'type="text" class="form-control" placeholder="Kabupaten..."',
+				'data_source'	=> $source_kabupaten,
+			),
+			array(
+				'label' 		=> 'Kecamatan',
+				'db_field' 		=> $this->_table_field_pref . 'kecamatan',
+				'input_type'	=> 'select',
+				'input_attr'	=> 'type="text" class="form-control" placeholder="Kecamatan..."',
+				'data_source'	=> $source_kecamatan,
+			),
+			array(
+				'label' 		=> 'Kelurahan / Desa',
+				'db_field' 		=> $this->_table_field_pref . 'kelurahan',
+				'input_type'	=> 'select',
+				'input_attr'	=> 'type="text" class="form-control" placeholder="Kelurahan..."',
+				'data_source'	=> $source_kelurahan,
+			),
 		);
 
 		if(!empty($data_value)) {
@@ -252,6 +335,60 @@ class Visitors extends MY_Admin {
 		$this->load->view('lists', $this->_data);
 	}
 
+	function ajax_kabupaten() {
+		$data = '<option value="">-- Choose --</option>';
+
+		$id_prov = $this->input->post('id_prov');
+		$q = 'SELECT id_kab, kab FROM t_master_wilayah WHERE id_prov = "'.$id_prov.'" GROUP BY id_kab ORDER BY kab';
+        $res = $this->db->query($q);
+        $resRow = $res->result_array();
+        if(!empty($resRow)) {
+        	foreach ($resRow as $key => $value) {
+        		$data .= '<option value="'.$value['id_kab'].'">';
+        		$data .= $value['kab'];
+        		$data .= '</option>';
+        	}
+        }
+		echo $data;
+	}
+
+	function ajax_kecamatan() {
+		$data = '<option value="">-- Choose --</option>';
+
+		$id_prov = $this->input->post('id_prov');
+		$id_kab = $this->input->post('id_kab');
+		$q = 'SELECT id_kec, kec FROM t_master_wilayah WHERE id_prov = "'.$id_prov.'" AND id_kab = "'.$id_kab.'" GROUP BY id_kec ORDER BY kec';
+        $res = $this->db->query($q);
+        $resRow = $res->result_array();
+        if(!empty($resRow)) {
+        	foreach ($resRow as $key => $value) {
+        		$data .= '<option value="'.$value['id_kec'].'">';
+        		$data .= $value['kec'];
+        		$data .= '</option>';
+        	}
+        }
+		echo $data;
+	}
+
+	function ajax_kelurahan() {
+		$data = '<option value="">-- Choose --</option>';
+
+		$id_prov = $this->input->post('id_prov');
+		$id_kab = $this->input->post('id_kab');
+		$id_kec = $this->input->post('id_kec');
+		$q = 'SELECT id_desa, desa FROM t_master_wilayah WHERE id_prov = "'.$id_prov.'" AND id_kab = "'.$id_kab.'" AND id_kec = "'.$id_kec.'" ORDER BY desa';
+        $res = $this->db->query($q);
+        $resRow = $res->result_array();
+        if(!empty($resRow)) {
+        	foreach ($resRow as $key => $value) {
+        		$data .= '<option value="'.$value['id_desa'].'">';
+        		$data .= $value['desa'];
+        		$data .= '</option>';
+        	}
+        }
+		echo $data;
+	}
+
 	//--- used by datatable source data -------
 	function lists_ajax() {
 		$this->load->helper('mydatatable');
@@ -274,6 +411,9 @@ class Visitors extends MY_Admin {
 
 	function add_ajax() {
 		$this->_data['ajax_action_add'] 	= site_url($this->_module_controller . 'do_add_ajax');
+		$this->_data['ajax_kabupaten'] 	= site_url($this->_module_controller . 'ajax_kabupaten');
+		$this->_data['ajax_kecamatan'] 	= site_url($this->_module_controller . 'ajax_kecamatan');
+		$this->_data['ajax_kelurahan'] 	= site_url($this->_module_controller . 'ajax_kelurahan');
 		$this->_data['input_list'] 			= $this->get_input_field_new();
 		$this->load->view('form_add', $this->_data);
 	}
@@ -301,6 +441,37 @@ class Visitors extends MY_Admin {
 					$admin_data[$value['db_field']] = md5($this->input->post($value['db_field']));
 				}
 			}
+		}
+
+		$propinsi = $this->input->post('propinsi');
+		$kabupaten = $this->input->post('kabupaten');
+		$kecamatan = $this->input->post('kecamatan');
+		$kelurahan = $this->input->post('kelurahan');
+		if(!empty($propinsi) AND !empty($kabupaten) AND !empty($kecamatan) AND !empty($kelurahan)) {
+			$q = 'SELECT id_wilayah FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" AND id_kab = "'.$kabupaten.'" AND id_kec = '.$kecamatan.' AND id_desa = "'.$kelurahan.'"';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['id_wilayah'] = $resRow['id_wilayah'];
+
+	        $q = 'SELECT prov FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['Propinsi'] = $resRow['prop'];
+
+	        $q = 'SELECT kab FROM t_master_wilayah WHERE id_kab = "'.$kabupaten.'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['kabupaten'] = $resRow['kab'];
+
+	        $q = 'SELECT kec FROM t_master_wilayah WHERE id_kec = "'.$kecamatan.'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['kecamatan'] = $resRow['kec'];
+
+	        $q = 'SELECT desa FROM t_master_wilayah WHERE id_desa = "'.$kelurahan.'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['kelurahan'] = $resRow['desa'];
 		}
 		
 		if($this->form_validation->run()) {
@@ -342,6 +513,10 @@ class Visitors extends MY_Admin {
 		$this->_data['input_list'] 			= $this->get_input_field_new($data);
 
 		$this->_data['ajax_action_edit'] 	= site_url($this->_module_controller . 'do_edit_ajax');
+		$this->_data['ajax_kabupaten'] 	= site_url($this->_module_controller . 'ajax_kabupaten');
+		$this->_data['ajax_kecamatan'] 	= site_url($this->_module_controller . 'ajax_kecamatan');
+		$this->_data['ajax_kelurahan'] 	= site_url($this->_module_controller . 'ajax_kelurahan');
+
 		$this->load->view('form_edit', $this->_data);
 	}
 
@@ -383,6 +558,37 @@ class Visitors extends MY_Admin {
 				$user_id = $this->input->post($value['db_field']);
 				$field_pk 	= $value['db_field'];
 			}
+		}
+
+		$propinsi = $this->input->post('propinsi');
+		$kabupaten = $this->input->post('kabupaten');
+		$kecamatan = $this->input->post('kecamatan');
+		$kelurahan = $this->input->post('kelurahan');
+		if(!empty($propinsi) AND !empty($kabupaten) AND !empty($kecamatan) AND !empty($kelurahan)) {
+			$q = 'SELECT id_wilayah FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" AND id_kab = "'.$kabupaten.'" AND id_kec = '.$kecamatan.' AND id_desa = "'.$kelurahan.'"';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['id_wilayah'] = $resRow['id_wilayah'];
+
+	        $q = 'SELECT prov FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['Propinsi'] = $resRow['prov'];
+
+	        $q = 'SELECT kab FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" AND id_kab = "'.$kabupaten.'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['kabupaten'] = $resRow['kab'];
+
+	        $q = 'SELECT kec FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" AND id_kab = "'.$kabupaten.'" AND id_kec = "'.$kecamatan.'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['kecamatan'] = $resRow['kec'];
+
+	        $q = 'SELECT desa FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" AND id_kab = "'.$kabupaten.'" AND id_kec = "'.$kecamatan.'" AND id_desa = "'.$kelurahan.'" LIMIT 1';
+	        $res = $this->db->query($q);
+	        $resRow = $res->row_array();
+	        if(!empty($resRow)) $admin_data['kelurahan'] = $resRow['desa'];
 		}
 		
 		if($this->form_validation->run()) {
