@@ -504,12 +504,10 @@ class Loket extends MY_Counter
 
         $onlineCondition = $this->getOnlineCondition();
 
-        $cal_next = $this->db->query("SELECT trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, anf_visitor.*, vo.user_request, vo.permasalahan, vo.tanggapan, vo.nama_sekolah, vo.nama, vo.nuptk 
+        $cal_next = $this->db->query("SELECT trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi 
 			FROM anf_transaksi 
 			LEFT JOIN anf_layanan ON trans_id_layanan = lay_id_layanan 
 			JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
-			LEFT JOIN anf_visitor ON (trans_id_visitor = vst_id_visitor) 
-            LEFT JOIN anf_visitor_online ON (trans_id_visitor_online = id)
 			where trans_status_transaksi = '0' and trans_id_group_layanan IN (" . join(',', $listlayanan) . ") and trans_tanggal_transaksi='$trans_tanggal_transaksi' and trans_no_ticket_awal = '$trans_no_ticket_awal' and trans_no_ticket = '$trans_no_ticket' 
             ".$scheduleCondition." 
             ".$onlineCondition." 
@@ -536,12 +534,33 @@ class Loket extends MY_Counter
             $vst_sex = $vRow_next['vst_sex'];
             $vst_email = $vRow_next['vst_email'];
 
-            $user_request = $vRow_next['user_request'];
-            $permasalahan = $vRow_next['permasalahan'];
-            $tanggapan = $vRow_next['tanggapan'];
-            $nama_sekolah = $vRow_next['nama_sekolah'];
-            $nama = $vRow_next['nama'];
-            $nuptk = $vRow_next['nuptk'];
+            $user_request = '';
+            $permasalahan = '';
+            $tanggapan = '';
+            $nama_sekolah = '';
+            $nama = '';
+            $nuptk = '';
+
+            if(!empty($trans_id_profile)) {
+                $q = 'SELECT * FROM t_master_profile WHERE id_profile = "' . $trans_id_profile . '"';
+                $res = $this->db->query($q);
+                $resRow = $res->row_array();
+                if(!empty($resRow)) {
+                    $nama_sekolah = $resRow['nama_sekolah'];
+                    $nama = $resRow['nama'];
+                    $nuptk = $resRow['nuptk'];
+                }
+            }
+
+            if(!empty($trans_id_visitor_online)) {
+                $q = 'SELECT * FROM anf_visitor_online WHERE id = ' . $trans_id_visitor_online;
+                $res = $this->db->query($q);
+                $resRow = $res->row_array();
+                if(!empty($resRow)) {
+                    $user_request = $resRow['user_request'];
+                    $permasalahan = $resRow['permasalahan'];
+                }
+            }
 
             $ct_id_lay = $this->db->query("SELECT trans_id_visitor_online, trans_id_profile,trans_tanggal_transaksi,trans_no_ticket_awal,trans_no_ticket,grolay_nama_group_layanan,trans_waktu_panggil,trans_id_layanan,trans_id_group_layanan 
 				from anf_transaksi 
@@ -733,12 +752,10 @@ class Loket extends MY_Counter
 
         $onlineCondition = $this->getOnlineCondition();
 
-        $cal_next = $this->db->query('SELECT trans_id_visitor_online,trans_id_profile,trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi, anf_visitor.*, vo.user_request, vo.permasalahan, vo.tanggapan, vo.nama_sekolah, vo.nama, vo.nuptk  
+        $cal_next = $this->db->query('SELECT trans_id_visitor_online,trans_id_profile,trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi 
 			FROM anf_transaksi 
 			LEFT JOIN anf_layanan ON trans_id_layanan=lay_id_layanan 
 			JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
-            LEFT JOIN anf_visitor ON (trans_id_visitor = vst_id_visitor) 
-			LEFT JOIN anf_visitor_online vo ON (trans_id_visitor_online = vo.id) 
 			WHERE ' . $addWhere . ' prilay_id_group_loket = (' . $grouploket . ') AND trans_id_group_layanan IN (' . join(',', $listlayanan) . ') AND trans_status_transaksi = 0 AND trans_tanggal_transaksi = "' . $trans_tanggal_transaksi . '" 
             ' . $scheduleCondition . '
             ' . $onlineCondition . '
@@ -764,12 +781,36 @@ class Loket extends MY_Counter
         $vst_sex = $vRow_next['vst_sex'];
         $vst_email = $vRow_next['vst_email'];
 
-        $user_request = $vRow_next['user_request'];
-        $permasalahan = $vRow_next['permasalahan'];
-        $tanggapan = $vRow_next['tanggapan'];
-        $nama_sekolah = $vRow_next['nama_sekolah'];
-        $nama = $vRow_next['nama'];
-        $nuptk = $vRow_next['nuptk'];
+        $user_request = '';
+        $permasalahan = '';
+        $tanggapan = '';
+        $nama_sekolah = '';
+        $nama = '';
+        $nuptk = '';
+
+        if(!empty($trans_id_profile)) {
+            $q = 'SELECT * FROM t_master_profile WHERE id_profile = "' . $trans_id_profile . '"';
+            $res = $this->db->query($q);
+            $resRow = $res->row_array();
+            if(!empty($resRow)) {
+                $nama_sekolah = $resRow['nama_sekolah'];
+                $nama = $resRow['nama'];
+                $nuptk = $resRow['nuptk'];
+            }
+        }
+
+        if(!empty($trans_id_visitor_online)) {
+            $q = 'SELECT * FROM anf_visitor_online WHERE id = ' . $trans_id_visitor_online;
+            $res = $this->db->query($q);
+            $resRow = $res->row_array();
+            if(!empty($resRow)) {
+                $user_request = $resRow['user_request'];
+                $permasalahan = $resRow['permasalahan'];
+                $nama_sekolah = $resRow['nama_sekolah'];
+                $nama = $resRow['nama'];
+                $nuptk = $resRow['nuptk'];
+            }
+        }
 
         $ct_id_lay = $this->db->query("SELECT trans_id_visitor_online, trans_id_profile,trans_tanggal_transaksi,trans_no_ticket_awal,trans_no_ticket,grolay_nama_group_layanan,trans_waktu_panggil,trans_id_layanan,trans_id_group_layanan from anf_transaksi 
 			JOIN anf_group_layanan ON trans_id_group_layanan=grolay_id_group_layanan 
