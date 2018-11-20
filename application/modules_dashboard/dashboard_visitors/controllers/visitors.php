@@ -462,19 +462,19 @@ class Visitors extends MY_Admin {
 	        $q = 'SELECT prov FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" LIMIT 1';
 	        $res = $this->db->query($q);
 	        $resRow = $res->row_array();
-	        if(!empty($resRow)) $admin_data['Propinsi'] = $resRow['prop'];
+	        if(!empty($resRow)) $admin_data['Propinsi'] = $resRow['prov'];
 
-	        $q = 'SELECT kab FROM t_master_wilayah WHERE id_kab = "'.$kabupaten.'" LIMIT 1';
+	        $q = 'SELECT kab FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" AND id_kab = "'.$kabupaten.'" LIMIT 1';
 	        $res = $this->db->query($q);
 	        $resRow = $res->row_array();
 	        if(!empty($resRow)) $admin_data['kabupaten'] = $resRow['kab'];
 
-	        $q = 'SELECT kec FROM t_master_wilayah WHERE id_kec = "'.$kecamatan.'" LIMIT 1';
+	        $q = 'SELECT kec FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" AND id_kab = "'.$kabupaten.'" AND id_kec = "'.$kecamatan.'" LIMIT 1';
 	        $res = $this->db->query($q);
 	        $resRow = $res->row_array();
 	        if(!empty($resRow)) $admin_data['kecamatan'] = $resRow['kec'];
 
-	        $q = 'SELECT desa FROM t_master_wilayah WHERE id_desa = "'.$kelurahan.'" LIMIT 1';
+	        $q = 'SELECT desa FROM t_master_wilayah WHERE id_prov = "'.$propinsi.'" AND id_kab = "'.$kabupaten.'" AND id_kec = "'.$kecamatan.'" AND id_desa = "'.$kelurahan.'" LIMIT 1';
 	        $res = $this->db->query($q);
 	        $resRow = $res->row_array();
 	        if(!empty($resRow)) $admin_data['kelurahan'] = $resRow['desa'];
