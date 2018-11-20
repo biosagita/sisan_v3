@@ -51,6 +51,7 @@ $route['changeloket'] = "counter_changeloket/changeloket";
 
 $route['dashboard/loket'] = "dashboard_main/main";
 $route['dashboard/layanan'] = "dashboard_layanan/layanan";
+$route['dashboard/visitor'] = "dashboard_visitors/visitors";
 
 /* Routing untuk Backstage */
 $route['backend'] = "backend_admin/admin";
