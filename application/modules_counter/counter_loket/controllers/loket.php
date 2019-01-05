@@ -559,6 +559,9 @@ class Loket extends MY_Counter
                 if(!empty($resRow)) {
                     $user_request = $resRow['user_request'];
                     $permasalahan = $resRow['permasalahan'];
+                    $nama_sekolah = $resRow['nama_sekolah'];
+                    $nama = $resRow['nama'];
+                    $nuptk = $resRow['user_request'];
                 }
             }
 
@@ -808,7 +811,7 @@ class Loket extends MY_Counter
                 $permasalahan = $resRow['permasalahan'];
                 $nama_sekolah = $resRow['nama_sekolah'];
                 $nama = $resRow['nama'];
-                $nuptk = $resRow['nuptk'];
+                $nuptk = $resRow['user_request'];
             }
         }
 
