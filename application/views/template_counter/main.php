@@ -231,7 +231,7 @@
                             </button>
                         </a>
                         <a href="javascript:void(0)" id="btnnext" class="list-group-item" style="padding:5px;border-color: cornflowerblue;">
-                            <button class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnRecall()">
+                            <button id="clickBtnRecall" class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnRecall()">
                                 <span>RECALL</span>
                                 <i class="glyph-icon icon-arrow-right"></i>
                             </button>
@@ -535,6 +535,7 @@
                 <div class="modal-footer">
                     <button id="btnCloseNew" style="display: none;" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button id="btnSkipNew" type="button" class="btn btn-default">CLOSE</button>
+                    <button id="btnRecall" type="button" class="btn btn-default">RECALL</button>
                     <!-- <button id="btnNextNew" type="button" class="btn btn-default">NEXT</button> -->
                     <button id="btnFinishNew" type="button" class="btn btn-default">FINISH</button>
                 </div>
@@ -594,6 +595,11 @@
             } else {
                 alert('Oops.. form harus diisi!');
             }
+        })
+
+        $('#btnRecall').click(function(e){
+            e.preventDefault();
+            $('#clickBtnRecall').trigger('click');
         })
     })
 </script>
