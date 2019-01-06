@@ -489,6 +489,10 @@
                     <div>
                         <form id="frmModal" method="post" class="form-horizontal bordered-row">
                             <input type="hidden" name="trans_id_transaksi" id="trans_id_transaksi">
+                            <input type="hidden" name="visitor_propinsi" id="visitor_propinsi">
+                            <input type="hidden" name="visitor_kabupaten" id="visitor_kabupaten">
+                            <input type="hidden" name="visitor_kecamatan" id="visitor_kecamatan">
+                            <input type="hidden" name="visitor_kelurahan" id="visitor_kelurahan">
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="nik_nuptk">NIK/NUPTK (User Request):</label>
                                 <div class="col-sm-8">

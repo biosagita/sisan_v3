@@ -301,6 +301,10 @@
                 $('#nama_sekolah').val(data.nama_sekolah);
                 $('#permasalahan').val(data.permasalahan);
                 $('#tanggapan').val(data.tanggapan);
+                $('#visitor_propinsi').val(data.propinsi);
+                $('#visitor_kabupaten').val(data.kabupaten);
+                $('#visitor_kecamatan').val(data.kecamatan);
+                $('#visitor_kelurahan').val(data.kelurahan);
 
                 // document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
                 document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;
@@ -449,6 +453,10 @@
                         $('#nama_sekolah').val(data.nama_sekolah);
                         $('#permasalahan').val(data.permasalahan);
                         $('#tanggapan').val(data.tanggapan);
+                        $('#visitor_propinsi').val(data.propinsi);
+                        $('#visitor_kabupaten').val(data.kabupaten);
+                        $('#visitor_kecamatan').val(data.kecamatan);
+                        $('#visitor_kelurahan').val(data.kelurahan);
                 
                         // document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
                         document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;

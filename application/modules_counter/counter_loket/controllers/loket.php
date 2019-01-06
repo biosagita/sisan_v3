@@ -540,17 +540,10 @@ class Loket extends MY_Counter
             $nama_sekolah = '';
             $nama = '';
             $nuptk = '';
-
-            if(!empty($trans_id_profile)) {
-                $q = 'SELECT * FROM t_master_profile WHERE id_profile = "' . $trans_id_profile . '"';
-                $res = $this->db->query($q);
-                $resRow = $res->row_array();
-                if(!empty($resRow)) {
-                    $nama_sekolah = $resRow['nama_sekolah'];
-                    $nama = $resRow['nama'];
-                    $nuptk = $resRow['nuptk'];
-                }
-            }
+            $propinsi = '';
+            $kabupaten = '';
+            $kecamatan = '';
+            $kelurahan = '';
 
             if(!empty($trans_id_visitor_online)) {
                 $q = 'SELECT * FROM anf_visitor_online WHERE id = ' . $trans_id_visitor_online;
@@ -562,6 +555,22 @@ class Loket extends MY_Counter
                     $nama_sekolah = $resRow['nama_sekolah'];
                     $nama = $resRow['nama'];
                     $nuptk = $resRow['user_request'];
+                    $trans_id_profile = $resRow['user_request'];
+                }
+            }
+
+            if(!empty($trans_id_profile)) {
+                $q = 'SELECT * FROM t_master_profile WHERE id_profile = "' . $trans_id_profile . '"';
+                $res = $this->db->query($q);
+                $resRow = $res->row_array();
+                if(!empty($resRow)) {
+                    $nama_sekolah = $resRow['nama_sekolah'];
+                    $nama = $resRow['nama'];
+                    $nuptk = $resRow['nuptk'];
+                    $propinsi = $resRow['Propinsi'];
+                    $kabupaten = $resRow['kabupaten'];
+                    $kecamatan = $resRow['kecamatan'];
+                    $kelurahan = $resRow['kelurahan'];
                 }
             }
 
@@ -605,6 +614,10 @@ class Loket extends MY_Counter
             $vArrayTemp['nama'] = $nama;
             $vArrayTemp['nama_sekolah'] = $nama_sekolah;
             $vArrayTemp['nuptk'] = $nuptk;
+            $vArrayTemp['propinsi'] = $propinsi;
+            $vArrayTemp['kabupaten'] = $kabupaten;
+            $vArrayTemp['kecamatan'] = $kecamatan;
+            $vArrayTemp['kelurahan'] = $kelurahan;
 
             /*
             $sql=$this->db->query("UPDATE anf_transaksi
@@ -790,17 +803,10 @@ class Loket extends MY_Counter
         $nama_sekolah = '';
         $nama = '';
         $nuptk = '';
-
-        if(!empty($trans_id_profile)) {
-            $q = 'SELECT * FROM t_master_profile WHERE id_profile = "' . $trans_id_profile . '"';
-            $res = $this->db->query($q);
-            $resRow = $res->row_array();
-            if(!empty($resRow)) {
-                $nama_sekolah = $resRow['nama_sekolah'];
-                $nama = $resRow['nama'];
-                $nuptk = $resRow['nuptk'];
-            }
-        }
+        $propinsi = '';
+        $kabupaten = '';
+        $kecamatan = '';
+        $kelurahan = '';
 
         if(!empty($trans_id_visitor_online)) {
             $q = 'SELECT * FROM anf_visitor_online WHERE id = ' . $trans_id_visitor_online;
@@ -812,6 +818,22 @@ class Loket extends MY_Counter
                 $nama_sekolah = $resRow['nama_sekolah'];
                 $nama = $resRow['nama'];
                 $nuptk = $resRow['user_request'];
+                $trans_id_profile = $resRow['user_request'];
+            }
+        }
+
+        if(!empty($trans_id_profile)) {
+            $q = 'SELECT * FROM t_master_profile WHERE id_profile = "' . $trans_id_profile . '"';
+            $res = $this->db->query($q);
+            $resRow = $res->row_array();
+            if(!empty($resRow)) {
+                $nama_sekolah = $resRow['nama_sekolah'];
+                $nama = $resRow['nama'];
+                $nuptk = $resRow['nuptk'];
+                $propinsi = $resRow['Propinsi'];
+                $kabupaten = $resRow['kabupaten'];
+                $kecamatan = $resRow['kecamatan'];
+                $kelurahan = $resRow['kelurahan'];
             }
         }
 
@@ -879,6 +901,10 @@ class Loket extends MY_Counter
         $vArrayTemp['nama'] = $nama;
         $vArrayTemp['nama_sekolah'] = $nama_sekolah;
         $vArrayTemp['nuptk'] = $nuptk;
+        $vArrayTemp['propinsi'] = $propinsi;
+        $vArrayTemp['kabupaten'] = $kabupaten;
+        $vArrayTemp['kecamatan'] = $kecamatan;
+        $vArrayTemp['kelurahan'] = $kelurahan;
 
         echo json_encode($vArrayTemp);
 
@@ -981,6 +1007,10 @@ class Loket extends MY_Counter
             $nama_sekolah = $_POST['nama_sekolah'];
             $permasalahan = $_POST['permasalahan'];
             $tanggapan = $_POST['tanggapan'];
+            $visitor_propinsi = $_POST['visitor_propinsi'];
+            $visitor_kabupaten = $_POST['visitor_kabupaten'];
+            $visitor_kecamatan = $_POST['visitor_kecamatan'];
+            $visitor_kelurahan = $_POST['visitor_kelurahan'];
 
             $this->db->query("UPDATE anf_transaksi 
                 set trans_nik_nuptk='$nik_nuptk', 
@@ -988,7 +1018,11 @@ class Loket extends MY_Counter
                 trans_nama='$nama', 
                 trans_nama_sekolah='$nama_sekolah', 
                 trans_permasalahan='$permasalahan', 
-                trans_tanggapan='$tanggapan' 
+                trans_tanggapan='$tanggapan', 
+                trans_propinsi='$visitor_propinsi', 
+                trans_kabupaten='$visitor_kabupaten', 
+                trans_kecamatan='$visitor_kecamatan', 
+                trans_kelurahan='$visitor_kelurahan' 
                 where trans_id_transaksi = '$trans_id_transaksi' ");
         }
 
