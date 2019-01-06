@@ -479,6 +479,8 @@ class Visitors extends MY_Admin {
 	        $resRow = $res->row_array();
 	        if(!empty($resRow)) $admin_data['kelurahan'] = $resRow['desa'];
 		}
+
+		$admin_data['id_profile'] = $this->input->post('nuptk');
 		
 		if($this->form_validation->run()) {
 			$res = false;
@@ -604,6 +606,8 @@ class Visitors extends MY_Admin {
 	        $resRow = $res->row_array();
 	        if(!empty($resRow)) $admin_data['kelurahan'] = $resRow['desa'];
 		}
+
+		$admin_data['id_profile'] = $this->input->post('nuptk');
 		
 		if($this->form_validation->run()) {
 			$res = false;

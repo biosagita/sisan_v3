@@ -571,6 +571,7 @@ class Loket extends MY_Counter
                     $kabupaten = $resRow['kabupaten'];
                     $kecamatan = $resRow['kecamatan'];
                     $kelurahan = $resRow['kelurahan'];
+                    $user_request = $resRow['nuptk'];
                 }
             }
 
@@ -834,6 +835,7 @@ class Loket extends MY_Counter
                 $kabupaten = $resRow['kabupaten'];
                 $kecamatan = $resRow['kecamatan'];
                 $kelurahan = $resRow['kelurahan'];
+                $user_request = $resRow['nuptk'];
             }
         }
 
