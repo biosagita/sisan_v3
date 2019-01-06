@@ -146,6 +146,62 @@ class Alldetailmonitoring extends MY_Admin {
                 'field_name' 			=> 'admusr_username',
                 'no_order'				=> 10,
             ),
+            array(
+                'title_header_column' 	=> 'Tipe Antrian',
+                'field_name' 			=> 'trans_tipe_antrian',
+                'no_order'				=> 11,
+                'result_format'			=> function( $d, $row ) {
+                    $tipe_antrian = '-';
+                    if($row['trans_tipe_antrian'] == 1) $tipe_antrian = 'ONLINE';
+                    if($row['trans_tipe_antrian'] == 2) $tipe_antrian = 'OFFLINE';
+                    return $tipe_antrian;
+                },
+            ),
+            array(
+                'title_header_column' 	=> 'Nama',
+                'field_name' 			=> 'trans_nama',
+                'no_order'				=> 12,
+            ),
+            array(
+                'title_header_column' 	=> 'Nama Sekolah',
+                'field_name' 			=> 'trans_nama_sekolah',
+                'no_order'				=> 13,
+            ),
+            array(
+                'title_header_column' 	=> 'NIK NUPTK',
+                'field_name' 			=> 'trans_nuptk',
+                'no_order'				=> 14,
+            ),
+            array(
+                'title_header_column' 	=> 'Permasalahan',
+                'field_name' 			=> 'trans_permasalahan',
+                'no_order'				=> 15,
+            ),
+            array(
+                'title_header_column' 	=> 'Tanggapan',
+                'field_name' 			=> 'trans_tanggapan',
+                'no_order'				=> 16,
+            ),
+            array(
+                'title_header_column' 	=> 'Propinsi',
+                'field_name' 			=> 'trans_propinsi',
+                'no_order'				=> 17,
+            ),
+            array(
+                'title_header_column' 	=> 'Kabupaten',
+                'field_name' 			=> 'trans_kabupaten',
+                'no_order'				=> 18,
+            ),
+            array(
+                'title_header_column' 	=> 'Kecamatan',
+                'field_name' 			=> 'trans_kecamatan',
+                'no_order'				=> 19,
+            ),
+            array(
+                'title_header_column' 	=> 'Kelurahan',
+                'field_name' 			=> 'trans_kelurahan',
+                'no_order'				=> 20,
+            ),
 		);
 
 		return $column_list;
@@ -279,7 +335,7 @@ class Alldetailmonitoring extends MY_Admin {
             $this->db->where($where);
         }
 
-		$this->db->select('lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
+		$this->db->select('lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username, trans_tipe_antrian, trans_nama, trans_nama_sekolah, trans_tanggapan, trans_permasalahan, trans_propinsi, trans_kabupaten, trans_kecamatan, trans_kelurahan, trans_nuptk', false);
 		$this->db->from($this->_table_name);
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');
@@ -331,7 +387,7 @@ class Alldetailmonitoring extends MY_Admin {
             $this->db->where($where);
         }
 
-		$this->db->select($this->_table_name . '.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
+		$this->db->select($this->_table_name . '.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username, trans_tipe_antrian, trans_nama, trans_nama_sekolah, trans_tanggapan, trans_permasalahan, trans_propinsi, trans_kabupaten, trans_kecamatan, trans_kelurahan, trans_nuptk', false);
 		$this->db->from($this->_table_name);
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');

@@ -21,10 +21,25 @@
         <th width=20% > Selesai
         <th width=20% > Nama Layanan
         <th width=20% > User
+        <th width=20% > Tipe Antrian
+        <th width=20% > Nama
+        <th width=20% > Nama Sekolah
+        <th width=20% > NUPTK
+        <th width=20% > Permasalahan
+        <th width=20% > Tanggapan
+        <th width=20% > Propinsi
+        <th width=20% > Kabupaten
+        <th width=20% > Kecamatan
+        <th width=20% > Kelurahan
 
 <?php 
 $no=1;
 foreach($data_master as $data_master_result):
+    if(!empty($data_master_result['trans_tipe_antrian'])) {
+        if($data_master_result['trans_tipe_antrian'] == 1) $data_master_result['trans_tipe_antrian'] = 'ONLINE';
+        if($data_master_result['trans_tipe_antrian'] == 2) $data_master_result['trans_tipe_antrian'] = 'OFFLINE';
+    }
+
     if(!empty($data_master_result['trans_waktu_panggil']) AND $data_master_result['trans_waktu_ambil'] != '00:00:00' AND $data_master_result['trans_waktu_panggil'] != '00:00:00') {
         $time1 = strtotime($data_master_result['trans_waktu_ambil']);
         $time2 = strtotime($data_master_result['trans_waktu_panggil']);
@@ -57,6 +72,16 @@ foreach($data_master as $data_master_result):
             <td align=center >".$data_master_result['trans_waktu_finish']."
             <td align=center >".$data_master_result['lay_nama_layanan']."
             <td align=center >".$data_master_result['admusr_username']."
+            <td align=center >".$data_master_result['trans_tipe_antrian']."
+            <td align=center >".$data_master_result['trans_nama']."
+            <td align=center >".$data_master_result['trans_nama_sekolah']."
+            <td align=center >".$data_master_result['trans_nuptk']."
+            <td align=center >".$data_master_result['trans_permasalahan']."
+            <td align=center >".$data_master_result['trans_tanggapan']."
+            <td align=center >".$data_master_result['trans_propinsi']."
+            <td align=center >".$data_master_result['trans_kabupaten']."
+            <td align=center >".$data_master_result['trans_kecamatan']."
+            <td align=center >".$data_master_result['trans_kelurahan']."
             ";
 $no++;
 endforeach;
