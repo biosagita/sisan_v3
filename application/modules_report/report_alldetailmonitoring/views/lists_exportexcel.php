@@ -31,6 +31,33 @@
         <th width=20% > Kabupaten
         <th width=20% > Kecamatan
         <th width=20% > Kelurahan
+        <th width=20% > No Antrian
+        <th width=20% > Status
+        <th width=20% > Loket
+        <th width=20% > User Process
+        <th width=20% > User Request
+        <th width=20% > ID Tipe
+        <th width=20% > ID Perihal
+        <th width=20% > Jenis Antrian
+        <th width=20% > Request Date
+        <th width=20% > Periode
+        <th width=20% > Updated Date
+        <th width=20% > Ref ID
+        <th width=20% > ID Reg
+        <th width=20% > Jenis Kelamin
+        <th width=20% > No Telp
+        <th width=20% > Email
+        <th width=20% > Domain Email
+        <th width=20% > Alamat
+        <th width=20% > Alamat Sekolah
+        <th width=20% > ID Wilayah Sekolah
+        <th width=20% > Bentuk Pendidikan
+        <th width=20% > ID Pekerjaan
+        <th width=20% > Pekerjaan Lainnya
+        <th width=20% > ID Tipe
+        <th width=20% > Status
+        <th width=20% > Foto
+        <th width=20% > Pendidikan Terakhir
 
 <?php 
 $no=1;
@@ -82,6 +109,33 @@ foreach($data_master as $data_master_result):
             <td align=center >".$data_master_result['trans_kabupaten']."
             <td align=center >".$data_master_result['trans_kecamatan']."
             <td align=center >".$data_master_result['trans_kelurahan']."
+            <td align=center >".$data_master_result['ol_no_antrian']."
+            <td align=center >".$data_master_result['ol_status']."
+            <td align=center >".$data_master_result['ol_loket']."
+            <td align=center >".$data_master_result['ol_user_process']."
+            <td align=center >".$data_master_result['ol_user_request']."
+            <td align=center >".$data_master_result['ol_id_tipe']."
+            <td align=center >".$data_master_result['ol_id_perihal']."
+            <td align=center >".$data_master_result['ol_jenis_antrian']."
+            <td align=center >".$data_master_result['ol_request_date']."
+            <td align=center >".$data_master_result['ol_periode']."
+            <td align=center >".$data_master_result['ol_updated_date']."
+            <td align=center >".$data_master_result['ol_ref_id']."
+            <td align=center >".$data_master_result['ol_id_reg']."
+            <td align=center >".$data_master_result['ol_jenis_kelamin']."
+            <td align=center >".$data_master_result['no_telp']."
+            <td align=center >".$data_master_result['email']."
+            <td align=center >".$data_master_result['domain_email']."
+            <td align=center >".$data_master_result['alamat']."
+            <td align=center >".$data_master_result['alamat_sekolah']."
+            <td align=center >".$data_master_result['id_wilayah_sekolah']."
+            <td align=center >".$data_master_result['bentuk_pendidikan']."
+            <td align=center >".$data_master_result['id_pekerjaan']."
+            <td align=center >".$data_master_result['pekerjaan_lainnya']."
+            <td align=center >".$data_master_result['id_tipe']."
+            <td align=center >".$data_master_result['status']."
+            <td align=center >".$data_master_result['foto']."
+            <td align=center >".$data_master_result['pendidikan_terakhir']."
             ";
 $no++;
 endforeach;
