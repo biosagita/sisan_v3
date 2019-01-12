@@ -222,7 +222,7 @@ class Visitors extends MY_Admin {
 			),
 			array(
 				'label' 		=> 'Pendidikan Terakhir',
-				'db_field' 		=> $this->_table_field_pref . 'bentuk_pendidikan',
+				'db_field' 		=> $this->_table_field_pref . 'pendidikan_terakhir',
 				'db_process'	=> true,
 				'input_type'	=> 'select',
 				'input_attr'	=> 'type="text" class="form-control" placeholder="Pendidikan Terakhir..."',
