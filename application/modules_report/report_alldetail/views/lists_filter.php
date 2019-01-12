@@ -60,6 +60,16 @@
                 href += '&trans_id_user='+trans_id_user;
             }
 
+            var sorting_index = $('#datatable-example').dataTable().fnSettings().aaSorting[0][0];
+            if(sorting_index != '') {
+                href += '&sorting_index='+sorting_index;
+            }
+
+            var sorting_direction = $('#datatable-example').dataTable().fnSettings().aaSorting[0][1];
+            if(sorting_direction != '') {
+                href += '&sorting_direction='+sorting_direction;
+            }
+
             window.open(href,'_blank');
         });
 
@@ -88,6 +98,16 @@
             var trans_id_user = $('#trans_id_user').val();
             if(trans_id_user != '') {
                 href += '&trans_id_user='+trans_id_user;
+            }
+
+            var sorting_index = $('#datatable-example').dataTable().fnSettings().aaSorting[0][0];
+            if(sorting_index != '') {
+                href += '&sorting_index='+sorting_index;
+            }
+
+            var sorting_direction = $('#datatable-example').dataTable().fnSettings().aaSorting[0][1];
+            if(sorting_direction != '') {
+                href += '&sorting_direction='+sorting_direction;
             }
 
             window.open(href,'_blank');

@@ -274,6 +274,53 @@ class Alldetail extends MY_Admin {
             $this->db->where($where);
         }
 
+        $order = '';
+	    $orderBy = '';
+	    $orderDirection = !empty($_GET['sorting_direction']) ? $_GET['sorting_direction'] : 'ASC';
+        if(!empty($_GET['sorting_index'])) {
+        	switch ($_GET['sorting_index']) {
+        		case 1:
+        			$orderBy = 'lokets_name';
+        			break;
+        		case 2:
+        			$orderBy = 'own_tanggal';
+        			break;
+        		case 3:
+        			$orderBy = 'no_ticket';
+        			break;
+        		case 4:
+        			$orderBy = 'trans_waktu_ambil';
+        			break;
+        		case 5:
+        			$orderBy = 'waktu_tunggu';
+        			break;
+        		case 6:
+        			$orderBy = 'trans_waktu_panggil';
+        			break;
+        		case 7:
+        			$orderBy = 'waktu_layanan';
+        			break;
+        		case 8:
+        			$orderBy = 'trans_waktu_finish';
+        			break;
+        		case 9:
+        			$orderBy = 'lay_nama_layanan';
+        			break;
+        		case 10:
+        			$orderBy = 'admusr_username';
+        			break;
+        		
+        		default:
+        			$orderBy = 'own_tanggal';
+        			break;
+        	}
+            $order = 'ORDER BY `own_tanggal` ASC';
+        }
+
+        if(!empty($orderBy)) {
+        	$order = 'ORDER BY '.$orderBy.' '.$orderDirection;
+        }
+
 		/*$this->db->select($this->_table_name . '.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
 		$this->db->from($this->_table_name);
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
@@ -315,8 +362,8 @@ class Alldetail extends MY_Admin {
 		LEFT JOIN `anf_adminusers` ON `trans_id_user` = `admusr_id` 
 		LEFT JOIN `t_master_profile` tmp ON `trans_id_profile` = `id_profile` 
 		LEFT JOIN (SELECT avo.*, tmp.Propinsi, tmp.kelurahan, tmp.kecamatan FROM anf_visitor_online avo JOIN t_master_profile tmp ON (avo.user_request = tmp.id_profile)) tmp_satu ON `trans_id_visitor_online` = tmp_satu.`id` 
-		'.(!empty($where) ? ('WHERE ' . $where) : '').' 
-		ORDER BY `own_tanggal` ASC';
+		'.(!empty($where) ? ('WHERE ' . $where) : '').
+		' ' . $order;
 
 		$res = $this->db->query($q);
 		$this->_data['data_master'] = $res->result_array();
@@ -363,6 +410,53 @@ class Alldetail extends MY_Admin {
             $this->db->where($where);
         }
 
+        $order = '';
+	    $orderBy = '';
+	    $orderDirection = !empty($_GET['sorting_direction']) ? $_GET['sorting_direction'] : 'ASC';
+        if(!empty($_GET['sorting_index'])) {
+        	switch ($_GET['sorting_index']) {
+        		case 1:
+        			$orderBy = 'lokets_name';
+        			break;
+        		case 2:
+        			$orderBy = 'own_tanggal';
+        			break;
+        		case 3:
+        			$orderBy = 'no_ticket';
+        			break;
+        		case 4:
+        			$orderBy = 'trans_waktu_ambil';
+        			break;
+        		case 5:
+        			$orderBy = 'waktu_tunggu';
+        			break;
+        		case 6:
+        			$orderBy = 'trans_waktu_panggil';
+        			break;
+        		case 7:
+        			$orderBy = 'waktu_layanan';
+        			break;
+        		case 8:
+        			$orderBy = 'trans_waktu_finish';
+        			break;
+        		case 9:
+        			$orderBy = 'lay_nama_layanan';
+        			break;
+        		case 10:
+        			$orderBy = 'admusr_username';
+        			break;
+        		
+        		default:
+        			$orderBy = 'own_tanggal';
+        			break;
+        	}
+            $order = 'ORDER BY `own_tanggal` ASC';
+        }
+
+        if(!empty($orderBy)) {
+        	$order = 'ORDER BY '.$orderBy.' '.$orderDirection;
+        }
+
 		/*$this->db->select($this->_table_name . '.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username', false);
 		$this->db->from($this->_table_name);
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
@@ -403,8 +497,8 @@ class Alldetail extends MY_Admin {
 		LEFT JOIN `anf_adminusers` ON `trans_id_user` = `admusr_id` 
 		LEFT JOIN `t_master_profile` tmp ON `trans_id_profile` = `id_profile` 
 		LEFT JOIN (SELECT avo.*, tmp.Propinsi, tmp.kelurahan, tmp.kecamatan FROM anf_visitor_online avo JOIN t_master_profile tmp ON (avo.user_request = tmp.id_profile)) tmp_satu ON `trans_id_visitor_online` = tmp_satu.`id` 
-		'.(!empty($where) ? ('WHERE ' . $where) : '').' 
-		ORDER BY `own_tanggal` ASC';
+		'.(!empty($where) ? ('WHERE ' . $where) : '').
+		' ' . $order;
 
 		$res = $this->db->query($q);
 		$this->_data['data_master'] = $res->result_array();
