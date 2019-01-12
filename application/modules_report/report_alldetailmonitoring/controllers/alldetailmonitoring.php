@@ -345,7 +345,7 @@ class Alldetailmonitoring extends MY_Admin {
 		$this->_data['data_master'] = $this->db->get()->result_array();*/
 		//print_r($this->_data['data_master']);
 
-		$q = 'SELECT lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username, trans_tipe_antrian, trans_nama, trans_nama_sekolah, trans_tanggapan, trans_permasalahan, trans_propinsi, trans_kabupaten, trans_kecamatan, trans_kelurahan, trans_nuptk, 
+		$q = 'SELECT anf_'.$this->_table_name.'.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username, trans_tipe_antrian, trans_nama, trans_nama_sekolah, trans_tanggapan, trans_permasalahan, trans_propinsi, trans_kabupaten, trans_kecamatan, trans_kelurahan, trans_nuptk, 
 		tmp.*, 
 		tmp_satu.Propinsi as ol_propinsi, 
 		tmp_satu.kelurahan as ol_kelurahan, 
@@ -369,7 +369,7 @@ class Alldetailmonitoring extends MY_Admin {
 		tmp_satu.nuptk as ol_nuptk,  
 		tmp_satu.id_reg as ol_id_reg,  
 		tmp_satu.jenis_kelamin as ol_jenis_kelamin  
-		FROM (`anf_transaksi`) 
+		FROM anf_'.$this->_table_name.'  
 		LEFT JOIN `anf_layanan` ON `trans_id_layanan` = `lay_id_layanan` 
 		LEFT JOIN `anf_group_layanan` ON `trans_id_group_layanan` = `grolay_id_group_layanan` 
 		LEFT JOIN `anf_lokets` ON `trans_id_loket` = `lokets_id` 
@@ -433,7 +433,7 @@ class Alldetailmonitoring extends MY_Admin {
 		$this->db->order_by('own_tanggal', 'ASC');
 		$this->_data['data_master'] = $this->db->get()->result_array();*/
 
-		$q = 'SELECT lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username, trans_tipe_antrian, trans_nama, trans_nama_sekolah, trans_tanggapan, trans_permasalahan, trans_propinsi, trans_kabupaten, trans_kecamatan, trans_kelurahan, trans_nuptk, 
+		$q = 'SELECT anf_'.$this->_table_name.'.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username, trans_tipe_antrian, trans_nama, trans_nama_sekolah, trans_tanggapan, trans_permasalahan, trans_propinsi, trans_kabupaten, trans_kecamatan, trans_kelurahan, trans_nuptk, 
 		tmp.*, 
 		tmp_satu.Propinsi as ol_propinsi, 
 		tmp_satu.kelurahan as ol_kelurahan, 
@@ -457,7 +457,7 @@ class Alldetailmonitoring extends MY_Admin {
 		tmp_satu.nuptk as ol_nuptk,  
 		tmp_satu.id_reg as ol_id_reg,  
 		tmp_satu.jenis_kelamin as ol_jenis_kelamin  
-		FROM (`anf_transaksi`) 
+		FROM anf_'.$this->_table_name.'  
 		LEFT JOIN `anf_layanan` ON `trans_id_layanan` = `lay_id_layanan` 
 		LEFT JOIN `anf_group_layanan` ON `trans_id_group_layanan` = `grolay_id_group_layanan` 
 		LEFT JOIN `anf_lokets` ON `trans_id_loket` = `lokets_id` 
