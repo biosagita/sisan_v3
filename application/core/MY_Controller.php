@@ -311,6 +311,11 @@ class MY_Admin extends MY_Controller {
 								'url_link' => site_url('report_visitor/visitor/page_content_ajax'),
                                 'icon' => '<i class="glyph-icon icon-linecons-diamond"></i>',
 							),
+							array(
+								'label' => 'Permasalahan',
+								'url_link' => site_url('report_permasalahan/permasalahan/page_content_ajax'),
+                                'icon' => '<i class="glyph-icon icon-linecons-diamond"></i>',
+							),
 						),
 					),
 				),
