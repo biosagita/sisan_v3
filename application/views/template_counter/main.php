@@ -524,7 +524,12 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4" for="permasalahan">Permasalahan:</label>
                                 <div class="col-sm-8">
-                                    <input name="permasalahan" class="form-control inputdel" id="permasalahan">
+                                    <select name="permasalahan" class="form-control" id="permasalahan">
+                                        <option value="" selected="selected">--- Pilih Permasalahan ---</option>
+                                    <?php foreach($source_permasalahan AS $key => $val) : ?>
+                                        <option value="<?php echo $val['name']; ?>"><?php echo $val['name']; ?></option>
+                                    <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">

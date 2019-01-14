@@ -238,6 +238,22 @@ class Loket extends MY_Counter
         $this->template->set('url_logout', $this->_data['url_logout']);
         $this->template->set('layanan_forward', $this->_data['layanan_forward']);
         $this->template->set('sample_image', $this->_data['sample_image']);
+
+
+        $source_permasalahan = [];
+        $q = 'SELECT * FROM anf_permasalahan ORDER BY perm_nama';
+        $res = $this->db->query($q);
+        $resRow = $res->result_array();
+        if(!empty($resRow)) {
+            foreach ($resRow as $key => $value) {
+                $source_permasalahan[] = [
+                    'name' => $value['perm_nama'], 
+                    'value' => $value['perm_id'], 
+                ];
+            }
+        }
+        $this->template->set('source_permasalahan', $source_permasalahan);
+
         $this->template->load($this->_template, 'lists', $this->_data);
     }
 
