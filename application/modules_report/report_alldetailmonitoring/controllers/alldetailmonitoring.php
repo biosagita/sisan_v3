@@ -184,22 +184,22 @@ class Alldetailmonitoring extends MY_Admin {
             ),
             array(
                 'title_header_column' 	=> 'Propinsi',
-                'field_name' 			=> 'trans_propinsi',
+                'field_name' 			=> 'Propinsi',
                 'no_order'				=> 17,
             ),
             array(
                 'title_header_column' 	=> 'Kabupaten',
-                'field_name' 			=> 'trans_kabupaten',
+                'field_name' 			=> 'kabupaten',
                 'no_order'				=> 18,
             ),
             array(
                 'title_header_column' 	=> 'Kecamatan',
-                'field_name' 			=> 'trans_kecamatan',
+                'field_name' 			=> 'kecamatan',
                 'no_order'				=> 19,
             ),
             array(
                 'title_header_column' 	=> 'Kelurahan',
-                'field_name' 			=> 'trans_kelurahan',
+                'field_name' 			=> 'kelurahan',
                 'no_order'				=> 20,
             ),
 		);
@@ -269,7 +269,8 @@ class Alldetailmonitoring extends MY_Admin {
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'layanan ON (trans_id_layanan = lay_id_layanan) ';
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'lokets ON (trans_id_loket = lokets_id) ';
-        $table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'adminusers ON (trans_id_user = admusr_id) ';
+        $table      .= ' LEFT JOIN ' . $this->db->dbprefix . 'adminusers ON (trans_id_user = admusr_id) ';
+        $table 		.= ' LEFT JOIN t_master_profile ON (trans_id_profile = id_profile) ';
 		$primaryKey = $this->_table_pk;
 		$column_list = $this->get_show_column();
 		$columns = array();
