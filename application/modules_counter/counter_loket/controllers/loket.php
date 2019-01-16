@@ -249,6 +249,7 @@ class Loket extends MY_Counter
                 $source_permasalahan[] = [
                     'name' => $value['perm_nama'], 
                     'value' => $value['perm_id'], 
+                    'id_layanan' => $value['perm_id_layanan'], 
                 ];
             }
         }
@@ -520,7 +521,7 @@ class Loket extends MY_Counter
 
         $onlineCondition = $this->getOnlineCondition();
 
-        $cal_next = $this->db->query("SELECT trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi 
+        $cal_next = $this->db->query("SELECT trans_id_layanan, trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi 
 			FROM anf_transaksi 
 			LEFT JOIN anf_layanan ON trans_id_layanan = lay_id_layanan 
 			JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
@@ -541,6 +542,7 @@ class Loket extends MY_Counter
             $estimasi = $vRow_next['lay_estimasi'];
             $nama_file = $vRow_next['trans_nama_file'];
             $no_tiket_awal = $vRow_next['trans_no_ticket_awal'];
+            $trans_id_layanan = $vRow_next['trans_id_layanan'];
 
             //for detail visitor
             $vst_nomor = $vRow_next['vst_nomor'];
@@ -616,6 +618,7 @@ class Loket extends MY_Counter
             $vArrayTemp['nama_file'] = $nama_file;
             $vArrayTemp['estimasi'] = $estimasi;
             $vArrayTemp['no_tiket_awal'] = $no_tiket_awal;
+            $vArrayTemp['trans_id_layanan'] = $trans_id_layanan;
 
             //for detail visitor
             $vArrayTemp['vst_nomor'] = $vst_nomor;
@@ -785,7 +788,7 @@ class Loket extends MY_Counter
 
         $onlineCondition = $this->getOnlineCondition();
 
-        $cal_next = $this->db->query('SELECT trans_id_visitor_online,trans_id_profile,trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi 
+        $cal_next = $this->db->query('SELECT trans_id_layanan, trans_id_visitor_online,trans_id_profile,trans_nama_file,trans_id_transaksi,trans_no_ticket_awal,trans_no_ticket,lay_nama_layanan,trans_waktu_ambil, lay_id_group_layanan, lay_id_layanan_forward, lay_estimasi 
 			FROM anf_transaksi 
 			LEFT JOIN anf_layanan ON trans_id_layanan=lay_id_layanan 
 			JOIN anf_prioritas_layanan ON (trans_id_group_layanan = prilay_id_group_layanan) 
@@ -805,6 +808,7 @@ class Loket extends MY_Counter
         $no_tiket_awal = $vRow_next['trans_no_ticket_awal'];
         $trans_id_visitor_online = $vRow_next['trans_id_visitor_online'];
         $trans_id_profile = $vRow_next['trans_id_profile'];
+        $trans_id_layanan = $vRow_next['trans_id_layanan'];
 
         //for detail visitor
         $vst_nomor = $vRow_next['vst_nomor'];
@@ -904,6 +908,7 @@ class Loket extends MY_Counter
         $vArrayTemp['nama_file'] = $nama_file;
         $vArrayTemp['estimasi'] = $estimasi;
         $vArrayTemp['no_tiket_awal'] = $no_tiket_awal;
+        $vArrayTemp['trans_id_layanan'] = $trans_id_layanan;
 
         //for detail visitor
         $vArrayTemp['vst_nomor'] = $vst_nomor;

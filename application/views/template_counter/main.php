@@ -527,7 +527,7 @@
                                     <select name="permasalahan" class="form-control" id="permasalahan">
                                         <option value="" selected="selected">--- Pilih Permasalahan ---</option>
                                     <?php foreach($source_permasalahan AS $key => $val) : ?>
-                                        <option value="<?php echo $val['name']; ?>"><?php echo $val['name']; ?></option>
+                                        <option class="lay_all lay_<?php echo $val['id_layanan']; ?>" value="<?php echo $val['name']; ?>"><?php echo $val['name']; ?></option>
                                     <?php endforeach; ?>
                                     </select>
                                 </div>

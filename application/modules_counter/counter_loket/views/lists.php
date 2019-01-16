@@ -306,6 +306,9 @@
                 $('#visitor_kecamatan').val(data.kecamatan);
                 $('#visitor_kelurahan').val(data.kelurahan);
 
+                $('.lay_all').hide();
+                $('.lay_'+data.trans_id_layanan).show();
+
                 // document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
                 document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;
                 document.getElementById('transaction').innerHTML = data.transaction;
@@ -457,6 +460,9 @@
                         $('#visitor_kabupaten').val(data.kabupaten);
                         $('#visitor_kecamatan').val(data.kecamatan);
                         $('#visitor_kelurahan').val(data.kelurahan);
+
+                        $('.lay_all').hide();
+                        $('.lay_'+data.trans_id_layanan).show();
                 
                         // document.getElementById('trans_id_transaksi').innerHTML = data.trans_id_transaksi;
                         document.getElementById('tiket').innerHTML = data.no_tiket_awal + data.no_tiket;
