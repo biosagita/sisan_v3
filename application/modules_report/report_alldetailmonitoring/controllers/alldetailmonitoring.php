@@ -159,17 +159,17 @@ class Alldetailmonitoring extends MY_Admin {
             ),
             array(
                 'title_header_column' 	=> 'Nama',
-                'field_name' 			=> 'trans_nama',
+                'field_name' 			=> 'nama',
                 'no_order'				=> 12,
             ),
             array(
                 'title_header_column' 	=> 'Nama Sekolah',
-                'field_name' 			=> 'trans_nama_sekolah',
+                'field_name' 			=> 'nama_sekolah',
                 'no_order'				=> 13,
             ),
             array(
                 'title_header_column' 	=> 'NIK NUPTK',
-                'field_name' 			=> 'trans_nuptk',
+                'field_name' 			=> 'nuptk',
                 'no_order'				=> 14,
             ),
             array(

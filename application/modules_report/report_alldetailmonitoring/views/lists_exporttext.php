@@ -65,7 +65,7 @@ foreach($data_master as $data_master_result):
     if(!empty($data_master_result['trans_tipe_antrian'])) {
         if($data_master_result['trans_tipe_antrian'] == 1) {
             $data_master_result['trans_tipe_antrian'] = 'ONLINE';
-            $data_master_result['jenis_kelamin'] = $data_master_result['ol_jenis_kelamin'];
+            // $data_master_result['jenis_kelamin'] = $data_master_result['ol_jenis_kelamin'];
         }
         if($data_master_result['trans_tipe_antrian'] == 2) {
             $data_master_result['trans_tipe_antrian'] = 'OFFLINE';
@@ -105,9 +105,9 @@ foreach($data_master as $data_master_result):
             <td align=center >".$data_master_result['lay_nama_layanan']."
             <td align=center >".$data_master_result['admusr_username']."
             <td align=center >".$data_master_result['trans_tipe_antrian']."
-            <td align=center >".$data_master_result['trans_nama']."
-            <td align=center >".$data_master_result['trans_nama_sekolah']."
-            <td align=center >".$data_master_result['trans_nuptk']."
+            <td align=center >".$data_master_result['nama']."
+            <td align=center >".$data_master_result['nama_sekolah']."
+            <td align=center >".$data_master_result['nuptk']."
             <td align=center >".$data_master_result['trans_permasalahan']."
             <td align=center >".$data_master_result['trans_tanggapan']."
             <td align=center >".$data_master_result['Propinsi']."
@@ -127,7 +127,7 @@ foreach($data_master as $data_master_result):
             <td align=center >".$data_master_result['ol_updated_date']."
             <td align=center >".$data_master_result['ol_ref_id']."
             <td align=center >".$data_master_result['ol_id_reg']."
-            <td align=center >".$data_master_result['ol_jenis_kelamin']."
+            <td align=center >".$data_master_result['jenis_kelamin']."
             <td align=center >".$data_master_result['no_telp']."
             <td align=center >".$data_master_result['email']."
             <td align=center >".$data_master_result['domain_email']."

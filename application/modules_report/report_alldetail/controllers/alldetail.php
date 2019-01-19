@@ -146,6 +146,62 @@ class Alldetail extends MY_Admin {
                 'field_name' 			=> 'admusr_username',
                 'no_order'				=> 10,
             ),
+            array(
+                'title_header_column' 	=> 'Tipe Antrian',
+                'field_name' 			=> 'trans_tipe_antrian',
+                'no_order'				=> 11,
+                'result_format'			=> function( $d, $row ) {
+                    $tipe_antrian = '-';
+                    if($row['trans_tipe_antrian'] == 1) $tipe_antrian = 'ONLINE';
+                    if($row['trans_tipe_antrian'] == 2) $tipe_antrian = 'OFFLINE';
+                    return $tipe_antrian;
+                },
+            ),
+            array(
+                'title_header_column' 	=> 'Nama',
+                'field_name' 			=> 'nama',
+                'no_order'				=> 12,
+            ),
+            array(
+                'title_header_column' 	=> 'Nama Sekolah',
+                'field_name' 			=> 'nama_sekolah',
+                'no_order'				=> 13,
+            ),
+            array(
+                'title_header_column' 	=> 'NIK NUPTK',
+                'field_name' 			=> 'nuptk',
+                'no_order'				=> 14,
+            ),
+            array(
+                'title_header_column' 	=> 'Permasalahan',
+                'field_name' 			=> 'trans_permasalahan',
+                'no_order'				=> 15,
+            ),
+            array(
+                'title_header_column' 	=> 'Tanggapan',
+                'field_name' 			=> 'trans_tanggapan',
+                'no_order'				=> 16,
+            ),
+            array(
+                'title_header_column' 	=> 'Propinsi',
+                'field_name' 			=> 'Propinsi',
+                'no_order'				=> 17,
+            ),
+            array(
+                'title_header_column' 	=> 'Kabupaten',
+                'field_name' 			=> 'kabupaten',
+                'no_order'				=> 18,
+            ),
+            array(
+                'title_header_column' 	=> 'Kecamatan',
+                'field_name' 			=> 'kecamatan',
+                'no_order'				=> 19,
+            ),
+            array(
+                'title_header_column' 	=> 'Kelurahan',
+                'field_name' 			=> 'kelurahan',
+                'no_order'				=> 20,
+            ),
 		);
 
 		return $column_list;
@@ -209,6 +265,7 @@ class Alldetail extends MY_Admin {
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'lokets ON (trans_id_loket = lokets_id) ';
         $table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'adminusers ON (trans_id_user = admusr_id) ';
+        $table 		.= ' LEFT JOIN t_master_profile ON (trans_id_profile = id_profile) ';
 		$primaryKey = $this->_table_pk;
 		$column_list = $this->get_show_column();
 		$columns = array();

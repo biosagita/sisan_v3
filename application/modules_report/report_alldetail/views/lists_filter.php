@@ -26,7 +26,8 @@
                     "targets": 0
                 }
             ],
-            "order": [[ 1, 'asc' ]]
+            "order": [[ 1, 'asc' ]],
+            "scrollX": true
         });
     });
 
