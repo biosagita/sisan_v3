@@ -59,7 +59,7 @@ class Transaksi_model extends CI_Model {
 		$this->db->select("COUNT(trans_id_layanan) as jumlah,
 			  $query_opt
 			  ");
-		$this->db->from('transaksi');
+		$this->db->from('transaksi_log');
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');
 		$this->db->join('lokets', 'trans_id_loket = lokets_id', 'left');
@@ -72,7 +72,7 @@ class Transaksi_model extends CI_Model {
 		$this->db->select("COUNT(trans_id_layanan) as jumlah,
 			  $query_opt
 			  ");
-		$this->db->from('transaksi');
+		$this->db->from('transaksi_log');
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');
 		$this->db->join('lokets', 'trans_id_loket = lokets_id', 'left');
@@ -85,7 +85,7 @@ class Transaksi_model extends CI_Model {
 		$this->db->select("COUNT(trans_id_layanan) as jumlah,
 			  $query_opt
 			  ");
-		$this->db->from('transaksi');
+		$this->db->from('transaksi_log');
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');
 		$this->db->join('lokets', 'trans_id_loket = lokets_id', 'left');
@@ -98,7 +98,7 @@ class Transaksi_model extends CI_Model {
 		$this->db->select("COUNT(trans_id_layanan) as jumlah,
 			  $query_opt
 			  ");
-		$this->db->from('transaksi');
+		$this->db->from('transaksi_log');
 		$this->db->join('layanan', 'trans_id_layanan = lay_id_layanan', 'left');
 		$this->db->join('group_layanan', 'trans_id_group_layanan = grolay_id_group_layanan', 'left');
 		$this->db->join('lokets', 'trans_id_loket = lokets_id', 'left');
