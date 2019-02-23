@@ -249,7 +249,7 @@
                             </button>
                         </a>
                         <a href="javascript:void(0)" id="btnnext" class="list-group-item" style="padding:5px;border-color: cornflowerblue;">
-                            <button class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnFinish()">
+                            <button id="btnFinishSideBar" class="btn btn-alt btn-hover btn-blue-alt btn-block" onclick="fnFinish()">
                                 <span>FINISH</span>
                                 <i class="glyph-icon icon-arrow-right"></i>
                             </button>
@@ -599,6 +599,8 @@
                         console.log(data);
                         $('#btnCloseNew').trigger('click');
                         $('.inputdel').val('');
+
+                        $('#btnFinishSideBar').trigger('click');
                     }
                 });
             } else {
