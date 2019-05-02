@@ -265,7 +265,7 @@ class Alldetail extends MY_Admin {
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'group_layanan ON (trans_id_group_layanan = grolay_id_group_layanan) ';
 		$table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'lokets ON (trans_id_loket = lokets_id) ';
         $table 		.= ' LEFT JOIN ' . $this->db->dbprefix . 'adminusers ON (trans_id_user = admusr_id) ';
-        $table 		.= ' LEFT JOIN t_master_profile ON (trans_id_profile = id_profile) ';
+        $table 		.= ' JOIN t_master_profile ON (trans_id_profile = id_profile) ';
 		$primaryKey = $this->_table_pk;
 		$column_list = $this->get_show_column();
 		$columns = array();

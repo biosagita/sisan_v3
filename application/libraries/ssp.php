@@ -452,29 +452,41 @@ class SSP {
 		// Main query to actually get the data
 		if((strpos($where,"HAVING") === false)) {
 			$data = self::sql_exec( $db, $bindings,
-				"SELECT SQL_CALC_FOUND_ROWS ".implode(", ", self::pluck($columns, 'db'))."
+				"SELECT ".implode(", ", self::pluck($columns, 'db'))."
 				 FROM $table
 				 $where
 				 $group
 				 $order
 				 $limit"
 			);
+
+			// Data set length after filtering
+			$resFilterLength = self::sql_exec( $db, $bindings,
+				"SELECT ".implode(", ", self::pluck($columns, 'db'))."
+				 FROM $table
+				 $where
+				 $group"
+			);
+			$recordsFiltered = count($resFilterLength);
 		} else {
 			$data = self::sql_exec( $db, $bindings,
-				"SELECT SQL_CALC_FOUND_ROWS ".implode(", ", self::pluck($columns, 'db'))."
+				"SELECT ".implode(", ", self::pluck($columns, 'db'))."
 				 FROM $table
 				 $group
 				 $where
 				 $order
 				 $limit"
 			);
-		}
 
-		// Data set length after filtering
-		$resFilterLength = self::sql_exec( $db,
-			"SELECT FOUND_ROWS()"
-		);
-		$recordsFiltered = $resFilterLength[0][0];
+			// Data set length after filtering
+			$resFilterLength = self::sql_exec( $db, $bindings,
+				"SELECT ".implode(", ", self::pluck($columns, 'db'))."
+				 FROM $table
+				 $group
+				 $where"
+			);
+			$recordsFiltered = count($resFilterLength);
+		}
 
 		// Total data set length
 		if(!empty($group)) {
