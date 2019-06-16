@@ -389,36 +389,13 @@ class Alldetail extends MY_Admin {
 		//print_r($this->_data['data_master']);
 
 		$q = 'SELECT anf_'.$this->_table_name.'.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username, trans_tipe_antrian, trans_nama, trans_nama_sekolah, trans_tanggapan, trans_permasalahan, trans_propinsi, trans_kabupaten, trans_kecamatan, trans_kelurahan, trans_nuptk, 
-		tmp.*, 
-		tmp_satu.Propinsi as ol_propinsi, 
-		tmp_satu.kelurahan as ol_kelurahan, 
-		tmp_satu.kecamatan as ol_kecamatan,  
-		tmp_satu.no_antrian as ol_no_antrian,  
-		tmp_satu.status as ol_status,  
-		tmp_satu.loket as ol_loket,  
-		tmp_satu.user_process as ol_user_process,  
-		tmp_satu.user_request as ol_user_request,  
-		tmp_satu.id_tipe as ol_id_tipe,  
-		tmp_satu.id_perihal as ol_id_perihal,  
-		tmp_satu.jenis_antrian as ol_jenis_antrian,  
-		tmp_satu.request_date as ol_request_date,  
-		tmp_satu.periode as ol_periode,  
-		tmp_satu.updated_date as ol_updated_date,  
-		tmp_satu.permasalahan as ol_permasalahan,  
-		tmp_satu.tanggapan as ol_tanggapan,  
-		tmp_satu.nama as ol_nama,  
-		tmp_satu.nama_sekolah as ol_nama_sekolah,  
-		tmp_satu.ref_id as ol_ref_id,  
-		tmp_satu.nuptk as ol_nuptk,  
-		tmp_satu.id_reg as ol_id_reg,  
-		tmp_satu.jenis_kelamin as ol_jenis_kelamin  
+		tmp.*
 		FROM anf_'.$this->_table_name.'  
 		LEFT JOIN `anf_layanan` ON `trans_id_layanan` = `lay_id_layanan` 
 		LEFT JOIN `anf_group_layanan` ON `trans_id_group_layanan` = `grolay_id_group_layanan` 
 		LEFT JOIN `anf_lokets` ON `trans_id_loket` = `lokets_id` 
 		LEFT JOIN `anf_adminusers` ON `trans_id_user` = `admusr_id` 
-		LEFT JOIN `t_master_profile` tmp ON `trans_id_profile` = `id_profile` 
-		LEFT JOIN (SELECT avo.*, tmp.Propinsi, tmp.kelurahan, tmp.kecamatan FROM anf_visitor_online avo JOIN t_master_profile tmp ON (avo.user_request = tmp.id_profile)) tmp_satu ON `trans_id_visitor_online` = tmp_satu.`id` 
+		JOIN `t_master_profile` tmp ON `trans_id_profile` = `id_profile`
 		'.(!empty($where) ? ('WHERE ' . $where) : '').
 		' ' . $order;
 
@@ -524,36 +501,13 @@ class Alldetail extends MY_Admin {
 		$this->_data['data_master'] = $this->db->get()->result_array();*/
 
 		$q = 'SELECT anf_'.$this->_table_name.'.*, lokets_name, lay_nama_layanan, DATE_FORMAT(trans_tanggal_transaksi, "%d-%m-%Y") as own_tanggal, CONCAT(trans_no_ticket_awal, "", trans_no_ticket) as no_ticket, "-" as waktu_tunggu, "-" as waktu_layanan, admusr_username, trans_tipe_antrian, trans_nama, trans_nama_sekolah, trans_tanggapan, trans_permasalahan, trans_propinsi, trans_kabupaten, trans_kecamatan, trans_kelurahan, trans_nuptk, 
-		tmp.*, 
-		tmp_satu.Propinsi as ol_propinsi, 
-		tmp_satu.kelurahan as ol_kelurahan, 
-		tmp_satu.kecamatan as ol_kecamatan,  
-		tmp_satu.no_antrian as ol_no_antrian,  
-		tmp_satu.status as ol_status,  
-		tmp_satu.loket as ol_loket,  
-		tmp_satu.user_process as ol_user_process,  
-		tmp_satu.user_request as ol_user_request,  
-		tmp_satu.id_tipe as ol_id_tipe,  
-		tmp_satu.id_perihal as ol_id_perihal,  
-		tmp_satu.jenis_antrian as ol_jenis_antrian,  
-		tmp_satu.request_date as ol_request_date,  
-		tmp_satu.periode as ol_periode,  
-		tmp_satu.updated_date as ol_updated_date,  
-		tmp_satu.permasalahan as ol_permasalahan,  
-		tmp_satu.tanggapan as ol_tanggapan,  
-		tmp_satu.nama as ol_nama,  
-		tmp_satu.nama_sekolah as ol_nama_sekolah,  
-		tmp_satu.ref_id as ol_ref_id,  
-		tmp_satu.nuptk as ol_nuptk,  
-		tmp_satu.id_reg as ol_id_reg,  
-		tmp_satu.jenis_kelamin as ol_jenis_kelamin  
+		tmp.*
 		FROM anf_'.$this->_table_name.'  
 		LEFT JOIN `anf_layanan` ON `trans_id_layanan` = `lay_id_layanan` 
 		LEFT JOIN `anf_group_layanan` ON `trans_id_group_layanan` = `grolay_id_group_layanan` 
 		LEFT JOIN `anf_lokets` ON `trans_id_loket` = `lokets_id` 
 		LEFT JOIN `anf_adminusers` ON `trans_id_user` = `admusr_id` 
-		LEFT JOIN `t_master_profile` tmp ON `trans_id_profile` = `id_profile` 
-		LEFT JOIN (SELECT avo.*, tmp.Propinsi, tmp.kelurahan, tmp.kecamatan FROM anf_visitor_online avo JOIN t_master_profile tmp ON (avo.user_request = tmp.id_profile)) tmp_satu ON `trans_id_visitor_online` = tmp_satu.`id` 
+		JOIN `t_master_profile` tmp ON `trans_id_profile` = `id_profile`
 		'.(!empty($where) ? ('WHERE ' . $where) : '').
 		' ' . $order;
 
